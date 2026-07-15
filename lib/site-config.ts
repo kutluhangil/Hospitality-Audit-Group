@@ -36,7 +36,7 @@ export const mainNav: readonly NavLink[] = [
   },
   { label: "Modüller", href: "/moduller" },
   { label: "Süreç", href: "/surec" },
-  { label: "Hakkımızda", href: "/hakkimizda" },
+  { label: "Biz Kimiz", href: "/biz-kimiz" },
   { label: "İletişim", href: "/iletisim" },
 ] as const;
 
@@ -48,7 +48,7 @@ export const footerNav = {
   ],
   kurumsal: [
     { label: "Süreç", href: "/surec" },
-    { label: "Hakkımızda", href: "/hakkimizda" },
+    { label: "Biz Kimiz", href: "/biz-kimiz" },
     { label: "KVKK Aydınlatma Metni", href: "/kvkk" },
     { label: "Gizlilik Politikası", href: "/gizlilik-politikasi" },
   ],
@@ -70,7 +70,7 @@ export const routes = [
   "/moduller/kat-hizmetleri",
   "/moduller/360-tam-denetim",
   "/surec",
-  "/hakkimizda",
+  "/biz-kimiz",
   "/iletisim",
   "/teklif",
   "/kvkk",

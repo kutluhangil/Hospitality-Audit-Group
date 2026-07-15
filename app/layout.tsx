@@ -3,6 +3,7 @@ import { Source_Serif_4, Inter, JetBrains_Mono } from "next/font/google";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { PlaceholderNotice } from "@/components/layout/PlaceholderNotice";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { siteConfig } from "@/lib/site-config";
 
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="bg-bg text-ink">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <PlaceholderNotice />
           <Header />
           {children}
           <Footer />
