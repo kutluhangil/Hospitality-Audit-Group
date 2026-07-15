@@ -1,12 +1,12 @@
 "use client";
 
+import { CartLines, CartTotals } from "@/components/modules/CartLines";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { useQuoteCart } from "@/lib/quote-cart";
-import { getModule } from "@/lib/modules-data";
 
 export function ModulesSelectionSummary() {
-  const { selected, remove, hydrated } = useQuoteCart();
+  const { selected, hydrated } = useQuoteCart();
 
   const body = !hydrated ? (
     // Neutral placeholder: the real selection is unknown during server render, and
@@ -18,34 +18,10 @@ export function ModulesSelectionSummary() {
       görüşme talebiyle ilerleyebilirsiniz.
     </p>
   ) : (
-    <ul className="flex flex-col gap-2">
-      {selected.map((code) => {
-        const entry = getModule(code);
-        if (!entry) return null;
-
-        return (
-          <li
-            key={code}
-            className="flex items-center justify-between gap-4 rounded-xl2 border border-line px-4 py-3"
-          >
-            <span className="flex items-baseline gap-3 text-sm">
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-                {entry.code}
-              </span>
-              {entry.title}
-            </span>
-            <button
-              type="button"
-              onClick={() => remove(code)}
-              className="shrink-0 text-sm text-ink-muted transition-colors duration-150 hover:text-ink"
-              aria-label={`${entry.title} modülünü seçimden çıkar`}
-            >
-              Çıkar
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <CartLines />
+      <CartTotals />
+    </>
   );
 
   return (
@@ -54,7 +30,7 @@ export function ModulesSelectionSummary() {
         <h2 className="font-serif text-2xl">Seçiminiz</h2>
         {hydrated && selected.length > 0 ? (
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-            {selected.length} MODÜL
+            {selected.length} KALEM
           </span>
         ) : null}
       </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { EvidenceShowcase } from "@/components/criteria/EvidenceShowcase";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { Hero } from "@/components/home/Hero";
 import { ModulesTeaser } from "@/components/home/ModulesTeaser";
@@ -26,6 +27,7 @@ export default function Home() {
       <ProcessSection />
       <StatsSection />
       <ModulesTeaser />
+      <EvidenceShowcase className="mx-auto max-w-content px-6 py-20 md:py-28" />
       <FinalCTA />
     </main>
   );

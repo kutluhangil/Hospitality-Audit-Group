@@ -1,35 +1,56 @@
-"use client";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-import { Button } from "@/components/ui/Button";
+import { CartButton } from "@/components/modules/CartButton";
+import { PriceTag } from "@/components/modules/PriceTag";
 import { Card } from "@/components/ui/Card";
-import { useQuoteCart } from "@/lib/quote-cart";
-import { moduleIcons, PRICING_NOTE, type AuditModule } from "@/lib/modules-data";
+import { criteriaCount } from "@/lib/audit-criteria";
+import { moduleIcons, type AuditModule, type CartItemId } from "@/lib/modules-data";
 
-type ModuleCardProps = {
-  module: AuditModule;
+type CatalogueEntry = {
+  id: CartItemId;
+  title: string;
+  summary: string;
+  scope: readonly string[];
+  icon: keyof typeof moduleIcons;
+  price: number;
+  /** Absent for the training service, which has no letter. */
+  code?: string;
+  /** Absent for the training service, which has no field guide to link to. */
+  href?: string;
+  featured?: boolean;
 };
 
-export function ModuleCard({ module }: ModuleCardProps) {
-  const { has, toggle, hydrated } = useQuoteCart();
-  const Icon = moduleIcons[module.icon];
+export function toCatalogueEntry(module: AuditModule): CatalogueEntry {
+  return {
+    id: module.code,
+    code: module.code,
+    title: module.title,
+    summary: module.summary,
+    scope: module.scope,
+    icon: module.icon,
+    price: module.price,
+    href: `/moduller/${module.slug}`,
+    featured: module.featured,
+  };
+}
 
-  // The server renders an empty cart, so the selected state is unknowable until
-  // localStorage has been read. Deriving the label from `selected` before that
-  // would make the first client paint contradict the server HTML.
-  const inCart = hydrated && has(module.code);
+export function ModuleCard({ entry }: { entry: CatalogueEntry }) {
+  const Icon = moduleIcons[entry.icon];
+  const count = entry.code ? criteriaCount(entry.code as never) : 0;
 
   return (
     <Card
       as="article"
-      tone={module.featured ? "accent" : "surface"}
-      className="flex flex-col gap-5"
+      tone={entry.featured ? "accent" : "surface"}
+      className="flex h-full flex-col gap-5"
     >
       <div className="flex items-start justify-between gap-4">
         <span className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-          MODÜL {module.code}
+          {entry.code ? `MODÜL ${entry.code}` : "EK HİZMET"}
         </span>
-        {module.featured ? (
-          <span className="rounded-xl2 border border-accent px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-accent-strong">
+        {entry.featured ? (
+          <span className="shrink-0 rounded-xl2 border border-accent px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-accent-strong">
             En kapsamlı
           </span>
         ) : null}
@@ -38,12 +59,12 @@ export function ModuleCard({ module }: ModuleCardProps) {
       <Icon className="size-7 text-accent" strokeWidth={1.5} aria-hidden="true" />
 
       <div>
-        <h3 className="font-serif text-2xl">{module.title}</h3>
-        <p className="mt-3 text-sm leading-relaxed text-ink-muted">{module.summary}</p>
+        <h3 className="font-serif text-2xl">{entry.title}</h3>
+        <p className="mt-3 text-sm leading-relaxed text-ink-muted">{entry.summary}</p>
       </div>
 
       <ul className="flex flex-col gap-2">
-        {module.scope.map((item) => (
+        {entry.scope.map((item) => (
           <li key={item} className="flex gap-2.5 text-sm text-ink">
             <span className="text-accent" aria-hidden="true">
               ✓
@@ -53,20 +74,24 @@ export function ModuleCard({ module }: ModuleCardProps) {
         ))}
       </ul>
 
-      {/* Pushes the price note and button to the bottom so cards in a row align. */}
-      <div className="mt-auto flex flex-col gap-4 border-t border-line pt-5">
-        <p className="font-mono text-[0.65rem] uppercase tracking-[0.15em] text-ink-muted">
-          {PRICING_NOTE}
-        </p>
-        <Button
-          variant={inCart ? "ghost" : "accent"}
-          onClick={() => toggle(module.code)}
-          disabled={!hydrated}
-          aria-pressed={inCart}
-          aria-label={`${module.title} modülünü teklif sepetine ekle`}
+      {entry.href ? (
+        <Link
+          href={entry.href}
+          className="group inline-flex w-fit items-center gap-1.5 font-mono text-xs uppercase tracking-[0.14em] text-accent-strong underline-offset-4 hover:underline"
         >
-          {inCart ? "Sepette ✓" : "Sepete Ekle"}
-        </Button>
+          {count} kriterin tamamı
+          <ArrowRight
+            size={13}
+            aria-hidden="true"
+            className="transition-transform duration-150 group-hover:translate-x-0.5"
+          />
+        </Link>
+      ) : null}
+
+      {/* Pushed to the bottom so cards in a row align on their price and button. */}
+      <div className="mt-auto flex flex-col gap-4 border-t border-line pt-5">
+        <PriceTag amount={entry.price} />
+        <CartButton id={entry.id} />
       </div>
     </Card>
   );

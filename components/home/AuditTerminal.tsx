@@ -121,9 +121,15 @@ export function AuditTerminal() {
         </span>
       </div>
 
+      {/*
+        A container query, not a viewport one. The panel is roughly 420px wide
+        even on a 1440px screen, so viewport breakpoints fire while the panel is
+        still narrow and the columns wrap — which is exactly what an audit log
+        must not do. @container makes the rows respond to the panel.
+      */}
       <div
         aria-hidden="true"
-        className="px-4 py-5 font-mono text-[11px] leading-relaxed text-terminal-ink sm:px-5 sm:text-xs"
+        className="@container px-4 py-5 font-mono text-[11px] leading-relaxed text-terminal-ink sm:px-5 sm:text-xs"
       >
         <motion.div
           animate={{ opacity: phase.fading && !reduceMotion ? 0 : 1 }}
@@ -202,17 +208,29 @@ function LogContent({ line, isLast }: { line: LogLine; isLast: boolean }) {
 
   const isOk = line.status === "ok";
 
+  /*
+    28rem is measured, not guessed: the longest row needs 454px of the panel's
+    478px of content box, so the columns fit from 448px up. Below that the row
+    folds and the status indents under its own entry — still readable as a log.
+    Either way the status glyph stays column-locked; a ✓ that drifts is the one
+    thing this element cannot afford, since its whole job is to look measured.
+  */
   return (
-    <p className="flex flex-wrap items-baseline gap-x-3">
-      <span className="shrink-0 text-terminal-ink/45">{line.time}</span>
-      <span className="shrink-0 sm:w-28">{line.label}</span>
-      <span className="text-terminal-ink/75 sm:w-44 sm:shrink-0">{line.detail}</span>
+    <p className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 @[28rem]:grid-cols-[auto_6.5rem_1fr_auto]">
+      <span className="text-terminal-ink/45">{line.time}</span>
+      <span>{line.label}</span>
+      <span className="col-start-2 text-terminal-ink/75 @[28rem]:col-start-auto">{line.detail}</span>
       {/* text-accent is legitimate here: 4.86:1 against the terminal panel. */}
-      <span className={isOk ? "text-terminal-ok" : "text-accent"}>
+      <span
+        className={[
+          "col-start-2 whitespace-nowrap @[28rem]:col-start-auto",
+          isOk ? "text-terminal-ok" : "text-accent",
+        ].join(" ")}
+      >
         {isOk ? "✓" : "✗"}
         {line.note ? ` ${line.note}` : ""}
+        {isLast ? <Caret /> : null}
       </span>
-      {isLast ? <Caret /> : null}
     </p>
   );
 }
