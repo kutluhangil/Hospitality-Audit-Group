@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/* Theme switching is driven by a `dark` class on <html>, set by next-themes. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Light theme — "Rapor Kağıdı" (report paper).
+ *
+ * Two accent layers exist on purpose:
+ *   --accent        brand terracotta, decoration only (borders, icons, rules).
+ *                   At 2.96:1 on paper it must never carry text.
+ *   --accent-strong interactive layer for accent-coloured text and button fills.
+ *                   Paired with --accent-strong-ink it clears WCAG AA (>= 4.5:1).
+ */
+:root {
+  --bg: #faf9f5; /* paper: Claude cream */
+  --bg-soft: #f0eee6; /* oat: card and section grounds */
+  --surface: #ffffff; /* raised cards */
+  --ink: #141413;
+  --ink-muted: #6b6a66; /* 5.14:1 on --bg */
+  --border: #e3dfd4;
+
+  --accent: #d97757; /* decorative only — see note above */
+  --accent-strong: #b04e2c; /* 5.02:1 on --bg */
+  --accent-strong-hover: #963e22;
+  --accent-strong-ink: #faf9f5; /* 5.29:1 on --accent-strong */
+
+  --brass: #a98a44; /* hotel identity, used sparingly */
+  --ok: #4c8a67;
+
+  /* The terminal stays dark in both themes: it is the field, not the report. */
+  --terminal-bg: #262624;
+  --terminal-ink: #edebe3;
+  --terminal-ok: #6fb08d;
+}
+
+/* Dark theme — "Operasyon Terminali" (operations terminal). */
+.dark {
+  --bg: #1f1e1d;
+  --bg-soft: #262624;
+  --surface: #2b2a28;
+  --ink: #f5f4ef;
+  --ink-muted: #a6a39a; /* 6.60:1 on --bg */
+  --border: #3a3835;
+
+  --accent: #d97757; /* 5.33:1 on --bg, but kept decorative for parity */
+  --accent-strong: #e28a6d; /* 6.41:1 on --bg */
+  --accent-strong-hover: #efa58b;
+  --accent-strong-ink: #141413; /* 7.15:1 on --accent-strong */
+
+  --brass: #c8a55c;
+  --ok: #6fb08d;
+
+  --terminal-bg: #171716;
+  --terminal-ink: #edebe3;
+  --terminal-ok: #6fb08d;
+}
+
+/*
+ * `inline` keeps these as references to the variables above, so a `.dark`
+ * ancestor reflows every utility without regenerating the palette.
+ */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-strong-hover: var(--accent-strong-hover);
+  --color-accent-strong-ink: var(--accent-strong-ink);
+  --color-brass: var(--brass);
+  --color-ok: var(--ok);
+  --color-terminal-bg: var(--terminal-bg);
+  --color-terminal-ink: var(--terminal-ink);
+  --color-terminal-ok: var(--terminal-ok);
+
+  --font-serif: var(--font-source-serif), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --radius-xl2: 1.25rem;
+  --container-content: 72rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Honour the OS setting rather than animating past it. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* One focus ring for the whole site; variants must not override it away. */
+  :focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-strong-ink);
+  }
+}
