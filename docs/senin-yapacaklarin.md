@@ -139,3 +139,35 @@ Bunları isteme, yapmam; sebebini konuşmada açıkladım:
 - **Uydurma sicil/vergi/MERSİS numarası** — resmi belgede sahtecilik
 - **Uydurma denetim geçmişi / tesis profili / örnek rapor** — "gerçek denetim yapmadık" dedin, o bölümler yok
 - **Senin adına iyzico hesabı açmak / kart bilgisi girmek** — finansal hesap işlemleri sana ait
+
+---
+
+## BÖLÜM 5 — CANLI SİTE
+
+Site yayında: **https://hospitalityauditgroup.vercel.app**
+
+Vercel projesi: `hospitalityauditgroup` (takım: kutluhans-projects-93876a9e)
+
+### Şu an canlıda olan ama düzeltilmesi gereken
+
+- [ ] **Telefon placeholder** — `+90 (212) 000 00 00` footer ve iletişim sayfasında görünüyor
+- [ ] **Teklif formu mail göndermiyor** — `RESEND_API_KEY` Vercel'de tanımlı değil. Form "başarılı" diyor ama sana ulaşmıyor. Gerçek bir otel teklif isterse kaybedersin.
+- [ ] **Google indekslemiyor** — bu bilinçli. `lib/company-data.ts` içinde `isPlaceholder: true` olduğu sürece `robots.txt` `Disallow: /` veriyor. Launch'ta `isPlaceholder: false` yapınca indeksleme + kurumsal bloklar birlikte açılır.
+
+### Vercel'e env değişkeni ekleme
+
+Vercel dashboard → hospitalityauditgroup → Settings → Environment Variables:
+
+```
+RESEND_API_KEY=re_...
+CONTACT_EMAIL=corporate@hospitalityauditgroup.com
+```
+
+Ekledikten sonra yeniden deploy gerekir (Deployments → ... → Redeploy).
+
+### Otomatik deploy (önerilir)
+
+Şu an deploy elle yapılıyor. GitHub'a bağlarsan her `git push` otomatik deploy alır:
+
+Vercel dashboard → hospitalityauditgroup → Settings → Git → Connect Git Repository
+→ `kutluhangil/Hospitality-Audit-Group` seç.

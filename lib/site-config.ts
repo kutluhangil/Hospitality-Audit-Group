@@ -36,7 +36,7 @@ export const mainNav: readonly NavLink[] = [
   },
   { label: "Modüller", href: "/moduller" },
   { label: "Süreç", href: "/surec" },
-  { label: "Biz Kimiz", href: "/biz-kimiz" },
+  { label: "Hakkımızda", href: "/hakkimizda" },
   { label: "İletişim", href: "/iletisim" },
 ] as const;
 
@@ -48,38 +48,26 @@ export const footerNav = {
   ],
   kurumsal: [
     { label: "Süreç", href: "/surec" },
-    { label: "Biz Kimiz", href: "/biz-kimiz" },
+    { label: "Hakkımızda", href: "/hakkimizda" },
     { label: "KVKK Aydınlatma Metni", href: "/kvkk" },
     { label: "Gizlilik Politikası", href: "/gizlilik-politikasi" },
   ],
-  yasal: [
-    { label: "Mesafeli Satış Sözleşmesi", href: "/mesafeli-satis-sozlesmesi" },
-    { label: "Ön Bilgilendirme Formu", href: "/on-bilgilendirme" },
-    { label: "İptal & İade Politikası", href: "/iptal-iade" },
-  ],
 } as const;
 
-/** Every static route, consumed by sitemap.ts and the link checker. */
+/**
+ * Every static route. Consumed by sitemap.ts and the link checker, so an entry
+ * here that has no page is a live 404 — add the route when the page lands, not
+ * before.
+ */
 export const routes = [
   "/",
   "/hizmetler/gizli-musteri-denetimi",
   "/hizmetler/personel-egitimi",
   "/moduller",
-  "/moduller/on-buro",
-  "/moduller/yiyecek-icecek",
-  "/moduller/wellness-rekreasyon",
-  "/moduller/kat-hizmetleri",
-  "/moduller/360-tam-denetim",
   "/surec",
-  "/biz-kimiz",
+  "/hakkimizda",
   "/iletisim",
   "/teklif",
   "/kvkk",
   "/gizlilik-politikasi",
-  "/mesafeli-satis-sozlesmesi",
-  "/on-bilgilendirme",
-  "/iptal-iade",
 ] as const;
-
-/** Retired paths kept alive as redirects so v1 links and any index entries survive. */
-export const redirects = [{ from: "/hakkimizda", to: "/biz-kimiz" }] as const;
