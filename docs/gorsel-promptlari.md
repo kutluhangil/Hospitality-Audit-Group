@@ -5,6 +5,37 @@
 
 ---
 
+## ⚠ DURUM — 2026-07-16
+
+Görseller üretildi ve siteye işlendi. **Bir tanesi eksik.**
+
+### EKSİK: `module-e-kat-hizmetleri.png`
+
+Bu doküman modül harflendirmesi **değişmeden önce** yazılmıştı. O zaman `E = Personel Eğitimi` idi;
+saha kılavuzları `E = Kat Hizmetleri` diyor ve kazanan o oldu. Sonuç:
+
+- `module-e-egitim.png` (kitap + ok) → **Personel Eğitimi** hizmetine bağlandı, doğru yerde duruyor
+- **Kat Hizmetleri (Modül E) görselsiz** — `/moduller/kat-hizmetleri` detay sayfasında illüstrasyon yok
+
+Kod bunu sorunsuz kaldırıyor (`lib/illustrations.ts`, görsel yoksa layout tek kolona düşüyor), ama
+diğer dört modülde çizim varken E'de olmaması göze çarpar. Aşağıdaki 3.6 promptunu üret, dosyayı
+`public/images/modules/module-e-kat-hizmetleri.png` olarak koy, bana söyle — bağlarım.
+
+### Kullanılmayan görseller ve sebepleri
+
+| Dosya | Neden kullanılmadı |
+|---|---|
+| `og/og-default-*.png` | 1024×1024 kare üretilmiş; OG standardı 1200×630. Sosyal platformlar kareyi kırpar. Mevcut `app/opengraph-image.tsx` kodla üretiyor, doğru boyutta ve sayfa başlığını da içeriyor. |
+| `logo.png` | Renkler PNG'ye gömülü (koyu çizgi + krem zemin) → koyu temada kırılır. Mevcut SVG logo `currentColor` kullanıyor, iki temada da çalışıyor. Ayrıca bu mark, OG filigranındaki ve blueprint'teki yıldız+çember kimliğiyle çelişiyor. Vektörü rastere çevirmek gerileme olurdu. |
+| `404-terminal.png` | Mevcut 404 sayfası saf CSS terminal — gerçek metin içeriyor, tema-duyarlı, seçilebilir. Arkasına dekoratif görsel koymak gürültü olurdu. |
+| `paper-texture.png` | 604 KB. Bir arka plan dokusu için ağır; kazancı marjinal. İstersen WebP'ye çevirip %4 opaklıkla ekleyebilirim. |
+
+> **Not:** tüm görseller 1024×1024 kare geldi, istenen boyutlar değil (modüller 800×450, hero
+> 1600×900, pattern 1200×400). Kompozisyonlar doğru olduğu için kare hâlleriyle kullanıldı — kod
+> `next/image` ile ölçekliyor. OG'de bu tolere edilemedi, orası sabit oran ister.
+
+---
+
 ## 0. ÖNCE OKU — Marka Kuralları (her promptta geçerli)
 
 Site estetiği: **"Kağıt + Terminal"**. Açık tema bir denetim raporu kağıdı, koyu tema bir operasyon terminali.
@@ -164,7 +195,34 @@ NEGATIVE PROMPT: [ortak negatif prompt] + no globes, no world maps, no networks
 of dots, no blockchain imagery
 ```
 
+### 3.6 `module-e-kat-hizmetleri.png` — Kat Hizmetleri & Oda İçi ⚠ EKSİK, BUNU ÜRET
+
+**Boyut:** 800 × 450 (kare gelirse de olur, kod ölçekliyor)
+**Konum:** `public/images/modules/module-e-kat-hizmetleri.png`
+
+```
+[ortak stil cümlesi]
+Subject: an abstract bed seen from a low three-quarter angle, reduced to thin
+outline only — a flat rectangle for the mattress, one folded triangle at its
+corner suggesting an envelope fold, and two small squares stacked at the head
+for pillows. Beside the bed, a single thin-line rectangle standing upright,
+suggesting a balcony door or window frame, with a faint grid inside it.
+One element only in terracotta #D97757: the folded triangle at the bed's corner.
+A very small circle outline floats above the bed like a dust particle under
+inspection — the blind-spot check.
+Nothing else in the frame. No bedding texture, no patterns, no room.
+
+NEGATIVE PROMPT: [ortak negatif prompt] + no hotel rooms, no bedding photos,
+no pillows with texture, no curtains, no lamps, no furniture detail, no vacuum
+cleaner, no cleaning products, no sparkles, no shine marks
+```
+
 ### 3.5 `module-e-egitim.png` — Personel Eğitimi
+
+> **DİKKAT:** dosya adı `module-e-` ile başlıyor ama artık **Modül E değil**. Harflendirme
+> değişti; bu görsel harfsiz **Personel Eğitimi** hizmetine bağlı. Dosya adı geçmişten kalma,
+> koda `lib/illustrations.ts` içinde `EGITIM` anahtarıyla bağlandı. Yeniden adlandırmadım —
+> dosya zaten commit'lenmişti, adını değiştirmek git geçmişini gereksiz kirletirdi.
 
 ```
 [ortak stil cümlesi]

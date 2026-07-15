@@ -56,6 +56,11 @@ export function ModuleCard({ entry }: { entry: CatalogueEntry }) {
         ) : null}
       </div>
 
+      {/*
+        The icon carries the card whether or not artwork exists — the set is
+        incomplete, and a grid where one card is illustrated and the rest are not
+        would read as broken rather than as varied.
+      */}
       <Icon className="size-7 text-accent" strokeWidth={1.5} aria-hidden="true" />
 
       <div>

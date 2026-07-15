@@ -103,6 +103,15 @@ Bu dosyalar sözleşmedir; sayfa yazan ajanlar bunları değiştirmez, import ed
 
 next/font değişkenleri `--font-source-serif`, `--font-inter`, `--font-jetbrains-mono`. Blueprint'teki `--font-serif` adları kullanılamazdı: Tailwind v4'te `--font-serif` theme anahtarının kendisi, kendine referans verirdi. `@theme inline` bunları `--font-serif` / `--font-sans` / `--font-mono` utility'lerine bağlar — yani `font-serif`, `font-sans`, `font-mono` sınıfları normal çalışır.
 
+## Tarayıcı otomasyonunda doğrulama — bilinen tuzak
+
+Otomasyonla ekran görüntüsü alırken sayfa **boş görünür**. Site hatası değil: Chrome görünmeyen
+sekmelerde `requestAnimationFrame`'i kısıyor, Framer Motion da rAF kullanıyor, `Reveal`
+animasyonları `opacity: 0.07` gibi bir değerde donuyor. Beklemek çözmez — 6 saniye sonra da donuk.
+
+**Çözüm:** ekran görüntüsünden önce tek bir scroll tıkı gönder. Sekme uyanır, animasyonlar anında
+tamamlanır. Ya da DOM'u `getComputedStyle` ile sorgula — DOM her zaman doğru.
+
 ## Kontrast sözleşmesi
 
 `globals.css`'teki oranlar ölçülmüş değerlerdir, yorum olarak yazılı. Palet değişirse yeniden ölçülmeli — hedef normal metin için AA (4.5:1).

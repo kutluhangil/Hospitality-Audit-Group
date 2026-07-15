@@ -32,6 +32,16 @@
   --terminal-bg: #262624;
   --terminal-ink: #edebe3;
   --terminal-ok: #6fb08d;
+
+  /*
+   * The mirror of the terminal. Illustrations are drawn on cream stock and stay
+   * on it in both themes, the way the terminal stays dark in both — the field is
+   * always the field, the report is always the report. Fixed values on purpose:
+   * these back artwork that has the paper baked into it.
+   */
+  --paper: #faf9f5;
+  --paper-ink: #141413;
+  --paper-line: #e3dfd4;
 }
 
 /* Dark theme — "Operasyon Terminali" (operations terminal). */
@@ -54,6 +64,11 @@
   --terminal-bg: #171716;
   --terminal-ink: #edebe3;
   --terminal-ok: #6fb08d;
+
+  /* Unchanged from the light theme — see the note there. */
+  --paper: #faf9f5;
+  --paper-ink: #141413;
+  --paper-line: #e3dfd4;
 }
 
 /*
@@ -76,6 +91,9 @@
   --color-terminal-bg: var(--terminal-bg);
   --color-terminal-ink: var(--terminal-ink);
   --color-terminal-ok: var(--terminal-ok);
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+  --color-paper-line: var(--paper-line);
 
   --font-serif: var(--font-source-serif), Georgia, serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;

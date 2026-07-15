@@ -8,6 +8,7 @@ import { ClosingCta } from "@/components/services/ClosingCta";
 import { MonoRibbon } from "@/components/services/MonoRibbon";
 import { PageHero } from "@/components/services/PageHero";
 import { Button } from "@/components/ui/Button";
+import { PaperFigure } from "@/components/ui/PaperFigure";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
@@ -28,7 +29,17 @@ export default function AboutPage() {
       />
 
       <section className="mx-auto max-w-content px-6 py-16 md:py-20">
-        <FoundingStory />
+        <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-start">
+          <FoundingStory />
+          <Reveal delay={0.08}>
+            <PaperFigure
+              src="/images/biz-kimiz-hero.png"
+              alt="Üst üste dizilmiş rapor sayfalarının soyut çizimi; sayfalardan birinde tek bir terracotta satır işaretli."
+              sizes="(min-width: 1024px) 20rem, 70vw"
+              className="w-56 justify-self-start lg:w-80"
+            />
+          </Reveal>
+        </div>
         <Reveal className="mt-14">
           <MonoRibbon>TARAFSIZLIK · GİZLİLİK · ÖLÇÜLEBİLİRLİK</MonoRibbon>
         </Reveal>

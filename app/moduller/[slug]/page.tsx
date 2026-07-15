@@ -8,9 +8,11 @@ import { CartButton } from "@/components/modules/CartButton";
 import { PriceTag } from "@/components/modules/PriceTag";
 import { PageHero } from "@/components/services/PageHero";
 import { Button } from "@/components/ui/Button";
+import { PaperFigure } from "@/components/ui/PaperFigure";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { criteriaCount, getCriteria, thresholds } from "@/lib/audit-criteria";
+import { illustrationFor } from "@/lib/illustrations";
 import { modules, SCALE_NOTE } from "@/lib/modules-data";
 
 export function generateStaticParams() {
@@ -50,6 +52,8 @@ export default async function ModuleDetailPage({ params }: { params: Promise<{ s
 
   const count = criteriaCount(auditModule.code);
   const bounds = thresholds(auditModule.code);
+  // Optional: not every module has artwork yet, and the layout must not depend on it.
+  const illustration = illustrationFor(auditModule.code);
 
   return (
     <main>
@@ -62,11 +66,24 @@ export default async function ModuleDetailPage({ params }: { params: Promise<{ s
       <section className="mx-auto max-w-content px-6 pb-16">
         <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-start">
           <Reveal>
-            <p className="max-w-2xl text-base leading-relaxed text-ink-muted md:text-lg">
-              {criteria.intro}
-            </p>
-            <div className="mt-6">
-              <EvidenceSummary module={auditModule.code} />
+            <div className="grid gap-8 sm:grid-cols-[1fr_auto] sm:items-start">
+              <div>
+                <p className="max-w-2xl text-base leading-relaxed text-ink-muted md:text-lg">
+                  {criteria.intro}
+                </p>
+                <div className="mt-6">
+                  <EvidenceSummary module={auditModule.code} />
+                </div>
+              </div>
+              {illustration ? (
+                <PaperFigure
+                  src={illustration.src}
+                  alt={illustration.alt}
+                  priority
+                  sizes="(min-width: 640px) 13rem, 60vw"
+                  className="w-40 justify-self-start sm:w-52"
+                />
+              ) : null}
             </div>
           </Reveal>
 

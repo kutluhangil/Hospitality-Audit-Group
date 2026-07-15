@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { EvidenceBadge, evidenceIcon } from "@/components/criteria/EvidenceBadge";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -33,7 +35,27 @@ export function EvidenceShowcase({
         />
       </Reveal>
 
+      {/*
+        The measurement band: a stopwatch scale merged with a waveform, every
+        seventh tick in accent. Decorative, so it is hidden from assistive tech
+        and kept faint enough that the figures over it stay at full contrast.
+      */}
       <Reveal className="mt-10">
+        <div
+          aria-hidden="true"
+          className="relative h-16 overflow-hidden rounded-xl2 bg-terminal-bg md:h-20"
+        >
+          <Image
+            src="/images/evidence-pattern.png"
+            alt=""
+            fill
+            sizes="(min-width: 1152px) 72rem, 100vw"
+            className="object-cover opacity-70"
+          />
+        </div>
+      </Reveal>
+
+      <Reveal className="mt-8">
         <dl className="grid grid-cols-3 gap-4 border-y border-line py-6">
           {[
             { term: "kriter", value: total },
