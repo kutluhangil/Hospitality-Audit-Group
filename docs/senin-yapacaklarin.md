@@ -93,7 +93,7 @@ Geçici bir kuruluş öyküsü yazdım (`isPlaceholder: true` bayraklı). Bunlar
 
 ### 2.1 Görseller
 
-- [ ] `HAG_IMAGE_PROMPTS.md` dosyasını aç
+- [ ] `docs/gorsel-promptlari.md` dosyasını aç
 - [ ] Promptları Gemini'ye ver
 - [ ] Çıkanları `public/images/` altına, dosyadaki **tam isimlerle** koy
 - [ ] Dosyanın sonundaki kabul kontrol listesini uygula (özellikle: zemin rengi `#FAF9F5` mi, görselde yazı var mı)

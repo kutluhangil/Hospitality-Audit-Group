@@ -2,7 +2,7 @@
 
 > **Durum:** onay bekliyor
 > **Tarih:** 2026-07-15
-> **Öncül:** `HAG_WEBSITE_BLUEPRINT.md` (v1, uygulandı ve çalışıyor), `CLAUDE.md` (onaylı sapmalar)
+> **Öncül:** `docs/blueprint-v1.md` (v1, uygulandı ve çalışıyor), `CLAUDE.md` (onaylı sapmalar)
 > **Kapsam:** v1 üzerine — fiyatlandırma + kart ödeme, 3 dil, denetim kriterleri, "Biz Kimiz", güven blokları, mobile-first gözden geçirme
 
 Bu doküman v1'i **değiştiriyor**. Çeliştiği yerde bu doküman geçerlidir.

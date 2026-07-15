@@ -403,7 +403,7 @@ Vercel. Kontrol listesi:
 
 > ⚠️ **`isPlaceholder: true` iken yayına almayın.** "Biz Kimiz" sayfasındaki
 > kuruluş öyküsü ve kadro rakamları geçici içeriktir. Detaylar:
-> [`SENIN_YAPACAKLARIN.md`](./SENIN_YAPACAKLARIN.md)
+> [`docs/senin-yapacaklarin.md`](./docs/senin-yapacaklarin.md)
 
 ---
 
@@ -423,9 +423,9 @@ Ayrıntı: [`CLAUDE.md`](./CLAUDE.md)
 | Dosya | İçerik |
 |---|---|
 | [`CLAUDE.md`](./CLAUDE.md) | Çalışma kuralları + blueprint'ten onaylı sapmalar |
-| [`SENIN_YAPACAKLARIN.md`](./SENIN_YAPACAKLARIN.md) | Manuel işler: iyzico, ETBİS, sicil bilgileri, hukukçu |
-| [`HAG_IMAGE_PROMPTS.md`](./HAG_IMAGE_PROMPTS.md) | Görsel üretim promptları + marka paleti |
-| [`HAG_WEBSITE_BLUEPRINT.md`](./HAG_WEBSITE_BLUEPRINT.md) | v1 tasarım dokümanı |
+| [`docs/senin-yapacaklarin.md`](./docs/senin-yapacaklarin.md) | Manuel işler: iyzico, ETBİS, sicil bilgileri, hukukçu |
+| [`docs/gorsel-promptlari.md`](./docs/gorsel-promptlari.md) | Görsel üretim promptları + marka paleti |
+| [`docs/blueprint-v1.md`](./docs/blueprint-v1.md) | v1 tasarım dokümanı |
 | [`docs/superpowers/specs/`](./docs/superpowers/specs/) | v2 tasarım dokümanı |
 
 ---

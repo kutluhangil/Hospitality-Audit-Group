@@ -6,7 +6,7 @@
  * │  The founding narrative and the figures below are a stand-in so the │
  * │  page can be designed and reviewed. Replace them with the real      │
  * │  thing and set `isPlaceholder` to false before launch.              │
- * │  See SENIN_YAPACAKLARIN.md, section 1.2.                            │
+ * │  See docs/senin-yapacaklarin.md, section 1.2.                            │
  * └─────────────────────────────────────────────────────────────────────┘
  *
  * Two categories of fact are treated differently on purpose:

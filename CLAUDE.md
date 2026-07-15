@@ -2,20 +2,42 @@
 
 ## Git (KESİN KURALLAR)
 
-- ASLA `git commit` veya `git push` çalıştırma. Tüm commit ve push işlemlerini Kutluhan manuel yapar.
+- `git commit` / `git push` **yalnızca Kutluhan açıkça istediğinde** çalıştırılır. Kendiliğinden asla.
 - ASLA branch oluşturma (`git branch`, `git checkout -b` yasak). Mevcut branch'te kal.
-- Commit mesajlarına, koda veya PR'lara hiçbir Claude/AI atfı ekleme. "Co-Authored-By: Claude" YASAK.
+- Commit mesajlarına, koda veya PR'lara hiçbir Claude/AI atfı ekleme. "Co-Authored-By: Claude" YASAK. GitHub Contributors yalnızca kutluhangil göstermeli.
+- Commit öncesi zorunlu: `npm run typecheck`, `npm run lint`, `npm test`, `npm run build` — dördü de temiz olmadan commit atılmaz.
 
 ## Kod stili
 
 - Yorumlar İngilizce, doğal ve profesyonel; "ne"yi değil "neden"i açıklar.
 - TypeScript strict; `any` yasak.
-- İçerik dili Türkçe — `HAG_WEBSITE_BLUEPRINT.md`'deki kopya birebir kullanılır, lorem ipsum yazılmaz.
+- İçerik dili Türkçe — `docs/blueprint-v1.md`'deki kopya birebir kullanılır, lorem ipsum yazılmaz.
 
 ## Tasarım
 
 - Tüm renkler CSS değişkenlerinden gelir; hardcoded hex yalnızca `app/globals.css` ve `lib/tokens.ts`'te bulunur.
-- Yeni animasyon eklenmez (blueprint Bölüm 10 bütçesi sabittir).
+
+### Animasyon (blueprint Bölüm 10'un yerine geçer)
+
+Blueprint animasyonu tek "orkestra anı"yla sınırlıyordu. Bu genişletildi — ama **bütçe hâlâ var**, sınırsız değil. Kural: *hareket bir işe yaramalı.* Dikkat çekmek için değil, bir şey anlatmak için.
+
+İzinli hareket:
+
+| Yer | Efekt | Sınır |
+|---|---|---|
+| AuditTerminal | Satır satır typewriter + loop | Sitenin tek imza anı |
+| Section girişleri | `Reveal` fade+rise | 0.5s, sadece ilk görünümde |
+| Sepet rozeti | Sayı değişiminde scale-pop | 200ms |
+| Buton/link hover | Renk geçişi | 150ms |
+| Kart hover | Kenarlık rengi + çok hafif yükselme | 150ms, `translateY` max 2px |
+| Kriter kartları | Liste içinde stagger reveal | 40ms aralık, grup başına max 6 kart |
+| Sayı sayaçları | İstatistiklerde count-up | Sadece ilk görünümde, reduced-motion'da statik |
+| Sayfa geçişleri | View Transitions ile fade | 200ms |
+| Akordeon/details | Yükseklik geçişi | 200ms |
+
+Yasak: parallax, sonsuz dönen/pulsing öğeler, gradient animasyonu, spinner (skeleton kullan), hover'da scale > 1.02, 500ms'den uzun giriş animasyonu, scroll-jacking.
+
+**Her yeni animasyon `useReducedMotion` kontrolünden geçmek zorunda.** İstisna yok.
 
 ## Blueprint'ten onaylı sapmalar
 

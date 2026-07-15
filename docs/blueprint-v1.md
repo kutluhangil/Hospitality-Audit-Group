@@ -518,7 +518,7 @@ Terminal esprisi: mono `$ hag find --page="..."` → `404 — kayıt bulunamadı
 ## Kod stili
 - Yorumlar İngilizce, doğal ve profesyonel; "ne"yi değil "neden"i açıklar.
 - TypeScript strict; `any` yasak.
-- İçerik dili Türkçe — HAG_WEBSITE_BLUEPRINT.md'deki kopya birebir kullanılır, lorem ipsum yazılmaz.
+- İçerik dili Türkçe — docs/blueprint-v1.md'deki kopya birebir kullanılır, lorem ipsum yazılmaz.
 
 ## Tasarım
 - Tüm renkler CSS değişkenlerinden gelir; hardcoded hex yalnızca globals.css ve tokens.ts'te bulunur.
