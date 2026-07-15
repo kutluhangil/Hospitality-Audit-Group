@@ -58,11 +58,29 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex items-center justify-between gap-4 border-t border-line pt-6">
-          <p className="font-mono text-xs tracking-wide text-ink-muted">
-            HOSPITALITY AUDIT GROUP © 2026
-          </p>
-          <ThemeToggle />
+        {/* Contract texts sit in the legal strip rather than a fifth column: they
+            are reference material, not navigation, and distance-selling rules
+            only require them to be reachable from every page — which the footer
+            is. Wraps to as many lines as the viewport needs. */}
+        <div className="mt-12 border-t border-line pt-6">
+          <nav aria-label="Hukuki metinler">
+            <ul className="flex flex-wrap gap-x-6 gap-y-2.5">
+              {footerNav.hukuki.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className={linkClasses}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="mt-6 flex items-center justify-between gap-4">
+            <p className="font-mono text-xs tracking-wide text-ink-muted">
+              HOSPITALITY AUDIT GROUP © 2026
+            </p>
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </footer>

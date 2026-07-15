@@ -10,7 +10,8 @@ import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 // latin-ext carries the Turkish glyphs (ş, ğ, İ, ı); without it they fall back
-// to a substitute face and the type loses its alignment.
+// to a substitute face and the type loses its alignment. latin-ext also covers
+// English, so these two subsets serve both locales.
 const serif = Source_Serif_4({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "600"],

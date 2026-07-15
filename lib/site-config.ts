@@ -49,6 +49,16 @@ export const footerNav = {
   kurumsal: [
     { label: "Süreç", href: "/surec" },
     { label: "Biz Kimiz", href: "/biz-kimiz" },
+  ],
+  /**
+   * Contract texts. Separated from `kurumsal` because these are not marketing
+   * pages: distance-selling rules require them to be reachable from every page,
+   * so the footer is the one place that guarantees it.
+   */
+  hukuki: [
+    { label: "Mesafeli Satış Sözleşmesi", href: "/mesafeli-satis-sozlesmesi" },
+    { label: "Ön Bilgilendirme Formu", href: "/on-bilgilendirme" },
+    { label: "İptal & İade Politikası", href: "/iptal-iade" },
     { label: "KVKK Aydınlatma Metni", href: "/kvkk" },
     { label: "Gizlilik Politikası", href: "/gizlilik-politikasi" },
   ],
@@ -75,4 +85,17 @@ export const routes = [
   "/teklif",
   "/kvkk",
   "/gizlilik-politikasi",
+  "/mesafeli-satis-sozlesmesi",
+  "/on-bilgilendirme",
+  "/iptal-iade",
 ] as const;
+
+/**
+ * `/odeme/sonuc` is deliberately absent.
+ *
+ * It is not a page in the sense this list means: it renders the outcome of one
+ * specific payment, carried in a signed `?d=` token, and calls notFound() when
+ * the card path is disabled. Listing it would put a permanent 404 in the sitemap
+ * and the link checker. It is also `robots: noindex` for the same reason — there
+ * is nothing there for anyone who did not just come back from 3-D Secure.
+ */

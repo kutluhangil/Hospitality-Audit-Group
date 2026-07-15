@@ -20,11 +20,27 @@ const collectedData = [
   "Mesaj içeriğinde tarafınızca paylaşılan bilgiler",
 ] as const;
 
+/**
+ * Only reached on the card-payment path: a sale needs an invoice, and an invoice
+ * needs an identified payer. Listed apart from the form fields above because
+ * these are collected for a legal obligation, not for a quote.
+ */
+const billingData = [
+  "Fatura tipi (kurumsal veya bireysel)",
+  "Kurumsal fatura için: ticaret unvanı, vergi dairesi ve vergi numarası",
+  "Bireysel fatura için: ad soyad ve T.C. kimlik numarası",
+  "Fatura adresi (ülke, il, ilçe, açık adres, posta kodu)",
+] as const;
+
 const purposes = [
   "Tarafınızca iletilen teklif talebinin değerlendirilmesi ve fiyatlandırılması",
   "Talep ettiğiniz denetim modüllerine ilişkin teklifin hazırlanması ve tarafınıza sunulması",
   "İletişim formu üzerinden iletilen soru ve taleplerin yanıtlanması",
   "Talebinizin sonuçlandırılabilmesi için sizinle iletişime geçilmesi",
+  "Kart ile satın alma hâlinde ödemenin ödeme kuruluşu aracılığıyla tahsil edilmesi ve doğrulanması",
+  "Satın alınan hizmete ilişkin faturanın düzenlenmesi ve tarafınıza iletilmesi",
+  "Vergi mevzuatı ile 6563 sayılı Kanun kapsamındaki saklama ve belgelendirme yükümlülüklerinin yerine getirilmesi",
+  "İptal, iade ve cayma taleplerinin sonuçlandırılması",
 ] as const;
 
 /** KVKK madde 11 — the statutory list, reproduced in full. */
@@ -66,8 +82,22 @@ export default function KvkkPage() {
         <LegalList items={collectedData} />
         <p>
           Teklif formunda seçtiğiniz denetim modüllerinin kodları da talebinizin kapsamını
-          belirlemek üzere formla birlikte iletilir. Site, bunların dışında herhangi bir kişisel
-          veri toplamaz; ziyaretçi davranışını izleyen bir analiz veya reklam aracı kullanılmaz.
+          belirlemek üzere formla birlikte iletilir.
+        </p>
+        <p>
+          Hizmeti kart ile satın almanız hâlinde, faturanın düzenlenebilmesi için aşağıdaki bilgiler
+          ayrıca işlenir:
+        </p>
+        <LegalList items={billingData} />
+        <p>
+          Kart numarası, son kullanma tarihi ve güvenlik kodu bu bilgilere{" "}
+          <strong>dahil değildir</strong>: kart bilgileri bu sitenin sunucularına hiçbir aşamada
+          ulaşmaz, doğrudan ödeme kuruluşunun kendi sayfasına iletilir ve tarafımızca görülmez veya
+          saklanmaz.
+        </p>
+        <p>
+          Site, bunların dışında herhangi bir kişisel veri toplamaz; ziyaretçi davranışını izleyen
+          bir analiz veya reklam aracı kullanılmaz.
         </p>
       </LegalSection>
 

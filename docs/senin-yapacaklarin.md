@@ -39,7 +39,34 @@ Geçici bir kuruluş öyküsü yazdım (`isPlaceholder: true` bayraklı). Bunlar
 
 ### 1.3 iyzico üye işyeri hesabı
 
-Ödeme kodunu yazacağım ama **anahtarsız kapalı doğacak**. Sen açacaksın:
+Ödeme yolu yazıldı ve **kapalı doğdu**. Açmak için iki şey birden gerekiyor:
+
+> ### ⚠ ÖDEME ÇİFT KİLİTLİ — anahtar tek başına yetmez
+>
+> `isPaymentEnabled()` şunların **hepsini** istiyor:
+> 1. `IYZICO_API_KEY` + `IYZICO_SECRET_KEY` + `IYZICO_BASE_URL`
+> 2. `hasCorporateIdentity()` → yani `lib/company-data.ts` içindeki ticaret unvanı, sicil,
+>    MERSİS, vergi dairesi/no ve adres **dolu**
+>
+> Bu bilinçli: kimliğini yayınlayamayan bir satıcı kart çekemez. Hem kanun böyle, hem dürüst olan bu.
+> Test edildi — anahtarlar girili ama kimlik boşken ödeme yine 503 dönüyor.
+>
+> ### ⚠ ANAHTARI EKLEMEK YETMEZ — YENİDEN BUILD ŞART
+>
+> `/odeme/sonuc` sayfası build zamanında statik olarak üretiliyor ve ödeme kapalıyken **404 olarak
+> pişiyor**. Vercel'de env değişkeni eklersen sayfa 404 kalmaya devam eder — 3D dönüşü boşluğa
+> düşer.
+>
+> **Doğru sıra:**
+> 1. `lib/company-data.ts` → sicil bilgilerini doldur
+> 2. Vercel → Environment Variables → IYZICO_* ekle
+> 3. **Deployments → Redeploy** (build'i yeniden çalıştır)
+> 4. `/teklif` sayfasında "Kart ile öde" yolunun göründüğünü doğrula
+>
+> Yanlış tarafa değil, güvenli tarafa düşüyor (kapalı kalıyor) — ama bilmezsen "neden açılmadı"
+> diye saatlerce ararsın.
+
+Sen açacaksın:
 
 - [ ] https://www.iyzico.com → Üye işyeri başvurusu
 - [ ] Gereken evraklar: vergi levhası, imza sirküleri, ticaret sicil gazetesi, kimlik
@@ -54,6 +81,23 @@ Geçici bir kuruluş öyküsü yazdım (`isPlaceholder: true` bayraklı). Bunlar
 - [ ] Vercel'e deploy ederken anahtarları Vercel dashboard → Settings → Environment Variables içine gir
 
 > Sandbox ile test için: `IYZICO_BASE_URL=https://sandbox-api.iyzipay.com` ve sandbox anahtarları. Önce sandbox'ta test edelim.
+
+### 1.3.1 Ödeme entegrasyonu HİÇ TEST EDİLMEDİ — bilmen gereken
+
+Hesabın olmadığı için entegrasyon **gerçek bir iyzico endpoint'ine hiç dokunmadı.** Kod
+dokümantasyona göre yazıldı ve tek dosyanın (`lib/payment.ts`) arkasında duruyor; hata çıkarsa
+düzeltmek tek dosyayı değiştirmek demek. Şu üç şey doğrulanmadı ve dosyada `UNVERIFIED` diye
+işaretli:
+
+| Ne | Yanlışsa ne olur |
+|---|---|
+| `IYZWSv2` auth başlığı (imza üretimi) | İlk istekte 401 — gürültülü, güvenli, anında belli olur |
+| Callback imza alan sırası | **En riskli.** Ödeme başarılı olur ama doğrulama düşer |
+| Kurumsal alıcıda `identityNumber` alanı | Fatura bilgisi hatalı gidebilir |
+
+**Sandbox'ta ilk gerçek ödemeyi mutlaka uçtan uca dene.** Anahtarları aldığında bana söyle,
+sandbox'a karşı test edip düzeltirim. Kart bilgisi girmem gereken bir adım varsa onu sen
+yapacaksın — ben kart verisi girmiyorum.
 
 ### 1.4 ETBİS kaydı
 
@@ -98,11 +142,14 @@ Geçici bir kuruluş öyküsü yazdım (`isPlaceholder: true` bayraklı). Bunlar
 - [ ] Çıkanları `public/images/` altına, dosyadaki **tam isimlerle** koy
 - [ ] Dosyanın sonundaki kabul kontrol listesini uygula (özellikle: zemin rengi `#FAF9F5` mi, görselde yazı var mı)
 
-### 2.2 Rusça metin
+### 2.2 Rusça — İPTAL EDİLDİ
 
-- [ ] Rusça metni ana dili Rusça birine okutamayacağını söyledin — **not ediyorum, riski kabul ediyorsun.**
+Rusça 2026-07-16'da kapsamdan çıkarıldı. Site **TR + EN**.
 
-> Ben Rusça yazacağım ama doğrulayamıyorum. Antalya'da Rus sermayeli otele giden bir sitede bozuk Rusça, güvenilirliği bitirir. **Öneri:** yayından sonra bir tercümandan tek seferlik okuma hizmeti al (birkaç bin TL). Ya da Rusça'yı ilk sürümde hiç açma, sonra ekleyelim. Kararı sana bırakıyorum ama riski yazılı bırakıyorum.
+Bu, projedeki tek doğrulanamayan riski kaldırdı: Rusça metni ben yazacaktım, ne sen ne ben
+doğrulayabiliyorduk. İleride istersen eklenebilir — üç fontun da Kiril desteği var (kontrol
+edildi), sadece `subsets` dizisine `"cyrillic"` eklemek ve çeviri yazmak gerekir. Ama o zaman
+**mutlaka ana dili Rusça birine okut.**
 
 ### 2.3 Fiyat teyidi
 

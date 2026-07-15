@@ -3,7 +3,7 @@
 > **Durum:** onay bekliyor
 > **Tarih:** 2026-07-15
 > **Öncül:** `docs/blueprint-v1.md` (v1, uygulandı ve çalışıyor), `CLAUDE.md` (onaylı sapmalar)
-> **Kapsam:** v1 üzerine — fiyatlandırma + kart ödeme, 3 dil, denetim kriterleri, "Biz Kimiz", güven blokları, mobile-first gözden geçirme
+> **Kapsam:** v1 üzerine — fiyatlandırma + kart ödeme, 2 dil (TR/EN), denetim kriterleri, "Biz Kimiz", güven blokları, mobile-first gözden geçirme
 
 Bu doküman v1'i **değiştiriyor**. Çeliştiği yerde bu doküman geçerlidir.
 
@@ -15,7 +15,7 @@ Bu doküman v1'i **değiştiriyor**. Çeliştiği yerde bu doküman geçerlidir.
 |---|---|---|
 | Fiyat gösterilmez (`FİYAT: TESİS ÖLÇEĞİNE GÖRE TEKLİFLENDİRİLİR`) | Modül fiyatları görünür, sepet toplam hesaplar | Kullanıcı kararı |
 | Ödeme yok, sadece teklif (blueprint §17) | **Hem kart ödeme hem teklif** — iki paralel yol | Kullanıcı kararı |
-| i18n yok, v2 adayı (blueprint §17) | **TR / EN / RU — tüm sayfalar** | Kullanıcı kararı |
+| i18n yok, v2 adayı (blueprint §17) | **TR / EN — tüm sayfalar** (RU 2026-07-16da iptal edildi) | Kullanıcı kararı |
 | Modül içerikleri özet düzeyde | **Tam denetim kriterleri sitede** (4 PDF'ten) | Kullanıcı kararı |
 | Login yok | Login yok — **karar ertelendi**, v3'te tekrar bakılacak | Kullanıcı kararı |
 
@@ -65,7 +65,7 @@ Sepete eklenebilir ama modül kartı değil; `ServiceItem` olarak ayrı tip.
   GENEL TOPLAM             30.000,00 TL
   ```
   KDV hariç tutar = `price / 1.20`. Yuvarlama: her satır için ayrı değil, **toplam üzerinden** tek seferde — kuruş farkı oluşmasın.
-- Para formatı: `Intl.NumberFormat` ile, `tr-TR` → `30.000,00 TL`. EN/RU'da da **TL** kalır (hizmet Türkiye'de faturalanıyor), sadece ayraç locale'e uyar.
+- Para formatı: `Intl.NumberFormat` ile, `tr-TR` → `30.000,00 TL`. ENde de **TL** kalır (hizmet Türkiye'de faturalanıyor), sadece ayraç locale'e uyar.
 
 ### 1.3 D paketi çapraz kontrolü (ticari mantık)
 
@@ -340,7 +340,7 @@ export const company = {
 
 ---
 
-## 6. ÇOK DİLLİLİK (TR / EN / RU)
+## 6. ÇOK DİLLİLİK (TR / EN)
 
 ### 6.1 Yaklaşım
 
@@ -351,63 +351,93 @@ export const company = {
 ```
 /tr/...  (varsayılan, ama prefix HER ZAMAN görünür — SEO'da belirsizlik olmasın)
 /en/...
-/ru/...
 /        → Accept-Language'e göre yönlendirir
 ```
 
 Slug'lar da çevrilir:
 
-| TR | EN | RU |
-|---|---|---|
-| `/tr/moduller` | `/en/modules` | `/ru/moduli` |
-| `/tr/surec` | `/en/process` | `/ru/protsess` |
-| `/tr/biz-kimiz` | `/en/about-us` | `/ru/o-nas` |
-| `/tr/teklif` | `/en/quote` | `/ru/zapros` |
-| `/tr/iletisim` | `/en/contact` | `/ru/kontakty` |
+| TR | EN |
+|---|---|
+| `/tr/moduller` | `/en/modules` |
+| `/tr/moduller/on-buro` | `/en/modules/front-office` |
+| `/tr/moduller/yiyecek-icecek` | `/en/modules/food-beverage` |
+| `/tr/moduller/wellness-rekreasyon` | `/en/modules/wellness-recreation` |
+| `/tr/moduller/kat-hizmetleri` | `/en/modules/housekeeping` |
+| `/tr/moduller/360-tam-denetim` | `/en/modules/360-full-audit` |
+| `/tr/surec` | `/en/process` |
+| `/tr/biz-kimiz` | `/en/about-us` |
+| `/tr/teklif` | `/en/quote` |
+| `/tr/iletisim` | `/en/contact` |
 
-> **Rusça slug'lar Latin harfle (translit).** Kiril URL punycode'a döner, paylaşımda çirkin görünür ve bazı sistemlerde kırılır.
+Yasal sayfalar **TR slug'ını korur** (`/en/kvkk`) — KVKK bir Türk mevzuatı terimi, çevirisi arama değeri taşımıyor ve karışıklık yaratıyor.
 
-### 6.3 Font — kritik
+### 6.3 Font
 
-**Kiril desteği zorunlu.** Üç fontun da `subsets` dizisine `cyrillic` eklenir:
-
-```ts
-Source_Serif_4({ subsets: ["latin", "latin-ext", "cyrillic"] })
-Inter({ subsets: ["latin", "latin-ext", "cyrillic"] })
-JetBrains_Mono({ subsets: ["latin", "latin-ext", "cyrillic"] })
-```
-
-Üçü de Kiril içeriyor — doğrulandı gerekiyor (build'de test edilecek). İçermezse yedek: `Noto Serif` / `Noto Sans`.
-
-Bu, font yükünü artırır. Azaltma: subset'ler dile göre koşullu yüklenemez (next/font statiktir), ama `display: swap` + preload sadece aktif dil için yapılır.
+`subsets: ["latin", "latin-ext"]` — değişmiyor. `latin-ext` hem Türkçe glifleri (ş, ğ, İ, ı) hem İngilizce'yi karşılıyor. Ek font yükü yok.
 
 ### 6.4 Çeviri kalitesi
 
-- **TR:** birincil, mevcut kopya (blueprint'ten, nihai)
-- **EN:** ben yazacağım — çeviri değil, **yeniden yazım**. "Misafiriniz her şeyi görür. Biz de öyle." kelime kelime çevrilirse ölür.
-- **RU:** ben yazacağım. Antalya/Bodrum pazarında Rus misafir ve Rus sermayeli otel gerçeği var — bu dil ciddiye alınmalı. **Yayına almadan önce ana dili Rusça olan birine okutmanı öneririm.** Bunu spec'e not düşüyorum çünkü ben doğrulayamam.
-- **Hukuki sayfalar (KVKK, mesafeli satış):** EN/RU versiyonlarının başına: *"Bu metin bilgilendirme amaçlıdır. Bağlayıcı metin Türkçe versiyondur."*
+- **TR:** birincil, mevcut kopya (blueprint'ten, nihai). Kaynak dil.
+- **EN:** çeviri değil, **yeniden yazım**. "Misafiriniz her şeyi görür. Biz de öyle." kelime kelime çevrilirse ölür. Hedef okur: Türkiye'de yatırımı olan yabancı otel sahibi / zincir yönetimi.
+- **Metodoloji kriterleri:** bunlar saha kılavuzundan birebir alınmış Türkçe. İngilizcesi **çeviri** olacak, yeniden yazım değil — kriter metni hukuki/teknik bir ifade, sadakat gerekir.
+- **Hukuki sayfalar:** EN versiyonlarının başına: *"Bu metin bilgilendirme amaçlıdır. Bağlayıcı metin Türkçe versiyondur."* Sözleşmenin bağlayıcı dili Türkçe.
 
 ### 6.5 Dil seçici
 
-Header'da, ThemeToggle'ın yanında. `TR / EN / RU` — mono, aktif olan `text-accent-strong`. Bayrak ikonu **yok** (dil ≠ ülke; RU bayrağı Kazakistan'daki kullanıcıyı dışlar).
+Header'da, ThemeToggle'ın yanında. `TR / EN` — mono, aktif olan `text-accent-strong`. Bayrak ikonu **yok** (dil ≠ ülke; İngiliz bayrağı Türkiye'deki yabancı yatırımcıyı temsil etmiyor).
+
+Dil değişince **aynı sayfada kalınır** (`/tr/moduller` → `/en/modules`), ana sayfaya atılmaz. Sepet korunur — `localStorage` locale'den bağımsız.
 
 `hreflang` etiketleri her sayfada, `x-default` → TR.
 
-### 6.6 Sayfalanmayan içerik
+### 6.0 KAPSAM DEĞİŞTİ — Rusça iptal (2026-07-16)
 
-`audit-criteria.ts` içindeki kriter metinleri **3 dile çevrilmeli**. Bu ~60-80 kriter × 3 dil = ciddi hacim. Yapı:
+**TR + EN.** Rusça kaldırıldı.
+
+İyi bir karar oldu, çünkü bu turda tek doğrulanamayan riski ortadan kaldırıyor: Rusça metni ben yazacaktım, ne ben ne de sahibi doğrulayabiliyordu, ve Antalya'da Rus sermayeli otele giden sitede bozuk Rusça güveni bitirirdi.
+
+Sonuçları:
+- Kiril subset'i **geri alındı** — `subsets: ["latin", "latin-ext"]`. Kiril font yükünü boşuna taşımayacağız.
+- `og-default-ru.png` kullanılmıyor (zaten OG'lerin hiçbiri kullanılmadı — 6.9'a bakın).
+- Çeviri hacmi yarıya indi: 332 → **166**.
+- `/ru/...` route'ları yok.
+
+### 6.6 Metodoloji çevirisi — ölçülen hacim ve mimari
+
+Sayım yapıldı: **113 kriter metni + 47 grup başlığı + 6 perspektif = 166 dize.** Bir dil daha (EN) = **166 çeviri.**
+
+**Kriter dosyalarını üç kez kopyalamayacağız.** Kod, kanıt kategorisi ve eşik **dilden bağımsız** — `A.2.2` her dilde `A.2.2`, `Kronometre` kategorisi her dilde aynı ikonu çiziyor, `4 dakika` her dilde 4 dakika. Çevrilen tek şey **metin katmanı**.
 
 ```
+lib/criteria/module-*.ts     ← YAPISAL: kod, evidence, threshold, grup ağacı
+                                Türkçe metin burada kalır (kaynak dil)
 messages/
-  tr.json
-  en.json
-  ru.json
-  criteria/
-    tr.json    ← kriter metinleri ayrı, dosya şişmesin
-    en.json
-    ru.json
+  tr.json  en.json            ← arayüz ve sayfa kopyası
+  criteria/en.json            ← YALNIZCA metin katmanı, koda göre anahtarlı
 ```
+
+`criteria/en.json` şekli:
+
+```json
+{
+  "A.2.2": { "text": "Was check-in completed within four minutes..." },
+  "A.2.": { "title": "Reception check-in & upsell performance" }
+}
+```
+
+Çözüm fonksiyonu Türkçe'ye **düşer**: çeviri eksikse sayfa kırılmaz, o dize Türkçe görünür. Yarım çeviri, boş sayfadan iyidir; ve eksik olan gözle görünür.
+
+> **Eşikler çevrilmez ama biçimlenir:** `4 dakika` → EN `4 minutes`. Bunlar da metin katmanında. `pH 7.2 – 7.6 • Klor 1.0 – 3.0 ppm` → sadece "Klor" çevrilir.
+
+### 6.7 Font
+
+`subsets: ["latin", "latin-ext"]` — değişmedi. `latin-ext` hem Türkçe glifleri (ş, ğ, İ, ı) hem İngilizce'yi karşılıyor.
+
+> Rusça kapsamdayken Google Fonts API'sine karşı kontrol edilmişti: üç font da Kiril içeriyor (Source Serif 4, Inter, JetBrains Mono). İleride Rusça geri gelirse yedek font aramaya gerek yok, sadece `"cyrillic"` eklenecek. Bulgu burada duruyor ki tekrar araştırılmasın.
+
+### 6.8 Kütüphane
+
+`next-intl@4.13.2` — peer `next: ^16.0.0`, `react: ^19.0.0`. Uyumlu, doğrulandı.
 
 ---
 
@@ -464,8 +494,8 @@ Dokunma hedefi minimumu **44×44px** (Apple HIG). v1'deki `Sepete Ekle` butonu b
 | **3** | Modül detay sayfaları + kriter kartı tasarımı (mobile-first) | 1, 2 |
 | **4** | `/biz-kimiz` + `company-data.ts` + placeholder guard + güven blokları | 1 |
 | **5** | Ödeme: `lib/payment.ts`, `/api/odeme`, fatura formu, hukuki sayfalar | 2 |
-| **6** | i18n altyapısı: next-intl, routing, font cyrillic, dil seçici | 3, 4, 5 |
-| **7** | EN + RU içerik (arayüz + sayfa kopyası + kriterler) | 6 |
+| **6** | i18n altyapısı: next-intl, routing, dil seçici | 3, 4, 5 |
+| **7** | EN içerik (arayüz + sayfa kopyası + 166 kriter dizesi) | 6 |
 | **8** | Görseller (senin Gemini çıktıların) yerleştirme | — |
 | **9** | **Polish** — motion, ritim, kontrast, iki tema × 3 dil × 3 kırılım | hepsi |
 | **10** | QA + link checker + QA_REPORT.md | hepsi |
@@ -482,7 +512,7 @@ FİYAT & SEPET
 [ ] Sepet KDV ayrıştırması toplam üzerinden, kuruş farkı yok
 [ ] A+B+C seçilince D önerisi çıkıyor, tıklayınca doğru takas oluyor
 [ ] D seçiliyken A/B/C butonları devre dışı + "D paketine dahil" rozeti
-[ ] Intl.NumberFormat ile tr-TR/en/ru formatı, para birimi hep TL
+[ ] Intl.NumberFormat ile tr-TR/en formatı, para birimi hep TL
 
 ÖDEME
 [ ] PAYMENT_PROVIDER_KEY yokken ödeme yolu tamamen gizli, teklif yolu çalışıyor
@@ -506,10 +536,10 @@ BİZ KİMİZ
 [ ] Kanıt istatistikleri audit-criteria.ts'ten türetiliyor (elle yazılmıyor)
 
 i18n
-[ ] 3 dilde tüm sayfalar; hiçbir sayfada çevrilmemiş metin yok
-[ ] Kiril glifler üç fontta doğru render (İ ş ğ ı ve Ж Щ Ъ Ы birlikte test)
+[ ] 2 dilde (TR/EN) tüm sayfalar; hiçbir sayfada çevrilmemiş metin yok
+[ ] Türkçe glifler üç fontta doğru render (İ ş ğ ı Ç Ö Ü)
 [ ] hreflang + x-default doğru
-[ ] Hukuki sayfaların EN/RU'sunda "bağlayıcı metin Türkçe" notu
+[ ] Hukuki sayfaların ENinde "bağlayıcı metin Türkçe" notu
 [ ] Dil değişince sepet korunuyor (localStorage locale'den bağımsız)
 
 MOBILE-FIRST
@@ -541,4 +571,4 @@ BUILD
 2. **iyzico hesabın var mı?** Yoksa ödeme kodu yazılır ama kapalı doğar.
 3. **Modül A'nın "Kat Hizmetleri / Oda İçi" kriterleri:** PDF başlığında var, çıkardığım metinde yok. PDF'in kalan sayfalarında mı, yoksa sen mi vereceksin?
 4. **Modül E kriterleri:** PDF yok. Program içeriği olarak mı sunayım, yoksa sen kriter listesi verecek misin?
-5. **Rusça metin:** ana dili Rusça birine okutabilir misin? Ben yazarım ama doğrulayamam.
+5. ~~**Rusça metin:** ana dili Rusça birine okutabilir misin?~~ — ÇÖZÜLDÜ: Rusça 2026-07-16da kapsamdan çıkarıldı.

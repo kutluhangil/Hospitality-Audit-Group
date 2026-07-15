@@ -63,19 +63,36 @@ export default function GizlilikPolitikasiPage() {
           items={[
             "Resend (Resend, Inc.) — form içeriğinin tarafımıza e-posta olarak iletilmesi için kullanılır",
             "Vercel (Vercel, Inc.) — web sitesinin barındırılması için kullanılır ve teknik sunucu kayıtları tutar",
+            "iyzico (İyzi Ödeme ve Elektronik Para Hizmetleri A.Ş.) — kart ile satın alma hâlinde ödemenin tahsil edilmesi için kullanılır",
           ]}
         />
         <p>
           Yazı tipleri siteyle birlikte sunulur; sayfa görüntülenirken harici bir yazı tipi veya
-          içerik sağlayıcısına istek gönderilmez. Her iki sağlayıcı da yurt dışında bulunmaktadır.
+          içerik sağlayıcısına istek gönderilmez. Resend ve Vercel yurt dışında bulunmaktadır;
+          iyzico, Türkiye&apos;de yerleşik ve BDDK denetimine tabi bir ödeme kuruluşudur.
         </p>
       </LegalSection>
 
-      <LegalSection title="5. Veri Güvenliği">
+      <LegalSection title="5. Kart Bilgileri">
+        <p>
+          <strong>Kart bilgileriniz bu sitenin sunucularına hiçbir aşamada ulaşmaz.</strong> Kart
+          numarası, son kullanma tarihi ve güvenlik kodu bu sitede yer alan bir forma girilmez;
+          ödeme adımında doğrudan ödeme kuruluşunun kendi sayfasına iletilir ve orada işlenir.
+          Doğrulama, bankanızın 3D Secure ekranı üzerinden yapılır.
+        </p>
+        <p>
+          Bu nedenle kart bilgileriniz tarafımızca görülmez, kaydedilmez ve saklanmaz. Ödeme
+          kuruluşundan tarafımıza yalnızca işlemin sonucu (başarılı/başarısız), işlem numarası ve
+          tutar bilgisi döner. Faturanın düzenlenmesi için topladığımız fatura ve adres bilgilerine
+          ilişkin ayrıntı <LegalLink href="/kvkk">KVKK Aydınlatma Metni</LegalLink> sayfasındadır.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="6. Veri Güvenliği">
         <p>
           Site tamamen HTTPS üzerinden sunulur. Form gönderimleri şifreli bağlantı üzerinden
-          iletilir ve e-posta sağlayıcısının erişim anahtarları yalnızca sunucu tarafında tutulur;
-          tarayıcıya gönderilmez.
+          iletilir ve e-posta ile ödeme sağlayıcısının erişim anahtarları yalnızca sunucu tarafında
+          tutulur; tarayıcıya gönderilmez.
         </p>
         <p>
           Verileriniz, talebinizin karşılanması için gereken süre boyunca saklanır ve bu amaç ortadan
@@ -84,7 +101,7 @@ export default function GizlilikPolitikasiPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="6. Değişiklikler">
+      <LegalSection title="7. Değişiklikler">
         <p>
           Bu politika, hizmetlerimizde veya mevzuatta meydana gelen değişikliklere bağlı olarak
           güncellenebilir. Güncel sürüm her zaman bu sayfada yayınlanır ve sayfa başındaki tarih
@@ -92,7 +109,7 @@ export default function GizlilikPolitikasiPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="7. İletişim">
+      <LegalSection title="8. İletişim">
         <p>
           Gizlilik uygulamalarımıza ilişkin soru ve talepleriniz için{" "}
           <LegalLink href={`mailto:${siteConfig.contact.email}`}>
