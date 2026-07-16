@@ -1,11 +1,15 @@
 <div align="center">
 
+<img src="public/images/logo.png" alt="Hospitality Audit Group Logo" width="120" />
+
 # Hospitality Audit Group
 
 **Marka Güvencesi ve Operasyonel Kaldıraç.**
 
 Otellere gizli müşteri ziyaretiyle denetim ve personel eğitimi sunan
 Hospitality Audit Group'un kurumsal web sitesi.
+
+<img src="public/images/og/og-default-tr.png" alt="HAG Site Preview" width="800" style="border-radius: 8px; margin: 20px 0;" />
 
 `Next.js 16` · `React 19` · `TypeScript` · `Tailwind CSS 4` · `Framer Motion`
 
@@ -163,6 +167,10 @@ ve link kontrolü otomatik takip eder.
 Modül harflendirmesi **saha kılavuzlarını** takip eder. Kılavuzlar kendi içinde
 çapraz referanslıdır (`D.2.3` → *"Kat Hizmetleri (Modül E)"*), bu yüzden E =
 Kat Hizmetleri ve 360° = A+B+C+E.
+
+<div align="center">
+<img src="public/images/modules/module-d-360.png" alt="360 Derece Denetim Modülü" width="400" style="border-radius: 8px; margin-bottom: 20px;" />
+</div>
 
 | Kod | Modül | Kapsam |
 |:---:|---|---|
