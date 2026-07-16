@@ -7,6 +7,7 @@
  */
 
 import type { ModuleCode } from "@/lib/modules-data";
+import type { FieldError } from "@/lib/validation-messages";
 
 /**
  * Exhaustive by construction: Record<ModuleCode, true> stops compiling the day a
@@ -72,7 +73,8 @@ export type QuoteField = keyof Omit<QuoteRequest, "type">;
 export type ContactField = keyof Omit<ContactRequest, "type">;
 
 export type ValidationResult<T, K extends string> =
-  { ok: true; value: T } | { ok: false; errors: Partial<Record<K, string>> };
+  | { ok: true; value: T }
+  | { ok: false; errors: Partial<Record<K, FieldError>> };
 
 const MAX_NAME = 120;
 const MAX_EMAIL = 160;
@@ -95,71 +97,58 @@ function readString(source: Record<string, unknown>, key: string): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
-function requiredError(
-  label: string,
-  value: string,
-  max: number,
-): string | undefined {
-  if (value.length === 0) return `${label} zorunludur.`;
-  return lengthError(label, value, max);
+// The rules below return copy-free descriptors, never sentences. The `{label}`
+// each message needs is supplied by whoever renders it: the form passes the
+// field's own localized label, the route passes the source-language one.
+
+function requiredError(value: string, max: number): FieldError | undefined {
+  if (value.length === 0) return { code: "required" };
+  return lengthError(value, max);
 }
 
-function lengthError(
-  label: string,
-  value: string,
-  max: number,
-): string | undefined {
-  if (value.length > max) return `${label} en fazla ${max} karakter olabilir.`;
+function lengthError(value: string, max: number): FieldError | undefined {
+  if (value.length > max) return { code: "tooLong", params: { max } };
   return undefined;
 }
 
-function emailError(value: string): string | undefined {
-  const required = requiredError("Kurumsal E-posta", value, MAX_EMAIL);
+function emailError(value: string): FieldError | undefined {
+  const required = requiredError(value, MAX_EMAIL);
   if (required) return required;
-  if (!EMAIL_PATTERN.test(value)) {
-    return "Kurumsal E-posta geçerli bir e-posta adresi olmalıdır (ör. ad@tesisiniz.com).";
-  }
+  if (!EMAIL_PATTERN.test(value)) return { code: "emailInvalid" };
   return undefined;
 }
 
-function phoneError(value: string): string | undefined {
+function phoneError(value: string): FieldError | undefined {
   if (value.length === 0) return undefined;
-  const length = lengthError("Telefon", value, MAX_PHONE);
+  const length = lengthError(value, MAX_PHONE);
   if (length) return length;
-  if (!PHONE_PATTERN.test(value)) {
-    return "Telefon yalnızca rakam, boşluk ve + ( ) - karakterlerini içerebilir.";
-  }
+  if (!PHONE_PATTERN.test(value)) return { code: "phoneInvalid" };
   return undefined;
 }
 
 /** Empty stays valid — the selects are optional; anything else must be an offered option. */
 function optionError(
-  label: string,
   value: string,
   options: readonly string[],
-): string | undefined {
+): FieldError | undefined {
   if (value.length === 0) return undefined;
   if (!options.includes(value)) {
-    return `${label} için listede olmayan bir seçenek gönderildi: "${value}".`;
+    return { code: "optionInvalid", params: { value } };
   }
   return undefined;
 }
 
-function consentError(value: unknown): string | undefined {
-  if (value !== true) {
-    return "Devam etmek için KVKK Aydınlatma Metni onayı gereklidir.";
-  }
+function consentError(value: unknown): FieldError | undefined {
+  if (value !== true) return { code: "consentQuoteKvkk" };
   return undefined;
 }
 
-function modulesError(value: unknown): string | undefined {
+function modulesError(value: unknown): FieldError | undefined {
   if (value === undefined) return undefined;
-  if (!Array.isArray(value)) {
-    return "Seçili modüller bir liste olarak gönderilmelidir.";
-  }
+  if (!Array.isArray(value)) return { code: "modulesNotList" };
   const invalid = value.filter((entry) => !isModuleCode(entry));
   if (invalid.length > 0) {
-    return `Seçili modüller yalnızca A–E kodlarını içerebilir. Geçersiz: ${invalid.join(", ")}.`;
+    return { code: "modulesInvalid", params: { invalid: invalid.join(", ") } };
   }
   return undefined;
 }
@@ -172,16 +161,18 @@ function readModules(value: unknown): readonly ModuleCode[] {
 
 /** Drops the undefined slots a Partial leaves behind. */
 function collect<K extends string>(
-  entries: readonly (readonly [K, string | undefined])[],
-): Partial<Record<K, string>> {
-  const errors: Partial<Record<K, string>> = {};
-  for (const [key, message] of entries) {
-    if (message !== undefined) errors[key] = message;
+  entries: readonly (readonly [K, FieldError | undefined])[],
+): Partial<Record<K, FieldError>> {
+  const errors: Partial<Record<K, FieldError>> = {};
+  for (const [key, error] of entries) {
+    if (error !== undefined) errors[key] = error;
   }
   return errors;
 }
 
-function hasAny<K extends string>(errors: Partial<Record<K, string>>): boolean {
+function hasAny<K extends string>(
+  errors: Partial<Record<K, FieldError>>,
+): boolean {
   return Object.keys(errors).length > 0;
 }
 
@@ -189,10 +180,7 @@ export function validateQuoteRequest(
   input: unknown,
 ): ValidationResult<QuoteRequest, QuoteField> {
   if (!isRecord(input)) {
-    return {
-      ok: false,
-      errors: { adSoyad: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor." },
-    };
+    return { ok: false, errors: { adSoyad: { code: "invalidBody" } } };
   }
 
   const adSoyad = readString(input, "adSoyad");
@@ -204,13 +192,13 @@ export function validateQuoteRequest(
   const mesaj = readString(input, "mesaj");
 
   const errors = collect<QuoteField>([
-    ["adSoyad", requiredError("Ad Soyad", adSoyad, MAX_NAME)],
+    ["adSoyad", requiredError(adSoyad, MAX_NAME)],
     ["email", emailError(email)],
     ["telefon", phoneError(telefon)],
-    ["tesisAdi", requiredError("Tesis Adı", tesisAdi, MAX_NAME)],
-    ["tesisTipi", optionError("Tesis Tipi", tesisTipi, FACILITY_TYPES)],
-    ["odaSayisi", optionError("Oda Sayısı", odaSayisi, ROOM_COUNT_RANGES)],
-    ["mesaj", lengthError("Mesaj", mesaj, MAX_MESSAGE)],
+    ["tesisAdi", requiredError(tesisAdi, MAX_NAME)],
+    ["tesisTipi", optionError(tesisTipi, FACILITY_TYPES)],
+    ["odaSayisi", optionError(odaSayisi, ROOM_COUNT_RANGES)],
+    ["mesaj", lengthError(mesaj, MAX_MESSAGE)],
     ["selectedModules", modulesError(input.selectedModules)],
     ["kvkkConsent", consentError(input.kvkkConsent)],
   ]);
@@ -239,10 +227,7 @@ export function validateContactRequest(
   input: unknown,
 ): ValidationResult<ContactRequest, ContactField> {
   if (!isRecord(input)) {
-    return {
-      ok: false,
-      errors: { ad: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor." },
-    };
+    return { ok: false, errors: { ad: { code: "invalidBody" } } };
   }
 
   const ad = readString(input, "ad");
@@ -251,10 +236,10 @@ export function validateContactRequest(
   const mesaj = readString(input, "mesaj");
 
   const errors = collect<ContactField>([
-    ["ad", requiredError("Ad", ad, MAX_NAME)],
+    ["ad", requiredError(ad, MAX_NAME)],
     ["email", emailError(email)],
-    ["konu", requiredError("Konu", konu, MAX_SUBJECT)],
-    ["mesaj", requiredError("Mesaj", mesaj, MAX_MESSAGE)],
+    ["konu", requiredError(konu, MAX_SUBJECT)],
+    ["mesaj", requiredError(mesaj, MAX_MESSAGE)],
     ["kvkkConsent", consentError(input.kvkkConsent)],
   ]);
 
@@ -274,10 +259,7 @@ export function validateTeklifRequest(
   input: unknown,
 ): ValidationResult<TeklifRequest, string> {
   if (!isRecord(input)) {
-    return {
-      ok: false,
-      errors: { type: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor." },
-    };
+    return { ok: false, errors: { type: { code: "invalidBody" } } };
   }
 
   if (input.type === "contact") return validateContactRequest(input);
@@ -286,17 +268,28 @@ export function validateTeklifRequest(
   return {
     ok: false,
     errors: {
-      type: `Bilinmeyen talep tipi: ${JSON.stringify(input.type)}. "quote" veya "contact" bekleniyor.`,
+      type: {
+        code: "unknownType",
+        params: { type: JSON.stringify(input.type) },
+      },
     },
   };
 }
 
-/** Flattens field errors into the single actionable sentence the route returns. */
+/**
+ * Flattens field errors into the single actionable sentence the route returns.
+ *
+ * The copy no longer lives here, so the caller passes a `resolve` that turns each
+ * descriptor into a sentence — the route builds one from a source-language
+ * translator, keeping the guard's response in Turkish.
+ */
 export function formatValidationErrors(
-  errors: Partial<Record<string, string>>,
+  errors: Partial<Record<string, FieldError>>,
+  resolve: (field: string, error: FieldError) => string,
 ): string {
-  return Object.values(errors)
-    .filter((message): message is string => typeof message === "string")
+  return Object.entries(errors)
+    .filter((entry): entry is [string, FieldError] => entry[1] !== undefined)
+    .map(([field, error]) => resolve(field, error))
     .join(" ");
 }
 

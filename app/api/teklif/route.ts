@@ -1,6 +1,8 @@
+import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+import { routing } from "@/i18n/routing";
 import { recordTitleOf } from "@/lib/module-records";
 import { getModule } from "@/lib/modules-data";
 import {
@@ -13,6 +15,46 @@ import {
   type TeklifRequest,
 } from "@/lib/quote-schema";
 import { siteConfig } from "@/lib/site-config";
+import { resolveFieldError, type FieldError } from "@/lib/validation-messages";
+
+/**
+ * The label key each field carries into `{label}`. The guard always answers in
+ * the source language, so it reuses the quote form's own labels — which is also
+ * why a contact e-mail reads "Kurumsal E-posta", exactly as before this file
+ * stopped hard-coding its sentences.
+ */
+const FIELD_LABEL_KEY: Record<string, string> = {
+  adSoyad: "quote.fullName",
+  email: "quote.email",
+  telefon: "quote.phone",
+  tesisAdi: "quote.facilityName",
+  tesisTipi: "quote.facilityType",
+  odaSayisi: "quote.roomCount",
+  mesaj: "quote.message",
+  ad: "contact.name",
+  konu: "contact.subject",
+};
+
+/** Turns validation descriptors back into the Turkish sentence the guard returns. */
+async function formatGuardError(
+  errors: Partial<Record<string, FieldError>>,
+): Promise<string> {
+  const locale = routing.defaultLocale;
+  const tValidation = await getTranslations({
+    locale,
+    namespace: "forms.validation",
+  });
+  const tForms = await getTranslations({ locale, namespace: "forms" });
+
+  return formatValidationErrors(errors, (field, error) => {
+    const labelKey = FIELD_LABEL_KEY[field];
+    return resolveFieldError(
+      tValidation,
+      error,
+      labelKey ? tForms(labelKey) : undefined,
+    );
+  });
+}
 
 // The Resend SDK depends on Node APIs and will not run on the edge runtime.
 export const runtime = "nodejs";
@@ -118,7 +160,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   const result = validateTeklifRequest(body);
   if (!result.ok) {
     return NextResponse.json(
-      { error: formatValidationErrors(result.errors) },
+      { error: await formatGuardError(result.errors) },
       { status: 400 },
     );
   }

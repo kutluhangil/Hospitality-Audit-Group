@@ -451,6 +451,18 @@
       "Resort": "Resort",
       "Butik": "Boutique",
       "Zincir": "Chain"
+    },
+    "validation": {
+      "invalidBody": "Invalid request body: a JSON object is expected.",
+      "required": "{label} is required.",
+      "tooLong": "{label} must be at most {max} characters.",
+      "emailInvalid": "{label} must be a valid email address (e.g. name@yourproperty.com).",
+      "phoneInvalid": "{label} may contain only digits, spaces and + ( ) - characters.",
+      "optionInvalid": "An option not on the list was sent for {label}: \"{value}\".",
+      "consentQuoteKvkk": "Approval of the KVKK Privacy Notice is required to continue.",
+      "modulesNotList": "Selected modules must be sent as a list.",
+      "modulesInvalid": "Selected modules may contain only the codes A–E. Invalid: {invalid}.",
+      "unknownType": "Unknown request type: {type}. \"quote\" or \"contact\" expected."
     }
   },
   "evidence": {

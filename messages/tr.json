@@ -451,6 +451,18 @@
       "Resort": "Resort",
       "Butik": "Butik",
       "Zincir": "Zincir"
+    },
+    "validation": {
+      "invalidBody": "Geçersiz istek gövdesi: JSON nesnesi bekleniyor.",
+      "required": "{label} zorunludur.",
+      "tooLong": "{label} en fazla {max} karakter olabilir.",
+      "emailInvalid": "{label} geçerli bir e-posta adresi olmalıdır (ör. ad@tesisiniz.com).",
+      "phoneInvalid": "{label} yalnızca rakam, boşluk ve + ( ) - karakterlerini içerebilir.",
+      "optionInvalid": "{label} için listede olmayan bir seçenek gönderildi: \"{value}\".",
+      "consentQuoteKvkk": "Devam etmek için KVKK Aydınlatma Metni onayı gereklidir.",
+      "modulesNotList": "Seçili modüller bir liste olarak gönderilmelidir.",
+      "modulesInvalid": "Seçili modüller yalnızca A–E kodlarını içerebilir. Geçersiz: {invalid}.",
+      "unknownType": "Bilinmeyen talep tipi: {type}. \"quote\" veya \"contact\" bekleniyor."
     }
   },
   "evidence": {

@@ -18,6 +18,7 @@ import {
   validateContactRequest,
   type ContactField,
 } from "@/lib/quote-schema";
+import { resolveFieldError, type FieldError } from "@/lib/validation-messages";
 
 type Values = {
   ad: string;
@@ -33,12 +34,19 @@ type Status = "idle" | "submitting" | "success";
 export function ContactForm() {
   const t = useTranslations("forms");
   const tContact = useTranslations("forms.contact");
+  const tValidation = useTranslations("forms.validation");
   const [values, setValues] = useState<Values>(EMPTY_VALUES);
   const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState("");
-  const [errors, setErrors] = useState<Partial<Record<ContactField, string>>>(
-    {},
-  );
+  const [errors, setErrors] = useState<
+    Partial<Record<ContactField, FieldError>>
+  >({});
+
+  /** Descriptor to sentence, with the field's own label the reader already sees. */
+  const fieldError = (error: FieldError | undefined, label?: string) =>
+    error
+      ? resolveFieldError((key, values) => tValidation(key, values), error, label)
+      : undefined;
   const [status, setStatus] = useState<Status>("idle");
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [reference, setReference] = useState<string | null>(null);
@@ -107,7 +115,7 @@ export function ContactForm() {
         required
         autoComplete="name"
         value={values.ad}
-        error={errors.ad}
+        error={fieldError(errors.ad, tContact("name"))}
         onChange={(event) => update("ad", event.target.value)}
       />
       <TextField
@@ -117,7 +125,7 @@ export function ContactForm() {
         required
         autoComplete="email"
         value={values.email}
-        error={errors.email}
+        error={fieldError(errors.email, tContact("email"))}
         onChange={(event) => update("email", event.target.value)}
       />
       <TextField
@@ -125,7 +133,7 @@ export function ContactForm() {
         label={tContact("subject")}
         required
         value={values.konu}
-        error={errors.konu}
+        error={fieldError(errors.konu, tContact("subject"))}
         onChange={(event) => update("konu", event.target.value)}
       />
       <TextareaField
@@ -133,7 +141,7 @@ export function ContactForm() {
         label={tContact("message")}
         required
         value={values.mesaj}
-        error={errors.mesaj}
+        error={fieldError(errors.mesaj, tContact("message"))}
         onChange={(event) => update("mesaj", event.target.value)}
       />
 
@@ -143,7 +151,7 @@ export function ContactForm() {
         id="kvkkConsent"
         required
         checked={consent}
-        error={errors.kvkkConsent}
+        error={fieldError(errors.kvkkConsent)}
         onChange={(event) => setConsent(event.target.checked)}
       >
         {/* Rich text rather than three concatenated pieces: where the link falls

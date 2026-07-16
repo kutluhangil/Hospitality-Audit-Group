@@ -23,6 +23,7 @@ import {
   validateQuoteRequest,
   type QuoteField,
 } from "@/lib/quote-schema";
+import { resolveFieldError, type FieldError } from "@/lib/validation-messages";
 
 type Values = {
   adSoyad: string;
@@ -49,6 +50,7 @@ type Status = "idle" | "submitting" | "success";
 export function QuoteForm() {
   const t = useTranslations("forms");
   const tQuote = useTranslations("forms.quote");
+  const tValidation = useTranslations("forms.validation");
   const tCart = useTranslations("cart");
   const tCatalogue = useTranslations("catalogue");
   const tModules = useTranslations("modules");
@@ -57,7 +59,15 @@ export function QuoteForm() {
   const [values, setValues] = useState<Values>(EMPTY_VALUES);
   const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState("");
-  const [errors, setErrors] = useState<Partial<Record<QuoteField, string>>>({});
+  const [errors, setErrors] = useState<Partial<Record<QuoteField, FieldError>>>(
+    {},
+  );
+
+  /** Descriptor to sentence, with the field's own label the reader already sees. */
+  const fieldError = (error: FieldError | undefined, label?: string) =>
+    error
+      ? resolveFieldError((key, values) => tValidation(key, values), error, label)
+      : undefined;
   const [status, setStatus] = useState<Status>("idle");
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [reference, setReference] = useState<string | null>(null);
@@ -180,7 +190,7 @@ export function QuoteForm() {
             required
             autoComplete="name"
             value={values.adSoyad}
-            error={errors.adSoyad}
+            error={fieldError(errors.adSoyad, tQuote("fullName"))}
             onChange={(event) => update("adSoyad", event.target.value)}
           />
           <TextField
@@ -190,7 +200,7 @@ export function QuoteForm() {
             required
             autoComplete="email"
             value={values.email}
-            error={errors.email}
+            error={fieldError(errors.email, tQuote("email"))}
             onChange={(event) => update("email", event.target.value)}
           />
           <TextField
@@ -199,7 +209,7 @@ export function QuoteForm() {
             type="tel"
             autoComplete="tel"
             value={values.telefon}
-            error={errors.telefon}
+            error={fieldError(errors.telefon, tQuote("phone"))}
             onChange={(event) => update("telefon", event.target.value)}
           />
           <TextField
@@ -208,7 +218,7 @@ export function QuoteForm() {
             required
             autoComplete="organization"
             value={values.tesisAdi}
-            error={errors.tesisAdi}
+            error={fieldError(errors.tesisAdi, tQuote("facilityName"))}
             onChange={(event) => update("tesisAdi", event.target.value)}
           />
           <SelectField
@@ -220,7 +230,7 @@ export function QuoteForm() {
             }))}
             placeholder={tQuote("placeholder")}
             value={values.tesisTipi}
-            error={errors.tesisTipi}
+            error={fieldError(errors.tesisTipi, tQuote("facilityType"))}
             onChange={(event) => update("tesisTipi", event.target.value)}
           />
           <SelectField
@@ -233,7 +243,7 @@ export function QuoteForm() {
             }))}
             placeholder={tQuote("placeholder")}
             value={values.odaSayisi}
-            error={errors.odaSayisi}
+            error={fieldError(errors.odaSayisi, tQuote("roomCount"))}
             onChange={(event) => update("odaSayisi", event.target.value)}
           />
         </div>
@@ -242,7 +252,7 @@ export function QuoteForm() {
           id="mesaj"
           label={tQuote("message")}
           value={values.mesaj}
-          error={errors.mesaj}
+          error={fieldError(errors.mesaj, tQuote("message"))}
           onChange={(event) => update("mesaj", event.target.value)}
         />
 
@@ -252,7 +262,7 @@ export function QuoteForm() {
           id="kvkkConsent"
           required
           checked={consent}
-          error={errors.kvkkConsent}
+          error={fieldError(errors.kvkkConsent)}
           onChange={(event) => setConsent(event.target.checked)}
         >
           {t.rich("consent", {
