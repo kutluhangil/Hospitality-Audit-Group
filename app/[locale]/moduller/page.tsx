@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { ModuleCard, toCatalogueEntry } from "@/components/modules/ModuleCard";
+import { MobileCartBar } from "@/components/modules/MobileCartBar";
 import { ModulesSelectionSummary } from "@/components/modules/ModulesSelectionSummary";
 import { PackageOfferBanner } from "@/components/modules/PackageOfferBanner";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -48,8 +49,15 @@ export default async function ModulesPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <ModulesPageBody />;
+  return (
+    <>
+      <ModulesPageBody />
+      {/* Floats above the page on mobile when cart has items */}
+      <MobileCartBar />
+    </>
+  );
 }
+
 
 function ModulesPageBody() {
   const t = useTranslations("modulesPage");

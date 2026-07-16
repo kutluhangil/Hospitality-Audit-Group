@@ -252,7 +252,12 @@
     "title": "Denetiminizi modül modül kurun.",
     "body": "İhtiyacınız olan modülleri özgürce seçin, yatırımınızı doğrudan öncelikli alanlarınıza yönlendirin. Toplam {total} kriter; her biri bir kanıt türüne bağlı.",
     "metaTitle": "Modüler Hizmet Mimarisi",
-    "metaDescription": "Ön büro, F&B, wellness, kat hizmetleri ve 360° tam denetim modülleri. İhtiyacınız olan modülleri seçin, teklifinizi oluşturun."
+    "metaDescription": "Ön büro, F&B, wellness, kat hizmetleri ve 360° tam denetim modülleri. İhtiyacınız olan modülleri seçin, teklifinizi oluşturun.",
+    "mobileCartBar": {
+      "label": "Seçim özeti",
+      "itemCount": "{count} KALEM SEÇİLDİ",
+      "cta": "Devam →"
+    }
   },
   "modulePage": {
     "metaTitle": "Modül {code} — {title}",

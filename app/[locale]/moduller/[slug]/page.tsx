@@ -15,6 +15,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { alternatesFor } from "@/i18n/metadata";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { criteriaCount, getCriteria, thresholds } from "@/lib/audit-criteria";
+import { translateModule } from "@/lib/criteria/translate";
 import { illustrationFor } from "@/lib/illustrations";
 import { modules } from "@/lib/modules-data";
 
@@ -80,13 +81,45 @@ export default async function ModuleDetailPage({
   const tCatalogue = await getTranslations({ locale, namespace: "catalogue" });
   const tModules = await getTranslations({ locale, namespace: "modules" });
 
-  const criteria = getCriteria(auditModule.code);
-  if (!criteria) {
+  const rawCriteria = getCriteria(auditModule.code);
+  if (!rawCriteria) {
     // Every module is transcribed; a missing entry is a data bug, not a 404.
     throw new Error(
       `Module ${auditModule.code} has no transcribed criteria in lib/criteria/.`,
     );
   }
+
+  // Overlay EN translations when the locale is English. TR is the source
+  // language — no overlay needed. The messages object is keyed by criterion
+  // code ("A.2.2") or group code ("A.2."), which is exactly what translateModule expects.
+  let criteriaMessages: import("@/lib/criteria/translate").CriteriaMessages | undefined;
+  if (locale === "en") {
+    const tCriteria = await getTranslations({ locale, namespace: "criteria" });
+    // Build a plain Record so translateModule can look up any key.
+    // next-intl's t() function returns the string for a given key; we reconstruct
+    // the nested shape translateModule expects via a Proxy-like lookup approach.
+    criteriaMessages = new Proxy({} as import("@/lib/criteria/translate").CriteriaMessages, {
+      get(_target, prop: string) {
+        if (typeof prop !== "string") return undefined;
+        // Each entry has optional text, title, intro, threshold, role, body.
+        const tryGet = (field: string) => {
+          try { return tCriteria.raw(`${prop}.${field}`) as string | undefined; }
+          catch { return undefined; }
+        };
+        return {
+          text: tryGet("text"),
+          title: tryGet("title"),
+          intro: tryGet("intro"),
+          threshold: tryGet("threshold"),
+          role: tryGet("role"),
+          body: tryGet("body"),
+        };
+      },
+      has(_target, prop: string) { return typeof prop === "string"; },
+    });
+  }
+
+  const criteria = translateModule(rawCriteria, criteriaMessages);
 
   const count = criteriaCount(auditModule.code);
   const bounds = thresholds(auditModule.code);
