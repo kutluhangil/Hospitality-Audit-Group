@@ -32,8 +32,46 @@ function warnIfPlaceholder() {
 
 warnIfPlaceholder();
 
+/**
+ * Content-Security-Policy. `script-src`/`style-src` keep 'unsafe-inline' on
+ * purpose: next-themes writes an inline pre-hydration script onto <html>, and
+ * Tailwind/Framer Motion emit inline styles. The XSS surface that would justify
+ * nonces is absent here — no dangerouslySetInnerHTML, no user-authored HTML is
+ * ever rendered. iyzico origins are pre-allow-listed so the 3DS payment flow
+ * works the moment live keys are added, without another config change.
+ */
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "img-src 'self' data: blob:",
+  "font-src 'self'",
+  "style-src 'self' 'unsafe-inline'",
+  "script-src 'self' 'unsafe-inline'",
+  "connect-src 'self' https://*.iyzipay.com",
+  "frame-src https://*.iyzipay.com",
+  "form-action 'self' https://*.iyzipay.com",
+  "frame-ancestors 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
+const securityHeaders = [
+  { key: "Content-Security-Policy", value: contentSecurityPolicy },
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains; preload",
+  },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async headers() {
+    return [{ source: "/:path*", headers: securityHeaders }];
+  },
   async redirects() {
     return [
       // /hakkimizda shipped in v1 and may be linked or indexed; its content now
