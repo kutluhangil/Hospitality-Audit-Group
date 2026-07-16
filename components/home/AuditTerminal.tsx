@@ -1,81 +1,79 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 type LogLine =
-  | { kind: "command"; text: string }
+  | { kind: "command" }
   | {
       kind: "check";
+      id: string;
       time: string;
-      label: string;
-      detail: string;
       status: "ok" | "fail";
-      note?: string;
+      hasNote: boolean;
     }
-  | { kind: "note"; text: string };
+  | { kind: "note"; id: string };
 
 /**
  * The audit log from blueprint 2.1, kept as structured data rather than a
  * space-padded block: the columns are rebuilt with layout so the panel can
  * reflow on a narrow screen instead of scrolling sideways.
+ *
+ * Only the wording is language-dependent, so only the wording is looked up.
+ * A timestamp is the same in every language, a ✓ is a ✓, and whether a finding
+ * carries a note is a fact about the finding rather than about the reader — all
+ * of that stays here. The text lives under `home.auditTerminal` in messages.
  */
 const LOG_LINES: readonly LogLine[] = [
-  { kind: "command", text: '$ hag audit --module=A --property="•••• Hotel & Spa"' },
+  { kind: "command" },
   {
     kind: "check",
+    id: "checkin",
     time: "[14:02:11]",
-    label: "check-in",
-    detail: "süre: 3dk 40sn",
     status: "ok",
-    note: "standart: <4dk",
+    hasNote: true,
   },
   {
     kind: "check",
+    id: "bellboy",
     time: "[14:06:32]",
-    label: "bellboy",
-    detail: "karşılama süresi 45sn",
     status: "ok",
+    hasNote: false,
   },
   {
     kind: "check",
+    id: "roomHygiene",
     time: "[14:41:05]",
-    label: "oda hijyeni",
-    detail: "buklet düzeni",
     status: "fail",
-    note: "eksik: 2 kalem",
+    hasNote: true,
   },
   {
     kind: "check",
+    id: "fnb",
     time: "[19:20:18]",
-    label: "f&b",
-    detail: "reçete gramajı",
     status: "fail",
-    note: "sapma: %11",
+    hasNote: true,
   },
   {
     kind: "check",
+    id: "upselling",
     time: "[21:05:44]",
-    label: "upselling",
-    detail: "teklif yapılmadı",
     status: "fail",
-    note: "gelir kaybı",
+    hasNote: true,
   },
-  { kind: "note", text: "> rapor hazırlanıyor... SWOT + ROI analizi" },
-  { kind: "note", text: "> tespit edilen aylık gelir kaçağı: ₺ ***.***" },
+  { kind: "note", id: "report" },
+  { kind: "note", id: "leakage" },
 ];
 
 const LINE_INTERVAL_MS = 600;
 const HOLD_MS = 2600;
 const FADE_MS = 700;
 
-/** Read out as one coherent sentence, since a looping log would otherwise stutter. */
-const SCREEN_READER_LABEL =
-  "Örnek gizli müşteri denetim logu: check-in ve bellboy standarda uygun; oda hijyeni, reçete gramajı ve upselling kaleminde sapma tespit edildi.";
-
 type Phase = { count: number; fading: boolean };
 
 export function AuditTerminal() {
+  const t = useTranslations("home.auditTerminal");
   const reduceMotion = useReducedMotion();
   const [phase, setPhase] = useState<Phase>({ count: 0, fading: false });
 
@@ -87,7 +85,10 @@ export function AuditTerminal() {
     // One timer per phase step; the effect re-runs on each state change and
     // schedules only the next hop, so unmounting always clears a live timer.
     if (phase.fading) {
-      const timer = setTimeout(() => setPhase({ count: 0, fading: false }), FADE_MS);
+      const timer = setTimeout(
+        () => setPhase({ count: 0, fading: false }),
+        FADE_MS,
+      );
       return () => clearTimeout(timer);
     }
 
@@ -99,23 +100,38 @@ export function AuditTerminal() {
       return () => clearTimeout(timer);
     }
 
-    const timer = setTimeout(() => setPhase((current) => ({ ...current, fading: true })), HOLD_MS);
+    const timer = setTimeout(
+      () => setPhase((current) => ({ ...current, fading: true })),
+      HOLD_MS,
+    );
     return () => clearTimeout(timer);
   }, [phase, reduceMotion]);
 
-  const visibleLines = reduceMotion ? LOG_LINES : LOG_LINES.slice(0, phase.count);
+  const visibleLines = reduceMotion
+    ? LOG_LINES
+    : LOG_LINES.slice(0, phase.count);
 
   return (
     <div
       role="img"
-      aria-label={SCREEN_READER_LABEL}
+      // Read out as one coherent sentence: a looping log would otherwise stutter.
+      aria-label={t("srLabel")}
       className="overflow-hidden rounded-xl2 border border-terminal-ink/10 bg-terminal-bg shadow-sm"
     >
       <div className="flex items-center gap-2 border-b border-terminal-ink/10 px-4 py-3">
         {/* Three brass dots rather than the macOS traffic lights — a nod to the star rating. */}
-        <span className="h-2.5 w-2.5 rounded-full bg-brass" aria-hidden="true" />
-        <span className="h-2.5 w-2.5 rounded-full bg-brass/60" aria-hidden="true" />
-        <span className="h-2.5 w-2.5 rounded-full bg-brass/30" aria-hidden="true" />
+        <span
+          className="h-2.5 w-2.5 rounded-full bg-brass"
+          aria-hidden="true"
+        />
+        <span
+          className="h-2.5 w-2.5 rounded-full bg-brass/60"
+          aria-hidden="true"
+        />
+        <span
+          className="h-2.5 w-2.5 rounded-full bg-brass/30"
+          aria-hidden="true"
+        />
         <span className="ml-2 font-mono text-[11px] uppercase tracking-[0.18em] text-terminal-ink/50">
           audit-log
         </span>
@@ -133,7 +149,10 @@ export function AuditTerminal() {
       >
         <motion.div
           animate={{ opacity: phase.fading && !reduceMotion ? 0 : 1 }}
-          transition={{ duration: reduceMotion ? 0 : FADE_MS / 1000, ease: "easeOut" }}
+          transition={{
+            duration: reduceMotion ? 0 : FADE_MS / 1000,
+            ease: "easeOut",
+          }}
         >
           {visibleLines.map((line, index) => (
             <LogRow
@@ -141,7 +160,9 @@ export function AuditTerminal() {
               line={line}
               animate={!reduceMotion}
               isLast={index === visibleLines.length - 1}
-              startsNoteGroup={line.kind === "note" && visibleLines[index - 1]?.kind !== "note"}
+              startsNoteGroup={
+                line.kind === "note" && visibleLines[index - 1]?.kind !== "note"
+              }
             />
           ))}
         </motion.div>
@@ -150,8 +171,9 @@ export function AuditTerminal() {
   );
 }
 
+/** Stable across a language change, since none of these are the copy itself. */
 function rowKey(line: LogLine): string {
-  return line.kind === "check" ? `${line.time}-${line.label}` : line.text;
+  return line.kind === "command" ? "command" : `${line.kind}-${line.id}`;
 }
 
 function LogRow({
@@ -168,7 +190,13 @@ function LogRow({
   const content = <LogContent line={line} isLast={isLast} />;
   // Reproduces the blank lines the blueprint's log has around the check block.
   const spacing =
-    line.kind === "command" ? "mb-4" : startsNoteGroup ? "mt-4" : line.kind === "note" ? "mt-1" : "";
+    line.kind === "command"
+      ? "mb-4"
+      : startsNoteGroup
+        ? "mt-4"
+        : line.kind === "note"
+          ? "mt-1"
+          : "";
   const className = ["min-w-0", spacing].filter(Boolean).join(" ");
 
   if (!animate) {
@@ -188,10 +216,12 @@ function LogRow({
 }
 
 function LogContent({ line, isLast }: { line: LogLine; isLast: boolean }) {
+  const t = useTranslations("home.auditTerminal");
+
   if (line.kind === "command") {
     return (
       <p className="break-words text-terminal-ink">
-        {line.text}
+        {t("command")}
         {isLast ? <Caret /> : null}
       </p>
     );
@@ -200,7 +230,7 @@ function LogContent({ line, isLast }: { line: LogLine; isLast: boolean }) {
   if (line.kind === "note") {
     return (
       <p className="break-words text-terminal-ink/70">
-        {line.text}
+        {t(`notes.${line.id}`)}
         {isLast ? <Caret /> : null}
       </p>
     );
@@ -218,8 +248,10 @@ function LogContent({ line, isLast }: { line: LogLine; isLast: boolean }) {
   return (
     <p className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 @[28rem]:grid-cols-[auto_6.5rem_1fr_auto]">
       <span className="text-terminal-ink/45">{line.time}</span>
-      <span>{line.label}</span>
-      <span className="col-start-2 text-terminal-ink/75 @[28rem]:col-start-auto">{line.detail}</span>
+      <span>{t(`lines.${line.id}.label`)}</span>
+      <span className="col-start-2 text-terminal-ink/75 @[28rem]:col-start-auto">
+        {t(`lines.${line.id}.detail`)}
+      </span>
       {/* text-accent is legitimate here: 4.86:1 against the terminal panel. */}
       <span
         className={[
@@ -228,7 +260,7 @@ function LogContent({ line, isLast }: { line: LogLine; isLast: boolean }) {
         ].join(" ")}
       >
         {isOk ? "✓" : "✗"}
-        {line.note ? ` ${line.note}` : ""}
+        {line.hasNote ? ` ${t(`lines.${line.id}.note`)}` : ""}
         {isLast ? <Caret /> : null}
       </span>
     </p>
@@ -237,5 +269,7 @@ function LogContent({ line, isLast }: { line: LogLine; isLast: boolean }) {
 
 /** Static block caret: it reads as a terminal without spending animation budget. */
 function Caret() {
-  return <span className="ml-1 inline-block h-3 w-1.5 translate-y-px bg-terminal-ink/70" />;
+  return (
+    <span className="ml-1 inline-block h-3 w-1.5 translate-y-px bg-terminal-ink/70" />
+  );
 }

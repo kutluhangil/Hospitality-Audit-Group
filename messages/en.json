@@ -5,7 +5,103 @@
     "hours": "Weekdays 09:00 – 18:00"
   },
   "home": {
-    "metaDescription": "Our senior auditors arrive at your property as guests. They measure the gap between your brand standard and what happens on the floor, and report the revenue leaking through it in figures."
+    "metaDescription": "Our senior auditors arrive at your property as guests. They measure the gap between your brand standard and what happens on the floor, and report the revenue leaking through it in figures.",
+    "hero": {
+      "eyebrow": "MYSTERY GUEST AUDITS • STAFF TRAINING",
+      "title": "Your guest sees everything. So do we.",
+      "body": "Our auditors have run hotels at senior level. They arrive at your property as guests, measure the gap between the brand standard you promise and what actually happens on the floor, and put the revenue leaking through that gap in front of you in figures.",
+      "ctaPrimary": "Request a Quote",
+      "ctaSecondary": "See How We Work"
+    },
+    "trust": {
+      "items": [
+        "FULL KVKK COMPLIANCE",
+        "MUTUAL NDA",
+        "BOARD-READY SWOT REPORT",
+        "SENIOR INDUSTRY AUDITORS"
+      ]
+    },
+    "services": {
+      "mysteryShopping": {
+        "title": "Hotel Audits by Mystery Guest",
+        "description": "From reservation to check-out, we measure the whole guest experience — unannounced, and with no stake in the answer."
+      },
+      "staffTraining": {
+        "title": "Staff Training",
+        "description": "We turn what the audit finds into department-level training programmes, with outcomes you can measure."
+      }
+    },
+    "process": {
+      "discovery": {
+        "title": "DISCOVERY",
+        "description": "Needs call, NDA signed, modules selected."
+      },
+      "field": {
+        "title": "FIELD",
+        "description": "An unannounced mystery guest visit; evidence gathered against standard checklists."
+      },
+      "report": {
+        "title": "REPORT",
+        "description": "SWOT and ROI analysis; revenue leakage and gaps in plain figures."
+      },
+      "transformation": {
+        "title": "TRANSFORMATION",
+        "description": "Department-level staff training, and a follow-up audit."
+      }
+    },
+    "stats": {
+      "modules": {
+        "value": "4 modules",
+        "description": "an audit architecture you assemble to fit"
+      },
+      "turnaround": {
+        "value": "48 hours",
+        "description": "to preliminary findings after the site visit"
+      },
+      "compliance": {
+        "value": "100%",
+        "description": "KVKK-compliant data collection and evidence analysis"
+      }
+    },
+    "auditTerminal": {
+      "srLabel": "Sample mystery guest audit log: check-in and bellboy met the standard; room hygiene, recipe portioning and upselling each showed a deviation.",
+      "command": "$ hag audit --module=A --property=\"•••• Hotel & Spa\"",
+      "lines": {
+        "checkin": {
+          "label": "check-in",
+          "detail": "duration: 3m 40s",
+          "note": "standard: <4m"
+        },
+        "bellboy": { "label": "bellboy", "detail": "greeted within 45s" },
+        "roomHygiene": {
+          "label": "room hygiene",
+          "detail": "amenity set",
+          "note": "missing: 2 items"
+        },
+        "fnb": {
+          "label": "f&b",
+          "detail": "recipe portioning",
+          "note": "variance: 11%"
+        },
+        "upselling": {
+          "label": "upselling",
+          "detail": "no offer made",
+          "note": "revenue lost"
+        }
+      },
+      "notes": {
+        "report": "> preparing report... SWOT + ROI analysis",
+        "leakage": "> monthly revenue leakage identified: ₺ ***.***"
+      }
+    },
+    "modulesTeaser": {
+      "codePrefix": "MODULE",
+      "cta": "See all modules →"
+    },
+    "finalCta": {
+      "title": "Let us take an honest picture of your property.",
+      "cta": "Request a Quote"
+    }
   },
   "nav": {
     "services": "Services",

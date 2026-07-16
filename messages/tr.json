@@ -5,7 +5,103 @@
     "hours": "Hafta içi 09:00 – 18:00"
   },
   "home": {
-    "metaDescription": "Sektör kıdemli denetçilerimiz tesisinize misafir olarak gelir; marka standardı ile sahadaki gerçek arasındaki boşluğu ölçer, gelir kaçaklarını rakamlarla raporlar."
+    "metaDescription": "Sektör kıdemli denetçilerimiz tesisinize misafir olarak gelir; marka standardı ile sahadaki gerçek arasındaki boşluğu ölçer, gelir kaçaklarını rakamlarla raporlar.",
+    "hero": {
+      "eyebrow": "GİZLİ MÜŞTERİ DENETİMİ • PERSONEL EĞİTİMİ",
+      "title": "Misafiriniz her şeyi görür. Biz de öyle.",
+      "body": "Sektörde üst düzey yöneticilik yapmış denetçilerimiz, tesisinize misafir olarak gelir; vaat ettiğiniz marka standardı ile sahada yaşanan gerçek arasındaki boşluğu ölçer, gelir kaçaklarını rakamlarla önünüze koyar.",
+      "ctaPrimary": "Teklif Alın",
+      "ctaSecondary": "Sürecimizi İnceleyin"
+    },
+    "trust": {
+      "items": [
+        "KVKK %100 UYUM",
+        "KARŞILIKLI NDA",
+        "YÖNETİM KURULUNA HAZIR SWOT RAPORU",
+        "SEKTÖR KIDEMLİ DENETÇİLER"
+      ]
+    },
+    "services": {
+      "mysteryShopping": {
+        "title": "Gizli Müşteri ile Otel Denetimi",
+        "description": "Rezervasyondan check-out'a, misafir deneyimi döngüsünün tamamını habersiz ve tarafsız ölçeriz."
+      },
+      "staffTraining": {
+        "title": "Personel Eğitimi",
+        "description": "Denetimde tespit edilen gelişim alanlarını, departman bazlı ve ölçülebilir eğitim programlarına çeviririz."
+      }
+    },
+    "process": {
+      "discovery": {
+        "title": "KEŞİF",
+        "description": "İhtiyaç görüşmesi, NDA imzası, modül seçimi."
+      },
+      "field": {
+        "title": "SAHA",
+        "description": "Habersiz gizli müşteri ziyareti; standart kontrol listeleriyle kanıt toplama."
+      },
+      "report": {
+        "title": "RAPOR",
+        "description": "SWOT + ROI analizi; gelir kaçağı ve gelişim alanları net rakamlarla."
+      },
+      "transformation": {
+        "title": "DÖNÜŞÜM",
+        "description": "Departman bazlı personel eğitimi ve takip denetimi."
+      }
+    },
+    "stats": {
+      "modules": {
+        "value": "4 modül",
+        "description": "ihtiyaca göre seçilebilir denetim mimarisi"
+      },
+      "turnaround": {
+        "value": "48 saat",
+        "description": "saha ziyareti sonrası ön bulgu paylaşımı"
+      },
+      "compliance": {
+        "value": "%100",
+        "description": "KVKK uyumlu veri toplama ve kanıt analizi"
+      }
+    },
+    "auditTerminal": {
+      "srLabel": "Örnek gizli müşteri denetim logu: check-in ve bellboy standarda uygun; oda hijyeni, reçete gramajı ve upselling kaleminde sapma tespit edildi.",
+      "command": "$ hag audit --module=A --property=\"•••• Hotel & Spa\"",
+      "lines": {
+        "checkin": {
+          "label": "check-in",
+          "detail": "süre: 3dk 40sn",
+          "note": "standart: <4dk"
+        },
+        "bellboy": { "label": "bellboy", "detail": "karşılama süresi 45sn" },
+        "roomHygiene": {
+          "label": "oda hijyeni",
+          "detail": "buklet düzeni",
+          "note": "eksik: 2 kalem"
+        },
+        "fnb": {
+          "label": "f&b",
+          "detail": "reçete gramajı",
+          "note": "sapma: %11"
+        },
+        "upselling": {
+          "label": "upselling",
+          "detail": "teklif yapılmadı",
+          "note": "gelir kaybı"
+        }
+      },
+      "notes": {
+        "report": "> rapor hazırlanıyor... SWOT + ROI analizi",
+        "leakage": "> tespit edilen aylık gelir kaçağı: ₺ ***.***"
+      }
+    },
+    "modulesTeaser": {
+      "codePrefix": "MODUL",
+      "cta": "Tüm modülleri inceleyin →"
+    },
+    "finalCta": {
+      "title": "Tesisinizin gerçek fotoğrafını çekelim.",
+      "cta": "Teklif Alın"
+    }
   },
   "nav": {
     "services": "Hizmetler",
