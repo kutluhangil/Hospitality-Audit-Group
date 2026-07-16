@@ -42,7 +42,17 @@ export function Footer() {
   return (
     <footer className="border-t border-line bg-bg-soft">
       <div className="mx-auto max-w-content px-4 py-14 sm:px-6">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <Link href="/biz-kimiz" className="group">
+              <h2 className={`${headingClasses} transition-colors group-hover:text-ink-muted`}>
+                {tNav("aboutUs")}
+              </h2>
+            </Link>
+            <p className="mt-4 text-sm leading-relaxed text-ink-muted">
+              {tSite("description")}
+            </p>
+          </div>
 
           <FooterColumn title={t("services")} links={footerNav.hizmetler} />
           <FooterColumn title={t("corporate")} links={footerNav.kurumsal} />
