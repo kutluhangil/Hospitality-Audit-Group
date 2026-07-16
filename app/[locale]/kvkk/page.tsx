@@ -1,7 +1,12 @@
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
-import { LegalLink, LegalList, LegalPage, LegalSection } from "@/components/legal/LegalPage";
+import {
+  LegalLink,
+  LegalList,
+  LegalPage,
+  LegalSection,
+} from "@/components/legal/LegalPage";
 import type { LocaleParams } from "@/i18n/routing";
 import { siteConfig } from "@/lib/site-config";
 
@@ -58,7 +63,11 @@ const rights = [
   "Kişisel verilerinizin kanuna aykırı olarak işlenmesi sebebiyle zarara uğramanız hâlinde zararın giderilmesini talep etme",
 ] as const;
 
-export default async function KvkkPage({ params }: { params: Promise<LocaleParams> }) {
+export default async function KvkkPage({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -66,9 +75,9 @@ export default async function KvkkPage({ params }: { params: Promise<LocaleParam
     <LegalPage title="KVKK Aydınlatma Metni" updated="15 Temmuz 2026">
       <LegalSection title="1. Veri Sorumlusu">
         <p>
-          6698 sayılı Kişisel Verilerin Korunması Kanunu (&quot;KVKK&quot;) uyarınca kişisel
-          verileriniz, veri sorumlusu sıfatıyla {siteConfig.name} tarafından aşağıda açıklanan
-          kapsamda işlenmektedir.
+          6698 sayılı Kişisel Verilerin Korunması Kanunu (&quot;KVKK&quot;)
+          uyarınca kişisel verileriniz, veri sorumlusu sıfatıyla{" "}
+          {siteConfig.name} tarafından aşağıda açıklanan kapsamda işlenmektedir.
         </p>
         <p>
           Veri sorumlusuna{" "}
@@ -81,28 +90,29 @@ export default async function KvkkPage({ params }: { params: Promise<LocaleParam
 
       <LegalSection title="2. İşlenen Kişisel Veriler">
         <p>
-          Bu web sitesi üzerinden yalnızca teklif formu ve iletişim formu aracılığıyla tarafınızca
-          iletilen veriler işlenir. İşlenen veriler şunlardır:
+          Bu web sitesi üzerinden yalnızca teklif formu ve iletişim formu
+          aracılığıyla tarafınızca iletilen veriler işlenir. İşlenen veriler
+          şunlardır:
         </p>
         <LegalList items={collectedData} />
         <p>
-          Teklif formunda seçtiğiniz denetim modüllerinin kodları da talebinizin kapsamını
-          belirlemek üzere formla birlikte iletilir.
+          Teklif formunda seçtiğiniz denetim modüllerinin kodları da talebinizin
+          kapsamını belirlemek üzere formla birlikte iletilir.
         </p>
         <p>
-          Hizmeti kart ile satın almanız hâlinde, faturanın düzenlenebilmesi için aşağıdaki bilgiler
-          ayrıca işlenir:
+          Hizmeti kart ile satın almanız hâlinde, faturanın düzenlenebilmesi
+          için aşağıdaki bilgiler ayrıca işlenir:
         </p>
         <LegalList items={billingData} />
         <p>
           Kart numarası, son kullanma tarihi ve güvenlik kodu bu bilgilere{" "}
-          <strong>dahil değildir</strong>: kart bilgileri bu sitenin sunucularına hiçbir aşamada
-          ulaşmaz, doğrudan ödeme kuruluşunun kendi sayfasına iletilir ve tarafımızca görülmez veya
-          saklanmaz.
+          <strong>dahil değildir</strong>: kart bilgileri bu sitenin
+          sunucularına hiçbir aşamada ulaşmaz, doğrudan ödeme kuruluşunun kendi
+          sayfasına iletilir ve tarafımızca görülmez veya saklanmaz.
         </p>
         <p>
-          Site, bunların dışında herhangi bir kişisel veri toplamaz; ziyaretçi davranışını izleyen
-          bir analiz veya reklam aracı kullanılmaz.
+          Site, bunların dışında herhangi bir kişisel veri toplamaz; ziyaretçi
+          davranışını izleyen bir analiz veya reklam aracı kullanılmaz.
         </p>
       </LegalSection>
 
@@ -110,34 +120,37 @@ export default async function KvkkPage({ params }: { params: Promise<LocaleParam
         <p>Kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:</p>
         <LegalList items={purposes} />
         <p>
-          Verileriniz bu amaçların dışında kullanılmaz; pazarlama listelerine eklenmez ve üçüncü
-          kişilere satılmaz.
+          Verileriniz bu amaçların dışında kullanılmaz; pazarlama listelerine
+          eklenmez ve üçüncü kişilere satılmaz.
         </p>
       </LegalSection>
 
       <LegalSection title="4. Hukuki Sebep">
         <p>
-          Kişisel verileriniz, KVKK&apos;nın 5. maddesinin 2. fıkrasının (c) bendi uyarınca bir
-          sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması ve (f) bendi uyarınca
-          veri sorumlusunun meşru menfaatleri için veri işlenmesinin zorunlu olması hukuki
-          sebeplerine dayanarak, formu doldurarak tarafımıza ilettiğiniz beyanınız üzerine otomatik
-          yollarla işlenmektedir.
+          Kişisel verileriniz, KVKK&apos;nın 5. maddesinin 2. fıkrasının (c)
+          bendi uyarınca bir sözleşmenin kurulması veya ifasıyla doğrudan
+          doğruya ilgili olması ve (f) bendi uyarınca veri sorumlusunun meşru
+          menfaatleri için veri işlenmesinin zorunlu olması hukuki sebeplerine
+          dayanarak, formu doldurarak tarafımıza ilettiğiniz beyanınız üzerine
+          otomatik yollarla işlenmektedir.
         </p>
       </LegalSection>
 
       <LegalSection title="5. Saklama Süresi">
         <p>
-          Kişisel verileriniz, talebinizin karşılanması için gerekli olan süre boyunca ve ilgili
-          mevzuatta öngörülen zamanaşımı süreleri saklanır. Talebinizin sonuçlanmasının ardından bir
-          sözleşme ilişkisi kurulmadıysa verileriniz en geç 12 ay içinde silinir veya anonim hâle
+          Kişisel verileriniz, talebinizin karşılanması için gerekli olan süre
+          boyunca ve ilgili mevzuatta öngörülen zamanaşımı süreleri saklanır.
+          Talebinizin sonuçlanmasının ardından bir sözleşme ilişkisi
+          kurulmadıysa verileriniz en geç 12 ay içinde silinir veya anonim hâle
           getirilir. Bu süreden önce silinmesini talep etme hakkınız saklıdır.
         </p>
       </LegalSection>
 
       <LegalSection title="6. Kişisel Verilerin Aktarılması">
         <p>
-          Kişisel verileriniz, yalnızca talebinizin tarafımıza ulaştırılabilmesi amacıyla ve hizmet
-          alınan tedarikçilerle sınırlı olmak üzere aktarılır:
+          Kişisel verileriniz, yalnızca talebinizin tarafımıza ulaştırılabilmesi
+          amacıyla ve hizmet alınan tedarikçilerle sınırlı olmak üzere
+          aktarılır:
         </p>
         <LegalList
           items={[
@@ -146,15 +159,19 @@ export default async function KvkkPage({ params }: { params: Promise<LocaleParam
           ]}
         />
         <p>
-          Bu tedarikçiler yurt dışında bulunduğundan söz konusu aktarım, KVKK&apos;nın 9. maddesi
-          kapsamında yurt dışına aktarım niteliğindedir. Verileriniz bunların dışında hiçbir üçüncü
-          kişiyle paylaşılmaz; yalnızca kanunen yetkili kamu kurum ve kuruluşlarına, mevzuatın
-          zorunlu kıldığı hâllerde aktarılabilir.
+          Bu tedarikçiler yurt dışında bulunduğundan söz konusu aktarım,
+          KVKK&apos;nın 9. maddesi kapsamında yurt dışına aktarım
+          niteliğindedir. Verileriniz bunların dışında hiçbir üçüncü kişiyle
+          paylaşılmaz; yalnızca kanunen yetkili kamu kurum ve kuruluşlarına,
+          mevzuatın zorunlu kıldığı hâllerde aktarılabilir.
         </p>
       </LegalSection>
 
       <LegalSection title="7. KVKK 11. Madde Kapsamındaki Haklarınız">
-        <p>Veri sahibi olarak KVKK&apos;nın 11. maddesi uyarınca aşağıdaki haklara sahipsiniz:</p>
+        <p>
+          Veri sahibi olarak KVKK&apos;nın 11. maddesi uyarınca aşağıdaki
+          haklara sahipsiniz:
+        </p>
         <LegalList items={rights} />
       </LegalSection>
 
@@ -164,10 +181,10 @@ export default async function KvkkPage({ params }: { params: Promise<LocaleParam
           <LegalLink href={`mailto:${siteConfig.contact.email}`}>
             {siteConfig.contact.email}
           </LegalLink>{" "}
-          adresine iletebilirsiniz. Başvurunuz, talebinizin niteliğine göre en kısa sürede ve en geç
-          otuz gün içinde ücretsiz olarak sonuçlandırılır. İşlemin ayrıca bir maliyet gerektirmesi
-          hâlinde Kişisel Verileri Koruma Kurulu tarafından belirlenen tarifedeki ücret talep
-          edilebilir.
+          adresine iletebilirsiniz. Başvurunuz, talebinizin niteliğine göre en
+          kısa sürede ve en geç otuz gün içinde ücretsiz olarak sonuçlandırılır.
+          İşlemin ayrıca bir maliyet gerektirmesi hâlinde Kişisel Verileri
+          Koruma Kurulu tarafından belirlenen tarifedeki ücret talep edilebilir.
         </p>
       </LegalSection>
     </LegalPage>

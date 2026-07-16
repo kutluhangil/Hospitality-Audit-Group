@@ -19,16 +19,26 @@ export function SectionHeading({
   const centered = align === "center";
   return (
     <div
-      className={[centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl", className]
+      className={[
+        centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl",
+        className,
+      ]
         .filter(Boolean)
         .join(" ")}
     >
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <h2 className={["font-serif text-3xl md:text-4xl", eyebrow ? "mt-3" : ""].join(" ")}>
+      <h2
+        className={[
+          "font-serif text-3xl md:text-4xl",
+          eyebrow ? "mt-3" : "",
+        ].join(" ")}
+      >
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 text-base leading-relaxed text-ink-muted md:text-lg">{description}</p>
+        <p className="mt-4 text-base leading-relaxed text-ink-muted md:text-lg">
+          {description}
+        </p>
       ) : null}
     </div>
   );

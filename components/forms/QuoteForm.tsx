@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState, type FormEvent } from "react";
 
 import {
@@ -14,7 +15,6 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Link } from "@/i18n/navigation";
-import { getModule } from "@/lib/modules-data";
 import { useQuoteCart } from "@/lib/quote-cart";
 import {
   FACILITY_TYPES,
@@ -46,9 +46,13 @@ const EMPTY_VALUES: Values = {
 
 type Status = "idle" | "submitting" | "success";
 
-const NETWORK_FAILURE = "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.";
+const NETWORK_FAILURE =
+  "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.";
 
 export function QuoteForm() {
+  const tCart = useTranslations("cart");
+  const tCatalogue = useTranslations("catalogue");
+  const tModules = useTranslations("modules");
   const { selected, hydrated, remove, clear } = useQuoteCart();
 
   const [values, setValues] = useState<Values>(EMPTY_VALUES);
@@ -115,7 +119,9 @@ export function QuoteForm() {
         <p className="font-mono text-sm text-accent-strong md:text-base">
           TALEP ALINDI — REF: {reference}
         </p>
-        <p className="mt-4 text-base text-ink-muted">48 saat içinde dönüş yapıyoruz.</p>
+        <p className="mt-4 text-base text-ink-muted">
+          48 saat içinde dönüş yapıyoruz.
+        </p>
       </Card>
     );
   }
@@ -139,30 +145,31 @@ export function QuoteForm() {
             </div>
           ) : (
             <ul className="mt-4 space-y-3">
-              {selected.map((code) => {
-                const auditModule = getModule(code);
-                return (
-                  <li
-                    key={code}
-                    className="flex items-start justify-between gap-4 rounded-xl2 border border-line bg-surface p-4"
+              {selected.map((code) => (
+                <li
+                  key={code}
+                  className="flex items-start justify-between gap-4 rounded-xl2 border border-line bg-surface p-4"
+                >
+                  <div>
+                    <span className="font-mono text-xs tracking-[0.2em] text-ink-muted">
+                      {tCatalogue("moduleLabel")}-{code}
+                    </span>
+                    <p className="mt-1 font-serif text-lg leading-snug">
+                      {tModules(`${code}.title`)}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => remove(code)}
+                    aria-label={tCart("removeAria", {
+                      title: tModules(`${code}.title`),
+                    })}
+                    className="shrink-0 font-mono text-xs uppercase tracking-[0.2em] text-ink-muted transition-colors duration-150 hover:text-accent-strong"
                   >
-                    <div>
-                      <span className="font-mono text-xs tracking-[0.2em] text-ink-muted">
-                        MODÜL-{code}
-                      </span>
-                      <p className="mt-1 font-serif text-lg leading-snug">{auditModule?.title}</p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => remove(code)}
-                      aria-label={`${auditModule?.title ?? code} modülünü çıkar`}
-                      className="shrink-0 font-mono text-xs uppercase tracking-[0.2em] text-ink-muted transition-colors duration-150 hover:text-accent-strong"
-                    >
-                      Çıkar
-                    </button>
-                  </li>
-                );
-              })}
+                    {tCart("remove")}
+                  </button>
+                </li>
+              ))}
             </ul>
           )
         ) : null}

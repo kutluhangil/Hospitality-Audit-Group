@@ -34,8 +34,8 @@ export function CorporateIdentity() {
         <Eyebrow tone="muted">KURUMSAL BİLGİLER</Eyebrow>
         <h2 className="mt-3 font-serif text-2xl">Kim olduğumuz, kayıtlarda.</h2>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">
-          Gizli müşteri firmasıyız; denetçilerimiz anonim. Şirketimiz değil. Aşağıdaki bilgiler
-          resmi kayıtlardan doğrulanabilir.
+          Gizli müşteri firmasıyız; denetçilerimiz anonim. Şirketimiz değil.
+          Aşağıdaki bilgiler resmi kayıtlardan doğrulanabilir.
         </p>
         <dl className="mt-6 grid gap-x-8 gap-y-4 sm:grid-cols-2">
           {rows.map((row) => (

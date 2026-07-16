@@ -72,7 +72,10 @@
           "detail": "duration: 3m 40s",
           "note": "standard: <4m"
         },
-        "bellboy": { "label": "bellboy", "detail": "greeted within 45s" },
+        "bellboy": {
+          "label": "bellboy",
+          "detail": "greeted within 45s"
+        },
         "roomHygiene": {
           "label": "room hygiene",
           "detail": "amenity set",
@@ -139,5 +142,104 @@
     "en": "EN",
     "trFull": "Turkish",
     "enFull": "English"
+  },
+  "modules": {
+    "A": {
+      "title": "Front Office",
+      "summary": "An audit of first contact, greeting speed, data-entry accuracy and the financial controls sitting behind them.",
+      "scope": [
+        "Greeting and valet standards",
+        "Check-in protocol and upsell performance",
+        "KVKK consent and CRM data accuracy",
+        "Crisis handling and the check-out process"
+      ]
+    },
+    "B": {
+      "title": "Food & Beverage (F&B)",
+      "summary": "Culinary quality assurance, recipe fidelity, speed, hygiene (HACCP) and shrinkage control.",
+      "scope": [
+        "Restaurant and à la carte service flow and speed",
+        "Menu command and cross-selling",
+        "Bar recipe fidelity and portion control",
+        "Shrinkage and room service"
+      ]
+    },
+    "C": {
+      "title": "Wellness & Recreation",
+      "summary": "Luxury service standards, microbiological hygiene, non-negotiable safety and revenue levers across spa, pool, beach and fitness.",
+      "scope": [
+        "Spa reception and appointment adherence",
+        "Therapist expertise, communication and upsell",
+        "Wet areas and fitness safety",
+        "Pool chemistry, beach and lifesaving cover"
+      ]
+    },
+    "E": {
+      "title": "Housekeeping & In-Room",
+      "summary": "Sensory first impression, textiles, deep microbiological hygiene, and how the equipment nobody thinks to check actually performs.",
+      "scope": [
+        "Sensory first impression and climate control",
+        "Bed presentation and textile quality",
+        "Bathroom sterilisation and detail hygiene",
+        "Balcony/terrace and in-room kitchenette"
+      ]
+    },
+    "D": {
+      "title": "360° Full Audit",
+      "summary": "Cross-department synergy, internal communication, training needs analysis, and a SWOT roadmap written for the board.",
+      "scope": [
+        "All of modules A + B + C + E",
+        "Inter-department communication and shift handover",
+        "PMS/POS/CRM financial reconciliation",
+        "Crisis simulation, TNA and board-level SWOT"
+      ]
+    },
+    "EGITIM": {
+      "title": "Staff Training",
+      "summary": "On-site training programmes, department by department, fed by what the audit found and measured against it.",
+      "scope": [
+        "Front office, F&B and housekeeping programmes",
+        "Role-play workshops",
+        "Pre- and post-test measurement",
+        "Verification by follow-up audit"
+      ]
+    },
+    "pricingNote": "PRICES INCLUDE VAT",
+    "scaleNote": "Listed prices are for standard-scale properties. Request a quote for a property of a different scale."
+  },
+  "cart": {
+    "add": "Add to Quote",
+    "inCart": "In Quote ✓",
+    "addAria": "Add the {title} module to your quote",
+    "removeAria": "Remove the {title} module from your quote",
+    "coveredBy": "Included in {package}",
+    "coveredAria": "{title}, included in {package}",
+    "remove": "Remove",
+    "removeLineAria": "Remove {title} from your selection",
+    "subtotal": "Subtotal (excl. VAT)",
+    "vat": "VAT {rate}%",
+    "total": "Total"
+  },
+  "packageOffer": {
+    "eyebrow": "The {package} package",
+    "body": "All {count} modules you have selected sit inside this package. <old>{separate}</old> becomes <new>{packageTotal}</new> — <save>you save {saving}.</save>",
+    "cta": "Switch to the Package"
+  },
+  "catalogue": {
+    "moduleLabel": "MODULE",
+    "extraLabel": "ADD-ON",
+    "featured": "Most comprehensive",
+    "allCriteria": "All {count} criteria"
+  },
+  "modulesPage": {
+    "eyebrow": "MODULAR SERVICE ARCHITECTURE",
+    "title": "Build your audit module by module.",
+    "body": "Pick the modules you need and point the spend straight at your priorities. {total} criteria in total, each tied to a form of evidence.",
+    "metaTitle": "Modular Service Architecture",
+    "metaDescription": "Front office, F&B, wellness, housekeeping and the 360° full audit. Choose the modules you need and build your quote."
+  },
+  "modulePage": {
+    "metaTitle": "Module {code} — {title}",
+    "metaDescription": "{summary} {count} criteria, each tied to a form of evidence."
   }
 }

@@ -29,13 +29,16 @@ const EMPTY_VALUES: Values = { ad: "", email: "", konu: "", mesaj: "" };
 
 type Status = "idle" | "submitting" | "success";
 
-const NETWORK_FAILURE = "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.";
+const NETWORK_FAILURE =
+  "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.";
 
 export function ContactForm() {
   const [values, setValues] = useState<Values>(EMPTY_VALUES);
   const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState("");
-  const [errors, setErrors] = useState<Partial<Record<ContactField, string>>>({});
+  const [errors, setErrors] = useState<Partial<Record<ContactField, string>>>(
+    {},
+  );
   const [status, setStatus] = useState<Status>("idle");
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [reference, setReference] = useState<string | null>(null);
@@ -89,7 +92,9 @@ export function ContactForm() {
         <p className="font-mono text-sm text-accent-strong md:text-base">
           MESAJ ALINDI — REF: {reference}
         </p>
-        <p className="mt-4 text-base text-ink-muted">48 saat içinde dönüş yapıyoruz.</p>
+        <p className="mt-4 text-base text-ink-muted">
+          48 saat içinde dönüş yapıyoruz.
+        </p>
       </Card>
     );
   }

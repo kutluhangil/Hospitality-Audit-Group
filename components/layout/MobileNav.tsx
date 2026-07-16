@@ -66,7 +66,8 @@ export function MobileNav({ className }: { className?: string }) {
       }
       if (event.key !== "Tab") return;
 
-      const focusable = panelRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
+      const focusable =
+        panelRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
       if (!focusable || focusable.length === 0) return;
 
       const first = focusable[0];
@@ -151,13 +152,18 @@ export function MobileNav({ className }: { className?: string }) {
             {overlayLinks.map((link) => {
               const current = pathname === link.href;
               return (
-                <motion.div key={link.href} variants={reduceMotion ? undefined : itemVariants}>
+                <motion.div
+                  key={link.href}
+                  variants={reduceMotion ? undefined : itemVariants}
+                >
                   <Link
                     href={link.href}
                     aria-current={current ? "page" : undefined}
                     onClick={dismissForNavigation}
                     className={`block border-b border-line py-4 font-serif text-2xl transition-colors duration-150 ${
-                      current ? "text-accent-strong" : "text-ink hover:text-accent-strong"
+                      current
+                        ? "text-accent-strong"
+                        : "text-ink hover:text-accent-strong"
                     }`}
                   >
                     {t(link.labelKey)}
@@ -170,7 +176,12 @@ export function MobileNav({ className }: { className?: string }) {
               className="pt-8"
               variants={reduceMotion ? undefined : itemVariants}
             >
-              <Button href="/moduller" size="lg" className="w-full" onClick={dismissForNavigation}>
+              <Button
+                href="/moduller"
+                size="lg"
+                className="w-full"
+                onClick={dismissForNavigation}
+              >
                 {tHeader("cta")}
               </Button>
             </motion.div>

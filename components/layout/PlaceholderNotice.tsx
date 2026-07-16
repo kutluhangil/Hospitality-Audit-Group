@@ -19,13 +19,18 @@ export function PlaceholderNotice() {
       role="status"
       className="flex items-start gap-2.5 border-b border-accent/40 bg-accent/10 px-6 py-2.5"
     >
-      <TriangleAlert size={15} className="mt-0.5 shrink-0 text-accent-strong" aria-hidden="true" />
+      <TriangleAlert
+        size={15}
+        className="mt-0.5 shrink-0 text-accent-strong"
+        aria-hidden="true"
+      />
       <p className="font-mono text-[0.6875rem] leading-relaxed tracking-wide text-ink">
-        <strong className="font-medium">PLACEHOLDER İÇERİK</strong> — kuruluş öyküsü ve kadro
-        rakamları geçicidir. Yayına almadan önce{" "}
-        <code className="text-accent-strong">lib/company-data.ts</code> doldurulup{" "}
-        <code className="text-accent-strong">isPlaceholder: false</code> yapılmalı. Bu bayrak
-        açıkken robots.txt arama motorlarını da engelliyor.
+        <strong className="font-medium">PLACEHOLDER İÇERİK</strong> — kuruluş
+        öyküsü ve kadro rakamları geçicidir. Yayına almadan önce{" "}
+        <code className="text-accent-strong">lib/company-data.ts</code>{" "}
+        doldurulup{" "}
+        <code className="text-accent-strong">isPlaceholder: false</code>{" "}
+        yapılmalı. Bu bayrak açıkken robots.txt arama motorlarını da engelliyor.
       </p>
     </div>
   );

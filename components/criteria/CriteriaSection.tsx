@@ -8,7 +8,10 @@ const STAGGER_STEP = 0.04;
 
 function CriteriaGroupBlock({ group }: { group: CriteriaGroup }) {
   return (
-    <section className="scroll-mt-24" id={`grup-${group.code.replace(/\.$/, "")}`}>
+    <section
+      className="scroll-mt-24"
+      id={`grup-${group.code.replace(/\.$/, "")}`}
+    >
       <Reveal>
         <div className="flex items-baseline gap-3">
           <span className="font-mono text-xs tracking-[0.12em] text-accent-strong">
@@ -16,7 +19,9 @@ function CriteriaGroupBlock({ group }: { group: CriteriaGroup }) {
           </span>
           <span className="h-px flex-1 bg-line" aria-hidden="true" />
         </div>
-        <h3 className="mt-3 font-serif text-2xl leading-snug md:text-3xl">{group.title}</h3>
+        <h3 className="mt-3 font-serif text-2xl leading-snug md:text-3xl">
+          {group.title}
+        </h3>
         {group.intro ? (
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted md:text-base">
             {group.intro}
@@ -39,7 +44,11 @@ function CriteriaGroupBlock({ group }: { group: CriteriaGroup }) {
   );
 }
 
-export function CriteriaSection({ groups }: { groups: readonly CriteriaGroup[] }) {
+export function CriteriaSection({
+  groups,
+}: {
+  groups: readonly CriteriaGroup[];
+}) {
   return (
     <div className="space-y-16 md:space-y-20">
       {groups.map((group) => (

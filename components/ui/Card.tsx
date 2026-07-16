@@ -22,7 +22,9 @@ export function Card<T extends ElementType = "div">({
   const Component = (as ?? "div") as ElementType;
   return (
     <Component
-      className={["rounded-xl2 border p-6", tones[tone], className].filter(Boolean).join(" ")}
+      className={["rounded-xl2 border p-6", tones[tone], className]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
     />
   );

@@ -20,14 +20,22 @@ export function ProcessStep({ step }: ProcessStepProps) {
       </p>
       <div>
         {/* h2: each step is a top-level section of the process page, not a subsection. */}
-        <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-ink">{step.name}</h2>
+        <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-ink">
+          {step.name}
+        </h2>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-muted md:text-lg">
           {step.summary}
         </p>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {step.detail.map((line) => (
-            <li key={line} className="flex gap-3 text-sm leading-relaxed text-ink-muted">
-              <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-accent" />
+            <li
+              key={line}
+              className="flex gap-3 text-sm leading-relaxed text-ink-muted"
+            >
+              <Check
+                aria-hidden
+                className="mt-0.5 size-4 shrink-0 text-accent"
+              />
               {line}
             </li>
           ))}

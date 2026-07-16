@@ -13,15 +13,32 @@ import type { ModuleCode } from "@/lib/modules-data";
  * module code is added or removed. Declared here rather than derived from
  * `modules` so the API route does not drag icon components in behind it.
  */
-const MODULE_CODE_SET: Record<ModuleCode, true> = { A: true, B: true, C: true, D: true, E: true };
+const MODULE_CODE_SET: Record<ModuleCode, true> = {
+  A: true,
+  B: true,
+  C: true,
+  D: true,
+  E: true,
+};
 
 export function isModuleCode(value: unknown): value is ModuleCode {
   return typeof value === "string" && Object.hasOwn(MODULE_CODE_SET, value);
 }
 
 /** Select options live here so the form renders exactly what the server accepts. */
-export const FACILITY_TYPES = ["Şehir Oteli", "Resort", "Butik", "Zincir"] as const;
-export const ROOM_COUNT_RANGES = ["1–50", "51–150", "151–300", "301–600", "600+"] as const;
+export const FACILITY_TYPES = [
+  "Şehir Oteli",
+  "Resort",
+  "Butik",
+  "Zincir",
+] as const;
+export const ROOM_COUNT_RANGES = [
+  "1–50",
+  "51–150",
+  "151–300",
+  "301–600",
+  "600+",
+] as const;
 
 export type FacilityType = (typeof FACILITY_TYPES)[number];
 export type RoomCountRange = (typeof ROOM_COUNT_RANGES)[number];
@@ -55,8 +72,7 @@ export type QuoteField = keyof Omit<QuoteRequest, "type">;
 export type ContactField = keyof Omit<ContactRequest, "type">;
 
 export type ValidationResult<T, K extends string> =
-  | { ok: true; value: T }
-  | { ok: false; errors: Partial<Record<K, string>> };
+  { ok: true; value: T } | { ok: false; errors: Partial<Record<K, string>> };
 
 const MAX_NAME = 120;
 const MAX_EMAIL = 160;
@@ -79,12 +95,20 @@ function readString(source: Record<string, unknown>, key: string): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
-function requiredError(label: string, value: string, max: number): string | undefined {
+function requiredError(
+  label: string,
+  value: string,
+  max: number,
+): string | undefined {
   if (value.length === 0) return `${label} zorunludur.`;
   return lengthError(label, value, max);
 }
 
-function lengthError(label: string, value: string, max: number): string | undefined {
+function lengthError(
+  label: string,
+  value: string,
+  max: number,
+): string | undefined {
   if (value.length > max) return `${label} en fazla ${max} karakter olabilir.`;
   return undefined;
 }
@@ -109,7 +133,11 @@ function phoneError(value: string): string | undefined {
 }
 
 /** Empty stays valid — the selects are optional; anything else must be an offered option. */
-function optionError(label: string, value: string, options: readonly string[]): string | undefined {
+function optionError(
+  label: string,
+  value: string,
+  options: readonly string[],
+): string | undefined {
   if (value.length === 0) return undefined;
   if (!options.includes(value)) {
     return `${label} için listede olmayan bir seçenek gönderildi: "${value}".`;
@@ -157,9 +185,14 @@ function hasAny<K extends string>(errors: Partial<Record<K, string>>): boolean {
   return Object.keys(errors).length > 0;
 }
 
-export function validateQuoteRequest(input: unknown): ValidationResult<QuoteRequest, QuoteField> {
+export function validateQuoteRequest(
+  input: unknown,
+): ValidationResult<QuoteRequest, QuoteField> {
   if (!isRecord(input)) {
-    return { ok: false, errors: { adSoyad: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor." } };
+    return {
+      ok: false,
+      errors: { adSoyad: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor." },
+    };
   }
 
   const adSoyad = readString(input, "adSoyad");
@@ -206,7 +239,10 @@ export function validateContactRequest(
   input: unknown,
 ): ValidationResult<ContactRequest, ContactField> {
   if (!isRecord(input)) {
-    return { ok: false, errors: { ad: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor." } };
+    return {
+      ok: false,
+      errors: { ad: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor." },
+    };
   }
 
   const ad = readString(input, "ad");
@@ -224,16 +260,24 @@ export function validateContactRequest(
 
   if (hasAny(errors)) return { ok: false, errors };
 
-  return { ok: true, value: { type: "contact", ad, email, konu, mesaj, kvkkConsent: true } };
+  return {
+    ok: true,
+    value: { type: "contact", ad, email, konu, mesaj, kvkkConsent: true },
+  };
 }
 
 /**
  * Route-side entry point: picks the validator from the `type` discriminator that
  * /teklif and /iletisim both send.
  */
-export function validateTeklifRequest(input: unknown): ValidationResult<TeklifRequest, string> {
+export function validateTeklifRequest(
+  input: unknown,
+): ValidationResult<TeklifRequest, string> {
   if (!isRecord(input)) {
-    return { ok: false, errors: { type: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor." } };
+    return {
+      ok: false,
+      errors: { type: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor." },
+    };
   }
 
   if (input.type === "contact") return validateContactRequest(input);
@@ -248,7 +292,9 @@ export function validateTeklifRequest(input: unknown): ValidationResult<TeklifRe
 }
 
 /** Flattens field errors into the single actionable sentence the route returns. */
-export function formatValidationErrors(errors: Partial<Record<string, string>>): string {
+export function formatValidationErrors(
+  errors: Partial<Record<string, string>>,
+): string {
   return Object.values(errors)
     .filter((message): message is string => typeof message === "string")
     .join(" ");
@@ -270,7 +316,8 @@ export function createReference(): string {
   return `HAG-${Date.now().toString(36).toUpperCase()}`;
 }
 
-export type TeklifResponse = { ok: true; ref: string } | { ok: false; error: string };
+export type TeklifResponse =
+  { ok: true; ref: string } | { ok: false; error: string };
 
 const GENERIC_FAILURE = "Talebiniz iletilemedi. Lütfen tekrar deneyin.";
 

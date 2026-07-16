@@ -16,7 +16,11 @@ const getServerMounted = () => false;
 export function ThemeToggle({ className }: { className?: string }) {
   const t = useTranslations("theme");
   const { resolvedTheme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(subscribeToNothing, getMounted, getServerMounted);
+  const mounted = useSyncExternalStore(
+    subscribeToNothing,
+    getMounted,
+    getServerMounted,
+  );
   const isDark = resolvedTheme === "dark";
 
   return (

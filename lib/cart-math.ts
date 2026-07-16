@@ -44,12 +44,17 @@ export function formatPrice(amount: number, locale = "tr-TR"): string {
 }
 
 /** Modules already covered by the package, when the package is in the cart. */
-export function coveredByPackage(items: readonly CartItemId[]): readonly ModuleCode[] {
+export function coveredByPackage(
+  items: readonly CartItemId[],
+): readonly ModuleCode[] {
   return items.includes(PACKAGE_MODULE) ? PACKAGE_COVERS : [];
 }
 
 /** A module the package already covers must not be sold again alongside it. */
-export function isRedundant(id: CartItemId, items: readonly CartItemId[]): boolean {
+export function isRedundant(
+  id: CartItemId,
+  items: readonly CartItemId[],
+): boolean {
   return coveredByPackage(items).includes(id as ModuleCode);
 }
 
@@ -67,11 +72,16 @@ export type PackageOffer = {
  * selected individually, point out that the package is cheaper. It suggests —
  * it never swaps on its own.
  */
-export function packageOffer(items: readonly CartItemId[]): PackageOffer | null {
+export function packageOffer(
+  items: readonly CartItemId[],
+): PackageOffer | null {
   if (items.includes(PACKAGE_MODULE)) return null;
   if (!PACKAGE_COVERS.every((code) => items.includes(code))) return null;
 
-  const separateTotal = PACKAGE_COVERS.reduce((sum, code) => sum + priceOf(code), 0);
+  const separateTotal = PACKAGE_COVERS.reduce(
+    (sum, code) => sum + priceOf(code),
+    0,
+  );
   const packageTotal = priceOf(PACKAGE_MODULE);
   const saving = separateTotal - packageTotal;
 

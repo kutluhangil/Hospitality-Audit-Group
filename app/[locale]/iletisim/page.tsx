@@ -19,7 +19,11 @@ const linkClasses =
 /** The web address is shown without its scheme; the href keeps it. */
 const displayUrl = siteConfig.url.replace(/^https?:\/\//, "");
 
-export default async function IletisimPage({ params }: { params: Promise<LocaleParams> }) {
+export default async function IletisimPage({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
   const tSite = await getTranslations({ locale, namespace: "site" });
@@ -33,8 +37,8 @@ export default async function IletisimPage({ params }: { params: Promise<LocaleP
             Konuşalım.
           </h1>
           <p className="mt-4 text-base leading-relaxed text-ink-muted md:text-lg">
-            Denetim kapsamınızı birlikte netleştirelim. Tüm görüşmeler karşılıklı gizlilik
-            taahhüdü altında yürütülür.
+            Denetim kapsamınızı birlikte netleştirelim. Tüm görüşmeler
+            karşılıklı gizlilik taahhüdü altında yürütülür.
           </p>
         </header>
       </Reveal>
@@ -44,7 +48,9 @@ export default async function IletisimPage({ params }: { params: Promise<LocaleP
           {/* No map and no street address: the brand's promise is discretion. */}
           <dl className="space-y-8">
             <div>
-              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">WEB</dt>
+              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
+                WEB
+              </dt>
               <dd className="mt-2">
                 <a href={siteConfig.url} className={linkClasses}>
                   {displayUrl}
@@ -56,7 +62,10 @@ export default async function IletisimPage({ params }: { params: Promise<LocaleP
                 E-POSTA
               </dt>
               <dd className="mt-2">
-                <a href={`mailto:${siteConfig.contact.email}`} className={linkClasses}>
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className={linkClasses}
+                >
                   {siteConfig.contact.email}
                 </a>
               </dd>
@@ -66,7 +75,10 @@ export default async function IletisimPage({ params }: { params: Promise<LocaleP
                 TELEFON
               </dt>
               <dd className="mt-2">
-                <a href={`tel:${siteConfig.contact.phoneHref}`} className={linkClasses}>
+                <a
+                  href={`tel:${siteConfig.contact.phoneHref}`}
+                  className={linkClasses}
+                >
                   {siteConfig.contact.phone}
                 </a>
               </dd>

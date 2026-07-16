@@ -77,11 +77,11 @@ export const company = {
 export function hasCorporateIdentity(): boolean {
   return Boolean(
     company.ticaretUnvani &&
-      company.ticaretSicilNo &&
-      company.mersisNo &&
-      company.vergiDairesi &&
-      company.vergiNo &&
-      company.merkezAdres,
+    company.ticaretSicilNo &&
+    company.mersisNo &&
+    company.vergiDairesi &&
+    company.vergiNo &&
+    company.merkezAdres,
   );
 }
 

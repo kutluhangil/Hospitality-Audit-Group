@@ -14,8 +14,8 @@ export function ModulesSelectionSummary() {
     <p className="text-sm text-ink-muted">Seçiminiz yükleniyor…</p>
   ) : selected.length === 0 ? (
     <p className="text-sm text-ink-muted">
-      Henüz modül seçmediniz. Yukarıdaki kartlardan dilediğiniz modülleri ekleyebilir ya da genel bir
-      görüşme talebiyle ilerleyebilirsiniz.
+      Henüz modül seçmediniz. Yukarıdaki kartlardan dilediğiniz modülleri
+      ekleyebilir ya da genel bir görüşme talebiyle ilerleyebilirsiniz.
     </p>
   ) : (
     <>

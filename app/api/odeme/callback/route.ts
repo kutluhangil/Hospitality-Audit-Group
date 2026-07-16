@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 
-import { PaymentError, isPaymentEnabled, resolveCallback, signOutcome } from "@/lib/payment";
+import {
+  PaymentError,
+  isPaymentEnabled,
+  resolveCallback,
+  signOutcome,
+} from "@/lib/payment";
 
 export const runtime = "nodejs";
 
@@ -35,7 +40,9 @@ export async function POST(request: Request): Promise<NextResponse | Response> {
   if (!isPaymentEnabled()) {
     // Nothing can have been paid through a path that does not exist, so there is
     // no buyer to redirect and nothing to resolve.
-    console.error("[api/odeme/callback] Received a callback while payment is disabled. Ignoring.");
+    console.error(
+      "[api/odeme/callback] Received a callback while payment is disabled. Ignoring.",
+    );
     return NextResponse.json({ error: "Ödeme yolu kapalı." }, { status: 503 });
   }
 
@@ -43,8 +50,14 @@ export async function POST(request: Request): Promise<NextResponse | Response> {
   try {
     form = await request.formData();
   } catch (error) {
-    console.error("[api/odeme/callback] Callback body was not form data:", error);
-    return NextResponse.json({ error: "Geçersiz geri dönüş isteği." }, { status: 400 });
+    console.error(
+      "[api/odeme/callback] Callback body was not form data:",
+      error,
+    );
+    return NextResponse.json(
+      { error: "Geçersiz geri dönüş isteği." },
+      { status: 400 },
+    );
   }
 
   try {
@@ -53,10 +66,17 @@ export async function POST(request: Request): Promise<NextResponse | Response> {
       `[api/odeme/callback] Resolved ref=${outcome.reference} status=${outcome.status} ` +
         `paymentId=${outcome.providerPaymentId ?? "—"} paid=${outcome.paidAmount ?? "—"}`,
     );
-    return NextResponse.redirect(resultUrl(request, signOutcome(outcome)), SEE_OTHER);
+    return NextResponse.redirect(
+      resultUrl(request, signOutcome(outcome)),
+      SEE_OTHER,
+    );
   } catch (error) {
     const cause = error instanceof PaymentError ? error.cause : undefined;
-    console.error("[api/odeme/callback] Could not resolve the payment outcome:", error, cause);
+    console.error(
+      "[api/odeme/callback] Could not resolve the payment outcome:",
+      error,
+      cause,
+    );
 
     // We could not establish what happened — the provider was unreachable, or its
     // answer did not verify. The buyer may or may not have been charged, and both

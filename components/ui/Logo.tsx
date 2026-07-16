@@ -3,7 +3,13 @@
  * centre — the PDF identity reduced to line work. Drawn in currentColor so it
  * reads correctly in both themes.
  */
-export function Logo({ size = 32, className }: { size?: number; className?: string }) {
+export function Logo({
+  size = 32,
+  className,
+}: {
+  size?: number;
+  className?: string;
+}) {
   return (
     <svg
       width={size}

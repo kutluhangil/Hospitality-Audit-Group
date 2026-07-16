@@ -43,13 +43,20 @@ const mono = JetBrains_Mono({
  * description are copy, and copy is what changes between /tr and /en. A static
  * `metadata` export would put the Turkish tagline in every English <title>.
  */
-export async function generateMetadata({ params }: LayoutProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: LayoutProps): Promise<Metadata> {
   const { locale } = await params;
-  const active = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
+  const active = hasLocale(routing.locales, locale)
+    ? locale
+    : routing.defaultLocale;
   const t = await getTranslations({ locale: active, namespace: "site" });
 
   const title = `${siteConfig.name} — ${t("tagline")}`;
-  const url = new URL(getPathname({ href: "/", locale: active }), siteConfig.url).toString();
+  const url = new URL(
+    getPathname({ href: "/", locale: active }),
+    siteConfig.url,
+  ).toString();
 
   return {
     metadataBase: new URL(siteConfig.url),

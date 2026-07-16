@@ -2,7 +2,13 @@
 
 import { useSyncExternalStore } from "react";
 
-import { totalsFor, packageOffer, applyPackage, type CartTotals, type PackageOffer } from "@/lib/cart-math";
+import {
+  totalsFor,
+  packageOffer,
+  applyPackage,
+  type CartTotals,
+  type PackageOffer,
+} from "@/lib/cart-math";
 import { CATALOGUE_ORDER, type CartItemId } from "@/lib/modules-data";
 
 const STORAGE_KEY = "hag-quote-cart";
@@ -33,12 +39,16 @@ function parseStored(raw: string | null): readonly CartItemId[] {
 
   const parsed: unknown = JSON.parse(raw);
   if (!Array.isArray(parsed)) {
-    throw new Error(`${STORAGE_KEY} must hold a JSON array, received: ${raw.slice(0, 64)}`);
+    throw new Error(
+      `${STORAGE_KEY} must hold a JSON array, received: ${raw.slice(0, 64)}`,
+    );
   }
 
   // Unknown ids are dropped rather than thrown on: the catalogue changed once
   // already (E used to mean training), so a stale cart is expected, not corrupt.
-  return parsed.filter((id): id is CartItemId => typeof id === "string" && validIds.has(id));
+  return parsed.filter(
+    (id): id is CartItemId => typeof id === "string" && validIds.has(id),
+  );
 }
 
 function readStorage(): readonly CartItemId[] {
@@ -126,7 +136,11 @@ export type QuoteCart = QuoteCartSnapshot & {
  * there is no provider to mount and no state to sync in an effect.
  */
 export function useQuoteCart(): QuoteCart {
-  const { selected, hydrated } = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const { selected, hydrated } = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
 
   return {
     selected,

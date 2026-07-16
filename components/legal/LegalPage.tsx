@@ -24,7 +24,9 @@ export function LegalPage({ title, updated, children }: LegalPageProps) {
     <main className="mx-auto max-w-content px-4 py-16 sm:px-6 md:py-24">
       <div className={MEASURE}>
         <Eyebrow tone="muted">Yasal</Eyebrow>
-        <h1 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">{title}</h1>
+        <h1 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">
+          {title}
+        </h1>
         <p className="mt-4 text-sm text-ink-muted">Son güncelleme: {updated}</p>
 
         <TemplateNotice />
@@ -51,11 +53,19 @@ function TemplateNotice() {
   );
 }
 
-export function LegalSection({ title, children }: { title: string; children: React.ReactNode }) {
+export function LegalSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <section>
       <h2 className="font-serif text-2xl md:text-3xl">{title}</h2>
-      <div className="mt-4 space-y-4 text-base leading-relaxed text-ink">{children}</div>
+      <div className="mt-4 space-y-4 text-base leading-relaxed text-ink">
+        {children}
+      </div>
     </section>
   );
 }
@@ -109,7 +119,10 @@ export function LegalList({ items }: { items: readonly string[] }) {
       {items.map((item) => (
         <li key={item} className="flex gap-3">
           {/* Decorative bullet, so the plain accent is allowed to carry it. */}
-          <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+          <span
+            aria-hidden
+            className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+          />
           <span>{item}</span>
         </li>
       ))}

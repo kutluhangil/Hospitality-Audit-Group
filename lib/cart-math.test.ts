@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { applyPackage, coveredByPackage, isRedundant, packageOffer, totalsFor } from "@/lib/cart-math";
+import {
+  applyPackage,
+  coveredByPackage,
+  isRedundant,
+  packageOffer,
+  totalsFor,
+} from "@/lib/cart-math";
 import { VAT_RATE, priceOf } from "@/lib/modules-data";
 
 describe("totalsFor", () => {
@@ -66,7 +72,10 @@ describe("applyPackage", () => {
   });
 
   it("keeps training, which D does not cover", () => {
-    expect(applyPackage(["A", "B", "C", "E", "EGITIM"])).toEqual(["EGITIM", "D"]);
+    expect(applyPackage(["A", "B", "C", "E", "EGITIM"])).toEqual([
+      "EGITIM",
+      "D",
+    ]);
   });
 
   it("is idempotent", () => {

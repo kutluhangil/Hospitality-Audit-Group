@@ -6,9 +6,16 @@ import { Link } from "@/i18n/navigation";
 import { footerNav, siteConfig, type NavLink } from "@/lib/site-config";
 
 const headingClasses = "font-serif text-sm font-semibold text-ink";
-const linkClasses = "text-sm text-ink-muted transition-colors duration-150 hover:text-ink";
+const linkClasses =
+  "text-sm text-ink-muted transition-colors duration-150 hover:text-ink";
 
-function FooterColumn({ title, links }: { title: string; links: readonly NavLink[] }) {
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: readonly NavLink[];
+}) {
   const t = useTranslations("nav");
 
   return (
@@ -39,9 +46,13 @@ export function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-3 text-ink">
               <Logo size={40} />
-              <span className="font-serif text-lg font-semibold">{siteConfig.name}</span>
+              <span className="font-serif text-lg font-semibold">
+                {siteConfig.name}
+              </span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm text-ink-muted">{tSite("tagline")}</p>
+            <p className="mt-4 max-w-xs text-sm text-ink-muted">
+              {tSite("tagline")}
+            </p>
           </div>
 
           <FooterColumn title={t("services")} links={footerNav.hizmetler} />
@@ -51,12 +62,18 @@ export function Footer() {
             <h2 className={headingClasses}>{t("contact")}</h2>
             <ul className="mt-4 space-y-2.5">
               <li>
-                <a href={`mailto:${siteConfig.contact.email}`} className={linkClasses}>
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className={linkClasses}
+                >
                   {siteConfig.contact.email}
                 </a>
               </li>
               <li>
-                <a href={`tel:${siteConfig.contact.phoneHref}`} className={linkClasses}>
+                <a
+                  href={`tel:${siteConfig.contact.phoneHref}`}
+                  className={linkClasses}
+                >
                   {siteConfig.contact.phone}
                 </a>
               </li>
@@ -83,7 +100,9 @@ export function Footer() {
           </nav>
 
           <div className="mt-6 flex items-center justify-between gap-4">
-            <p className="font-mono text-xs tracking-wide text-ink-muted">{t("copyright")}</p>
+            <p className="font-mono text-xs tracking-wide text-ink-muted">
+              {t("copyright")}
+            </p>
             <ThemeToggle />
           </div>
         </div>

@@ -1,20 +1,20 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+
+import { recordTitleOf } from "@/lib/module-records";
 import type { Metadata } from "next";
 
-import { LegalLink, LegalList, LegalPage, LegalSection } from "@/components/legal/LegalPage";
+import {
+  LegalLink,
+  LegalList,
+  LegalPage,
+  LegalSection,
+} from "@/components/legal/LegalPage";
 import { Card } from "@/components/ui/Card";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import type { LocaleParams } from "@/i18n/routing";
 import { company, hasCorporateIdentity } from "@/lib/company-data";
 import { formatPrice } from "@/lib/cart-math";
-import {
-  CATALOGUE_ORDER,
-  PRICING_NOTE,
-  SCALE_NOTE,
-  VAT_RATE,
-  priceOf,
-  titleOf,
-} from "@/lib/modules-data";
+import { CATALOGUE_ORDER, VAT_RATE, priceOf } from "@/lib/modules-data";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -60,9 +60,10 @@ function SellerIdentity() {
         <Card tone="accent" className="border-2">
           <Eyebrow>Satıcı bilgileri tamamlanmadı</Eyebrow>
           <p className="mt-3 text-base leading-relaxed text-ink">
-            Satıcının ticaret unvanı, merkez adresi, ticaret sicil numarası, MERSİS numarası ve vergi
-            dairesi/numarası bu formda henüz yer almamaktadır. Bu bilgiler resmî sicil kayıtlarıdır;
-            uydurulmamış, boş bırakılmıştır. Form, satış yoluna açılmadan önce gerçek sicil
+            Satıcının ticaret unvanı, merkez adresi, ticaret sicil numarası,
+            MERSİS numarası ve vergi dairesi/numarası bu formda henüz yer
+            almamaktadır. Bu bilgiler resmî sicil kayıtlarıdır; uydurulmamış,
+            boş bırakılmıştır. Form, satış yoluna açılmadan önce gerçek sicil
             bilgileriyle tamamlanacaktır.
           </p>
         </Card>
@@ -74,9 +75,16 @@ function SellerIdentity() {
 /**
  * The tariff is derived from modules-data rather than retyped: a price that
  * disagrees with the module page is a pre-contractual misstatement, not a typo.
+ *
+ * Turkish names and Turkish formatting in both locales, deliberately. This is
+ * the pre-sale form: it states the terms of a contract whose binding language is
+ * Turkish, and the English rendering exists to be understood, not to be signed.
+ * A tariff that named "Front Office" would name a line no contract of ours has.
  */
 function priceRows(): readonly string[] {
-  return CATALOGUE_ORDER.map((id) => `${titleOf(id)} — ${formatPrice(priceOf(id))}`);
+  return CATALOGUE_ORDER.map(
+    (id) => `${recordTitleOf(id)} — ${formatPrice(priceOf(id))}`,
+  );
 }
 
 const serviceCharacteristics = [
@@ -87,23 +95,32 @@ const serviceCharacteristics = [
   "Hizmetin kapsamı, siparişte seçilen modüllerle sınırlıdır; modüllerin kriterleri Modüller sayfasında yayımlanmıştır.",
 ] as const;
 
-export default async function OnBilgilendirmePage({ params }: { params: Promise<LocaleParams> }) {
+export default async function OnBilgilendirmePage({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
   const tSite = await getTranslations({ locale, namespace: "site" });
+  const tModules = await getTranslations({ locale, namespace: "modules" });
 
   return (
     <LegalPage title="Ön Bilgilendirme Formu" updated="16 Temmuz 2026">
       <LegalSection title="1. Formun Amacı">
         <p>
-          Bu form, Mesafeli Sözleşmeler Yönetmeliği uyarınca, {siteConfig.url} adresi üzerinden
-          elektronik ortamda sipariş vermeden önce ALICI&apos;nın bilgilendirilmesi amacıyla
-          hazırlanmıştır. ALICI, ödeme adımında bu formu okuduğunu ve bilgilendirildiğini elektronik
-          ortamda teyit eder. Teyit verilmeden ödeme adımı tamamlanamaz.
+          Bu form, Mesafeli Sözleşmeler Yönetmeliği uyarınca, {siteConfig.url}{" "}
+          adresi üzerinden elektronik ortamda sipariş vermeden önce
+          ALICI&apos;nın bilgilendirilmesi amacıyla hazırlanmıştır. ALICI, ödeme
+          adımında bu formu okuduğunu ve bilgilendirildiğini elektronik ortamda
+          teyit eder. Teyit verilmeden ödeme adımı tamamlanamaz.
         </p>
         <p>
-          Bu formun teyidi, <LegalLink href="/mesafeli-satis-sozlesmesi">Mesafeli Satış
-          Sözleşmesi</LegalLink>&apos;nin ayrı bir onayla kabul edilmesi zorunluluğunu ortadan
+          Bu formun teyidi,{" "}
+          <LegalLink href="/mesafeli-satis-sozlesmesi">
+            Mesafeli Satış Sözleşmesi
+          </LegalLink>
+          &apos;nin ayrı bir onayla kabul edilmesi zorunluluğunu ortadan
           kaldırmaz; iki metin ayrı ayrı onaylanır.
         </p>
       </LegalSection>
@@ -116,38 +133,45 @@ export default async function OnBilgilendirmePage({ params }: { params: Promise<
         <LegalList items={serviceCharacteristics} />
         <p>
           Modüllerin kapsamı, kriterleri ve kanıt türleri{" "}
-          <LegalLink href="/moduller">Modüller</LegalLink> sayfasında, denetim sürecinin işleyişi ise{" "}
-          <LegalLink href="/surec">Süreç</LegalLink> sayfasında ayrıntılı olarak yayımlanmıştır. Bu
-          sayfalardaki bilgiler bu formun ekidir.
+          <LegalLink href="/moduller">Modüller</LegalLink> sayfasında, denetim
+          sürecinin işleyişi ise <LegalLink href="/surec">Süreç</LegalLink>{" "}
+          sayfasında ayrıntılı olarak yayımlanmıştır. Bu sayfalardaki bilgiler
+          bu formun ekidir.
         </p>
       </LegalSection>
 
       <LegalSection title="4. Fiyat">
         <p>
-          Sitede yayımlanan ve sipariş özetinde gösterilen tüm fiyatlar Türk Lirası cinsindendir ve{" "}
-          <strong>%{VAT_RATE * 100} KDV dahildir</strong> ({PRICING_NOTE}). Fiyatların üzerine ayrıca
-          bir vergi, komisyon, hizmet bedeli veya masraf eklenmez. Sipariş özetinde KDV tutarı
-          şeffaflık için ayrıştırılmış olarak da gösterilir; bu ayrıştırma toplam bedeli değiştirmez.
+          Sitede yayımlanan ve sipariş özetinde gösterilen tüm fiyatlar Türk
+          Lirası cinsindendir ve <strong>%{VAT_RATE * 100} KDV dahildir</strong>{" "}
+          ({tModules("pricingNote")}). Fiyatların üzerine ayrıca bir vergi,
+          komisyon, hizmet bedeli veya masraf eklenmez. Sipariş özetinde KDV
+          tutarı şeffaflık için ayrıştırılmış olarak da gösterilir; bu
+          ayrıştırma toplam bedeli değiştirmez.
         </p>
         <p>Güncel liste fiyatları (KDV dahil):</p>
         <LegalList items={priceRows()} />
         <p>
-          360° Tam Denetim, kapsamındaki modüllerin ayrı ayrı satın alınmasına göre daha düşük bir
-          bedelle sunulur. {SCALE_NOTE} Ölçeğe bağlı olarak farklılaşan fiyatlar, satın alma öncesi{" "}
-          <LegalLink href="/teklif">teklif</LegalLink> yoluyla ayrıca belirlenir.
+          360° Tam Denetim, kapsamındaki modüllerin ayrı ayrı satın alınmasına
+          göre daha düşük bir bedelle sunulur. {tModules("scaleNote")} Ölçeğe
+          bağlı olarak farklılaşan fiyatlar, satın alma öncesi{" "}
+          <LegalLink href="/teklif">teklif</LegalLink> yoluyla ayrıca
+          belirlenir.
         </p>
         <p>
-          ALICI için bağlayıcı olan bedel, siparişin verildiği anda sipariş özetinde gösterilen ve
-          sipariş onayında yer alan toplam tutardır. Fiyat değişiklikleri, değişiklikten önce verilen
-          siparişlere uygulanmaz.
+          ALICI için bağlayıcı olan bedel, siparişin verildiği anda sipariş
+          özetinde gösterilen ve sipariş onayında yer alan toplam tutardır.
+          Fiyat değişiklikleri, değişiklikten önce verilen siparişlere
+          uygulanmaz.
         </p>
       </LegalSection>
 
       <LegalSection title="5. Ödeme ve İfa">
         <p>
-          Ödeme, kredi veya banka kartı ile 3D Secure doğrulaması üzerinden peşin olarak yapılır.
-          Kart bilgileri hiçbir aşamada bu sitenin sunucularına ulaşmaz; ödeme kuruluşunun kendi
-          sayfasına doğrudan iletilir ve orada işlenir.
+          Ödeme, kredi veya banka kartı ile 3D Secure doğrulaması üzerinden
+          peşin olarak yapılır. Kart bilgileri hiçbir aşamada bu sitenin
+          sunucularına ulaşmaz; ödeme kuruluşunun kendi sayfasına doğrudan
+          iletilir ve orada işlenir.
         </p>
         <LegalList
           items={[
@@ -162,9 +186,9 @@ export default async function OnBilgilendirmePage({ params }: { params: Promise<
 
       <LegalSection title="6. Cayma Hakkı ve İstisnası">
         <p>
-          ALICI, sipariş tarihinden itibaren <strong>on dört gün</strong> içinde, hiçbir gerekçe
-          göstermeksizin ve cezai şart ödemeksizin sözleşmeden cayma hakkına sahiptir. Cayma
-          bildirimi bu süre içinde{" "}
+          ALICI, sipariş tarihinden itibaren <strong>on dört gün</strong>{" "}
+          içinde, hiçbir gerekçe göstermeksizin ve cezai şart ödemeksizin
+          sözleşmeden cayma hakkına sahiptir. Cayma bildirimi bu süre içinde{" "}
           <LegalLink href={`mailto:${siteConfig.contact.email}`}>
             {siteConfig.contact.email}
           </LegalLink>{" "}
@@ -172,24 +196,29 @@ export default async function OnBilgilendirmePage({ params }: { params: Promise<
         </p>
         <p>
           <strong>
-            Cayma hakkının istisnası: ifasına başlanmış hizmetlerde cayma hakkı kullanılamaz.
+            Cayma hakkının istisnası: ifasına başlanmış hizmetlerde cayma hakkı
+            kullanılamaz.
           </strong>{" "}
-          Mesafeli Sözleşmeler Yönetmeliği&apos;nin 15. maddesi uyarınca, ALICI&apos;nın onayı ile
-          ifasına başlanan hizmetlere ilişkin sözleşmelerde cayma hakkı kullanılamaz. Bu hizmette
-          ifa, <strong>denetçinin tesise misafir sıfatıyla giriş yapmasıyla başlar</strong>. Bu andan
-          itibaren cayma hakkı sona erer ve bedel iadesi yapılmaz.
+          Mesafeli Sözleşmeler Yönetmeliği&apos;nin 15. maddesi uyarınca,
+          ALICI&apos;nın onayı ile ifasına başlanan hizmetlere ilişkin
+          sözleşmelerde cayma hakkı kullanılamaz. Bu hizmette ifa,{" "}
+          <strong>
+            denetçinin tesise misafir sıfatıyla giriş yapmasıyla başlar
+          </strong>
+          . Bu andan itibaren cayma hakkı sona erer ve bedel iadesi yapılmaz.
         </p>
         <p>
-          ALICI, ödeme adımında, denetim ziyaretinin on dört günlük cayma süresi dolmadan
-          gerçekleştirilebileceğini ve ifanın başlamasıyla cayma hakkını kaybedeceğini bildiğini{" "}
-          <strong>açıkça onaylar</strong>. Denetim tarihi henüz belirlenmemişken cayma hakkı her
-          hâlde kullanılabilir ve tahsil edilen tutarın tamamı iade edilir.
+          ALICI, ödeme adımında, denetim ziyaretinin on dört günlük cayma süresi
+          dolmadan gerçekleştirilebileceğini ve ifanın başlamasıyla cayma
+          hakkını kaybedeceğini bildiğini <strong>açıkça onaylar</strong>.
+          Denetim tarihi henüz belirlenmemişken cayma hakkı her hâlde
+          kullanılabilir ve tahsil edilen tutarın tamamı iade edilir.
         </p>
         <p>
-          Tarih belirlendikten sonraki iptallerde uygulanacak kesinti basamakları, iade süresi, iade
-          yöntemi ve mücbir sebep hâlleri{" "}
-          <LegalLink href="/iptal-iade">İptal &amp; İade Politikası</LegalLink> sayfasında
-          düzenlenmiştir.
+          Tarih belirlendikten sonraki iptallerde uygulanacak kesinti
+          basamakları, iade süresi, iade yöntemi ve mücbir sebep hâlleri{" "}
+          <LegalLink href="/iptal-iade">İptal &amp; İade Politikası</LegalLink>{" "}
+          sayfasında düzenlenmiştir.
         </p>
       </LegalSection>
 
@@ -200,27 +229,31 @@ export default async function OnBilgilendirmePage({ params }: { params: Promise<
             {siteConfig.contact.email}
           </LegalLink>{" "}
           adresine veya {siteConfig.contact.phone} numarasına ({tSite("hours")})
-          iletebilirsiniz. Başvurunuz en kısa sürede değerlendirilir ve tarafınıza yazılı olarak
-          yanıt verilir.
+          iletebilirsiniz. Başvurunuz en kısa sürede değerlendirilir ve
+          tarafınıza yazılı olarak yanıt verilir.
         </p>
         <p>
-          Çözüme ulaşılamaması hâlinde ALICI, Ticaret Bakanlığı tarafından her yıl ilan edilen
-          parasal sınırlar dâhilinde kendi yerleşim yerindeki veya işlemin yapıldığı yerdeki{" "}
-          <strong>Tüketici Hakem Heyetleri</strong>&apos;ne, bu sınırların üzerindeki uyuşmazlıklarda
-          ise <strong>Tüketici Mahkemeleri</strong>&apos;ne başvurabilir.
+          Çözüme ulaşılamaması hâlinde ALICI, Ticaret Bakanlığı tarafından her
+          yıl ilan edilen parasal sınırlar dâhilinde kendi yerleşim yerindeki
+          veya işlemin yapıldığı yerdeki{" "}
+          <strong>Tüketici Hakem Heyetleri</strong>&apos;ne, bu sınırların
+          üzerindeki uyuşmazlıklarda ise <strong>Tüketici Mahkemeleri</strong>
+          &apos;ne başvurabilir.
         </p>
       </LegalSection>
 
       <LegalSection title="8. Tüketici Sıfatı — Hukuk Danışmanına Not">
         <p>
-          Bu form, alıcının 6502 sayılı Kanun anlamında tüketici olduğu varsayımıyla kaleme
-          alınmıştır. Ancak bu sitedeki hizmet konaklama tesislerine yönelik bir işletme hizmetidir
-          ve alıcı fiilen ticari amaçla hareket etmektedir; bu nedenle satışların büyük bölümünde{" "}
-          <strong>tüketici sıfatı bulunmayacaktır</strong>. Böyle bir alıcı bakımından ön
-          bilgilendirme yükümlülüğünün ve cayma hakkının kanunen zorunlu olup olmadığı, bu formun
-          hangi kısımlarının bağlayıcı yükümlülük hangilerinin gönüllü taahhüt sayılacağı{" "}
-          <strong>hukuk danışmanı tarafından netleştirilmelidir</strong>. Bu sayfa hukuki görüş
-          değildir; inceleme için hazırlanmış bir taslaktır.
+          Bu form, alıcının 6502 sayılı Kanun anlamında tüketici olduğu
+          varsayımıyla kaleme alınmıştır. Ancak bu sitedeki hizmet konaklama
+          tesislerine yönelik bir işletme hizmetidir ve alıcı fiilen ticari
+          amaçla hareket etmektedir; bu nedenle satışların büyük bölümünde{" "}
+          <strong>tüketici sıfatı bulunmayacaktır</strong>. Böyle bir alıcı
+          bakımından ön bilgilendirme yükümlülüğünün ve cayma hakkının kanunen
+          zorunlu olup olmadığı, bu formun hangi kısımlarının bağlayıcı
+          yükümlülük hangilerinin gönüllü taahhüt sayılacağı{" "}
+          <strong>hukuk danışmanı tarafından netleştirilmelidir</strong>. Bu
+          sayfa hukuki görüş değildir; inceleme için hazırlanmış bir taslaktır.
         </p>
       </LegalSection>
     </LegalPage>

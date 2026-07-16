@@ -2,7 +2,12 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 
-import { CheckboxField, FormError, TextField, TextareaField } from "@/components/forms/fields";
+import {
+  CheckboxField,
+  FormError,
+  TextField,
+  TextareaField,
+} from "@/components/forms/fields";
 import { CartLines, CartTotals } from "@/components/modules/CartLines";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -69,7 +74,8 @@ const EMPTY_CONSENTS: Consents = {
 
 type Status = "idle" | "submitting" | "redirecting";
 
-const NETWORK_FAILURE = "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.";
+const NETWORK_FAILURE =
+  "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.";
 
 const legalLinkClasses =
   "text-accent-strong underline underline-offset-4 transition-colors duration-150 hover:text-accent-strong-hover";
@@ -85,7 +91,9 @@ export function BillingForm() {
   const [faturaTipi, setFaturaTipi] = useState<InvoiceType>("kurumsal");
   const [values, setValues] = useState<Values>(EMPTY_VALUES);
   const [consents, setConsents] = useState<Consents>(EMPTY_CONSENTS);
-  const [errors, setErrors] = useState<Partial<Record<BillingField, string>>>({});
+  const [errors, setErrors] = useState<Partial<Record<BillingField, string>>>(
+    {},
+  );
   const [status, setStatus] = useState<Status>("idle");
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -110,7 +118,11 @@ export function BillingForm() {
             vergiDairesi: values.vergiDairesi,
             vergiNo: values.vergiNo,
           }
-        : { faturaTipi, adSoyad: values.adSoyad, tcKimlikNo: values.tcKimlikNo };
+        : {
+            faturaTipi,
+            adSoyad: values.adSoyad,
+            tcKimlikNo: values.tcKimlikNo,
+          };
 
     return {
       ...identity,
@@ -182,7 +194,10 @@ export function BillingForm() {
         <p className="text-sm text-ink-muted">
           Ödeme yapabilmek için önce bir hizmet seçmelisiniz.
         </p>
-        <Link href="/moduller" className={`mt-2 inline-block text-sm ${legalLinkClasses}`}>
+        <Link
+          href="/moduller"
+          className={`mt-2 inline-block text-sm ${legalLinkClasses}`}
+        >
           Modülleri inceleyin
         </Link>
       </div>
@@ -212,7 +227,9 @@ export function BillingForm() {
             <label
               key={type}
               className={`flex min-h-11 flex-1 cursor-pointer items-center gap-3 rounded-xl2 border px-4 py-3 text-sm transition-colors duration-150 ${
-                faturaTipi === type ? "border-accent bg-surface" : "border-line hover:bg-bg-soft"
+                faturaTipi === type
+                  ? "border-accent bg-surface"
+                  : "border-line hover:bg-bg-soft"
               }`}
             >
               <input
@@ -242,7 +259,9 @@ export function BillingForm() {
                 autoComplete="organization"
                 value={values.ticaretUnvani}
                 error={errors.ticaretUnvani}
-                onChange={(event) => update("ticaretUnvani", event.target.value)}
+                onChange={(event) =>
+                  update("ticaretUnvani", event.target.value)
+                }
               />
             </div>
             <TextField
@@ -370,7 +389,9 @@ export function BillingForm() {
           required
           checked={consents.mesafeliSatisOnay}
           error={errors.mesafeliSatisOnay}
-          onChange={(event) => updateConsent("mesafeliSatisOnay", event.target.checked)}
+          onChange={(event) =>
+            updateConsent("mesafeliSatisOnay", event.target.checked)
+          }
         >
           <Link href="/mesafeli-satis-sozlesmesi" className={legalLinkClasses}>
             Mesafeli Satış Sözleşmesi
@@ -383,7 +404,9 @@ export function BillingForm() {
           required
           checked={consents.onBilgilendirmeOnay}
           error={errors.onBilgilendirmeOnay}
-          onChange={(event) => updateConsent("onBilgilendirmeOnay", event.target.checked)}
+          onChange={(event) =>
+            updateConsent("onBilgilendirmeOnay", event.target.checked)
+          }
         >
           <Link href="/on-bilgilendirme" className={legalLinkClasses}>
             Ön Bilgilendirme Formu
@@ -396,7 +419,9 @@ export function BillingForm() {
           required
           checked={consents.kvkkConsent}
           error={errors.kvkkConsent}
-          onChange={(event) => updateConsent("kvkkConsent", event.target.checked)}
+          onChange={(event) =>
+            updateConsent("kvkkConsent", event.target.checked)
+          }
         >
           Kişisel verilerimin{" "}
           <Link href="/kvkk" className={legalLinkClasses}>
@@ -418,8 +443,9 @@ export function BillingForm() {
           {busy ? "Yönlendiriliyor…" : `${formatPrice(totals.total)} Öde`}
         </Button>
         <p className="text-xs leading-relaxed text-ink-muted">
-          Kart bilgileriniz bu sitede saklanmaz. Ödeme adımı, 3D Secure doğrulaması için bankanızın
-          ve ödeme kuruluşunun sayfasında tamamlanır.
+          Kart bilgileriniz bu sitede saklanmaz. Ödeme adımı, 3D Secure
+          doğrulaması için bankanızın ve ödeme kuruluşunun sayfasında
+          tamamlanır.
         </p>
       </div>
     </form>

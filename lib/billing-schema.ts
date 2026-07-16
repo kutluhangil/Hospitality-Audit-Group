@@ -89,8 +89,7 @@ export type BillingField =
   | "kvkkConsent";
 
 export type ValidationResult<T, K extends string> =
-  | { ok: true; value: T }
-  | { ok: false; errors: Partial<Record<K, string>> };
+  { ok: true; value: T } | { ok: false; errors: Partial<Record<K, string>> };
 
 const MAX_NAME = 120;
 const MAX_TRADE_NAME = 200;
@@ -113,17 +112,28 @@ function readString(source: Record<string, unknown>, key: string): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
-function readRecord(source: Record<string, unknown>, key: string): Record<string, unknown> {
+function readRecord(
+  source: Record<string, unknown>,
+  key: string,
+): Record<string, unknown> {
   const value = source[key];
   return isRecord(value) ? value : {};
 }
 
-function lengthError(label: string, value: string, max: number): string | undefined {
+function lengthError(
+  label: string,
+  value: string,
+  max: number,
+): string | undefined {
   if (value.length > max) return `${label} en fazla ${max} karakter olabilir.`;
   return undefined;
 }
 
-function requiredError(label: string, value: string, max: number): string | undefined {
+function requiredError(
+  label: string,
+  value: string,
+  max: number,
+): string | undefined {
   if (value.length === 0) return `${label} zorunludur.`;
   return lengthError(label, value, max);
 }
@@ -193,7 +203,8 @@ export function isValidTcKimlikNo(value: string): boolean {
   const tenth = (odd * 7 - even) % 10;
   if (tenth !== digits[9]) return false;
 
-  const eleventh = digits.slice(0, 10).reduce((sum, digit) => sum + digit, 0) % 10;
+  const eleventh =
+    digits.slice(0, 10).reduce((sum, digit) => sum + digit, 0) % 10;
   return eleventh === digits[10];
 }
 
@@ -239,8 +250,10 @@ function consentError(value: unknown, message: string): string | undefined {
 }
 
 const CONSENT_MESSAGES = {
-  mesafeliSatisOnay: "Ödemeye geçmek için Mesafeli Satış Sözleşmesi'ni onaylamanız gerekir.",
-  onBilgilendirmeOnay: "Ödemeye geçmek için Ön Bilgilendirme Formu'nu onaylamanız gerekir.",
+  mesafeliSatisOnay:
+    "Ödemeye geçmek için Mesafeli Satış Sözleşmesi'ni onaylamanız gerekir.",
+  onBilgilendirmeOnay:
+    "Ödemeye geçmek için Ön Bilgilendirme Formu'nu onaylamanız gerekir.",
   kvkkConsent: "Ödemeye geçmek için KVKK Aydınlatma Metni onayı gereklidir.",
 } as const;
 
@@ -317,7 +330,12 @@ export function validateBillingRequest(
   input: unknown,
 ): ValidationResult<BillingRequest, BillingField> {
   if (!isRecord(input)) {
-    return { ok: false, errors: { faturaTipi: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor." } };
+    return {
+      ok: false,
+      errors: {
+        faturaTipi: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor.",
+      },
+    };
   }
 
   const faturaTipi = input.faturaTipi;
@@ -349,9 +367,21 @@ export function validateBillingRequest(
     ["email", emailError(email)],
     ["telefon", phoneError(telefon)],
     ["selectedItems", itemsError(input.selectedItems)],
-    ["mesafeliSatisOnay", consentError(input.mesafeliSatisOnay, CONSENT_MESSAGES.mesafeliSatisOnay)],
-    ["onBilgilendirmeOnay", consentError(input.onBilgilendirmeOnay, CONSENT_MESSAGES.onBilgilendirmeOnay)],
-    ["kvkkConsent", consentError(input.kvkkConsent, CONSENT_MESSAGES.kvkkConsent)],
+    [
+      "mesafeliSatisOnay",
+      consentError(input.mesafeliSatisOnay, CONSENT_MESSAGES.mesafeliSatisOnay),
+    ],
+    [
+      "onBilgilendirmeOnay",
+      consentError(
+        input.onBilgilendirmeOnay,
+        CONSENT_MESSAGES.onBilgilendirmeOnay,
+      ),
+    ],
+    [
+      "kvkkConsent",
+      consentError(input.kvkkConsent, CONSENT_MESSAGES.kvkkConsent),
+    ],
   ] as const satisfies readonly (readonly [BillingField, string | undefined])[];
 
   const adres: BillingAddress = { ulke, il, ilce, acikAdres, postaKodu };
@@ -364,8 +394,14 @@ export function validateBillingRequest(
 
     const errors = collect<BillingField>([
       ...shared,
-      ["ticaretUnvani", requiredError("Ticaret Unvanı", ticaretUnvani, MAX_TRADE_NAME)],
-      ["vergiDairesi", requiredError("Vergi Dairesi", vergiDairesi, MAX_TAX_OFFICE)],
+      [
+        "ticaretUnvani",
+        requiredError("Ticaret Unvanı", ticaretUnvani, MAX_TRADE_NAME),
+      ],
+      [
+        "vergiDairesi",
+        requiredError("Vergi Dairesi", vergiDairesi, MAX_TAX_OFFICE),
+      ],
       ["vergiNo", vergiNoError(vergiNo)],
     ]);
 
@@ -417,7 +453,9 @@ export function validateBillingRequest(
   };
 }
 
-export function formatValidationErrors(errors: Partial<Record<string, string>>): string {
+export function formatValidationErrors(
+  errors: Partial<Record<string, string>>,
+): string {
   return Object.values(errors)
     .filter((message): message is string => typeof message === "string")
     .join(" ");
@@ -435,15 +473,18 @@ export function createOrderReference(): string {
 }
 
 export type PaymentInitResponse =
-  | { ok: true; redirectUrl: string; ref: string }
-  | { ok: false; error: string };
+  { ok: true; redirectUrl: string; ref: string } | { ok: false; error: string };
 
 const GENERIC_FAILURE = "Ödeme başlatılamadı. Lütfen tekrar deneyin.";
 
 /** Narrows the untyped fetch body the form gets back into the response contract. */
 export function parsePaymentInitResponse(body: unknown): PaymentInitResponse {
   if (isRecord(body)) {
-    if (body.ok === true && typeof body.redirectUrl === "string" && typeof body.ref === "string") {
+    if (
+      body.ok === true &&
+      typeof body.redirectUrl === "string" &&
+      typeof body.ref === "string"
+    ) {
       return { ok: true, redirectUrl: body.redirectUrl, ref: body.ref };
     }
     if (typeof body.error === "string" && body.error.length > 0) {

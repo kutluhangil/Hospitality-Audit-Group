@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { PaymentSection } from "@/components/forms/PaymentSection";
@@ -6,7 +6,7 @@ import { QuoteForm } from "@/components/forms/QuoteForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import type { LocaleParams } from "@/i18n/routing";
-import { PRICING_NOTE, SCALE_NOTE } from "@/lib/modules-data";
+
 import { isPaymentEnabled } from "@/lib/payment";
 
 export const metadata: Metadata = {
@@ -23,9 +23,14 @@ export const metadata: Metadata = {
  * before: heading, note, quote form. No path chooser, no second heading, no
  * dangling "or". The quote flow underneath is untouched.
  */
-export default async function TeklifPage({ params }: { params: Promise<LocaleParams> }) {
+export default async function TeklifPage({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const tModules = await getTranslations({ locale, namespace: "modules" });
 
   const paymentEnabled = isPaymentEnabled();
 
@@ -35,7 +40,9 @@ export default async function TeklifPage({ params }: { params: Promise<LocalePar
         <header className="max-w-2xl">
           <Eyebrow>TEKLİF TALEBİ</Eyebrow>
           <h1 className="mt-3 font-serif text-4xl leading-tight tracking-tight md:text-5xl">
-            {paymentEnabled ? "Nasıl ilerlemek istersiniz?" : "Teklifinizi birlikte kuralım."}
+            {paymentEnabled
+              ? "Nasıl ilerlemek istersiniz?"
+              : "Teklifinizi birlikte kuralım."}
           </h1>
           <p className="mt-4 text-base leading-relaxed text-ink-muted md:text-lg">
             {paymentEnabled
@@ -43,7 +50,7 @@ export default async function TeklifPage({ params }: { params: Promise<LocalePar
               : "Seçtiğiniz modüller aşağıda listelenir. Modül seçmeden de gönderebilirsiniz — genel görüşme talebi olarak değerlendiririz."}
           </p>
           <p className="mt-6 font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-            {PRICING_NOTE}
+            {tModules("pricingNote")}
           </p>
         </header>
       </Reveal>
@@ -68,8 +75,8 @@ export default async function TeklifPage({ params }: { params: Promise<LocalePar
                 Tesisinizin ölçeğine göre fiyat isteyin.
               </h2>
               <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-muted">
-                {SCALE_NOTE} Bu yolda ödeme alınmaz ve fatura bilgisi istenmez — önce konuşur, sonra
-                fiyatlarız.
+                {tModules("scaleNote")} Bu yolda ödeme alınmaz ve fatura bilgisi
+                istenmez — önce konuşur, sonra fiyatlarız.
               </p>
             </div>
           ) : null}
@@ -116,7 +123,9 @@ function PathCard({ href, label, title, body }: PathCardProps) {
       href={href}
       className="flex flex-col gap-2 rounded-xl2 border border-line bg-surface p-6 transition-colors duration-150 hover:border-accent"
     >
-      <span className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">{label}</span>
+      <span className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
+        {label}
+      </span>
       <span className="font-serif text-xl">{title}</span>
       <span className="text-sm leading-relaxed text-ink-muted">{body}</span>
     </a>

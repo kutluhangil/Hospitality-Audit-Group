@@ -19,7 +19,8 @@ export const metadata: Metadata = {
 const measurements = [
   {
     title: "Karşılama ve İlk İzlenim",
-    description: "rezervasyon doğruluğu, valet/bellboy hızı, check-in protokol uyumu",
+    description:
+      "rezervasyon doğruluğu, valet/bellboy hızı, check-in protokol uyumu",
   },
   {
     title: "Ön Büro Verimliliği",
@@ -69,7 +70,11 @@ const deliverables = [
   },
 ] as const;
 
-export default async function MysteryShopperAuditPage({ params }: { params: Promise<LocaleParams> }) {
+export default async function MysteryShopperAuditPage({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -93,7 +98,10 @@ export default async function MysteryShopperAuditPage({ params }: { params: Prom
           <ul className="grid gap-4 md:grid-cols-2">
             {measurements.map((item) => (
               <li key={item.title}>
-                <DefinitionCard title={item.title} description={item.description} />
+                <DefinitionCard
+                  title={item.title}
+                  description={item.description}
+                />
               </li>
             ))}
           </ul>
@@ -113,7 +121,10 @@ export default async function MysteryShopperAuditPage({ params }: { params: Prom
             <ul className="grid gap-4 md:grid-cols-2">
               {revenueChecks.map((item) => (
                 <li key={item.title}>
-                  <DefinitionCard title={item.title} description={item.description} />
+                  <DefinitionCard
+                    title={item.title}
+                    description={item.description}
+                  />
                 </li>
               ))}
             </ul>

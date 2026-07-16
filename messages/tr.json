@@ -72,7 +72,10 @@
           "detail": "süre: 3dk 40sn",
           "note": "standart: <4dk"
         },
-        "bellboy": { "label": "bellboy", "detail": "karşılama süresi 45sn" },
+        "bellboy": {
+          "label": "bellboy",
+          "detail": "karşılama süresi 45sn"
+        },
         "roomHygiene": {
           "label": "oda hijyeni",
           "detail": "buklet düzeni",
@@ -139,5 +142,104 @@
     "en": "EN",
     "trFull": "Türkçe",
     "enFull": "İngilizce"
+  },
+  "modules": {
+    "A": {
+      "title": "Ön Büro",
+      "summary": "Misafir ilk teması, karşılama hızı, veri giriş doğruluğu ve finansal güvence parametrelerinin denetimi.",
+      "scope": [
+        "Karşılama ve valet standartları",
+        "Check-in protokolü ve upsell performansı",
+        "KVKK onayı ve CRM veri doğruluğu",
+        "Kriz yönetimi ve check-out süreci"
+      ]
+    },
+    "B": {
+      "title": "Yiyecek & İçecek (F&B)",
+      "summary": "Gastronomi kalite güvencesi, reçete sadakati, hız, hijyen (HACCP) ve kayıp/kaçak kontrolü.",
+      "scope": [
+        "Restoran & à la carte servis akışı ve hız",
+        "Menü hakimiyeti ve çapraz satış",
+        "Bar reçete sadakati ve porsiyon güvenliği",
+        "Finansal kaçak (shrinkage) ve oda servisi"
+      ]
+    },
+    "C": {
+      "title": "Wellness & Rekreasyon",
+      "summary": "SPA, havuz, plaj ve fitness alanlarında lüks hizmet standartları, mikrobiyolojik hijyen, mutlak güvenlik ve gelir kaldıraçları.",
+      "scope": [
+        "SPA resepsiyon ve randevu sadakati",
+        "Terapist uzmanlığı, iletişim ve upsell",
+        "Islak alanlar ve fitness güvenliği",
+        "Havuz kimyasalları, plaj ve can güvenliği"
+      ]
+    },
+    "E": {
+      "title": "Kat Hizmetleri & Oda İçi",
+      "summary": "Duyusal ilk etki, tekstil, derin mikrobiyolojik hijyen ve kör nokta donanım çalışma performansları.",
+      "scope": [
+        "Duyusal ilk etki ve iklimlendirme",
+        "Yatak düzeni ve tekstil kalitesi",
+        "Banyo sterilizasyonu ve detay hijyeni",
+        "Balkon/teras ve oda içi mutfak (kitchenette)"
+      ]
+    },
+    "D": {
+      "title": "360° Tam Denetim",
+      "summary": "Departmanlar arası sinerji, kurumsal iletişim, eğitim ihtiyaç analizi ve yönetim kurulu SWOT yol haritası.",
+      "scope": [
+        "A + B + C + E modüllerinin tamamı",
+        "Departmanlar arası iletişim ve vardiya sinerjisi",
+        "PMS/POS/CRM finansal mutabakat",
+        "Kriz simülasyonu, TNA ve yönetim kurulu SWOT"
+      ]
+    },
+    "EGITIM": {
+      "title": "Personel Eğitimi",
+      "summary": "Denetim bulgularından beslenen, departman bazlı ve ölçülebilir yerinde eğitim programları.",
+      "scope": [
+        "Ön büro & F&B & kat hizmetleri programları",
+        "Rol canlandırma atölyeleri",
+        "Ön/son test ölçümü",
+        "Takip denetimiyle doğrulama"
+      ]
+    },
+    "pricingNote": "FİYATLAR KDV DAHİLDİR",
+    "scaleNote": "Listelenen fiyatlar standart ölçekli tesisler içindir. Farklı ölçekteki tesisler için teklif alın."
+  },
+  "cart": {
+    "add": "Sepete Ekle",
+    "inCart": "Sepette ✓",
+    "addAria": "{title} modülünü sepete ekle",
+    "removeAria": "{title} modülünü sepetten çıkar",
+    "coveredBy": "{package} paketine dahil",
+    "coveredAria": "{title}, {package} paketine dahil",
+    "remove": "Çıkar",
+    "removeLineAria": "{title} seçimden çıkar",
+    "subtotal": "Ara toplam (KDV hariç)",
+    "vat": "KDV %{rate}",
+    "total": "Genel toplam"
+  },
+  "packageOffer": {
+    "eyebrow": "{package} paketi",
+    "body": "Seçtiğiniz {count} modülün tamamı bu paketin kapsamında. <old>{separate}</old> yerine <new>{packageTotal}</new> — <save>{saving} tasarruf.</save>",
+    "cta": "Pakete Geç"
+  },
+  "catalogue": {
+    "moduleLabel": "MODÜL",
+    "extraLabel": "EK HİZMET",
+    "featured": "En kapsamlı",
+    "allCriteria": "{count} kriterin tamamı"
+  },
+  "modulesPage": {
+    "eyebrow": "MODÜLER HİZMET MİMARİSİ",
+    "title": "Denetiminizi modül modül kurun.",
+    "body": "İhtiyacınız olan modülleri özgürce seçin, yatırımınızı doğrudan öncelikli alanlarınıza yönlendirin. Toplam {total} kriter; her biri bir kanıt türüne bağlı.",
+    "metaTitle": "Modüler Hizmet Mimarisi",
+    "metaDescription": "Ön büro, F&B, wellness, kat hizmetleri ve 360° tam denetim modülleri. İhtiyacınız olan modülleri seçin, teklifinizi oluşturun."
+  },
+  "modulePage": {
+    "metaTitle": "Modül {code} — {title}",
+    "metaDescription": "{summary} {count} kriter, her biri bir kanıt türüne bağlı."
   }
 }

@@ -34,12 +34,18 @@ const GOOGLE_FONTS_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)";
  * full face — and guarantees the Turkish characters in the tagline are included.
  * The desktop UA is what makes Google serve TTF; satori cannot parse woff2.
  */
-async function loadFont(family: string, weight: number, text: string): Promise<ArrayBuffer> {
+async function loadFont(
+  family: string,
+  weight: number,
+  text: string,
+): Promise<ArrayBuffer> {
   const cssUrl =
     `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@${weight}` +
     `&text=${encodeURIComponent(text)}`;
 
-  const cssResponse = await fetch(cssUrl, { headers: { "User-Agent": GOOGLE_FONTS_UA } });
+  const cssResponse = await fetch(cssUrl, {
+    headers: { "User-Agent": GOOGLE_FONTS_UA },
+  });
   if (!cssResponse.ok) {
     throw new Error(
       `Google Fonts CSS request failed for "${family}" ${weight} (${cssResponse.status}): ` +
@@ -71,7 +77,9 @@ export default async function OpengraphImage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const active = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
+  const active = hasLocale(routing.locales, locale)
+    ? locale
+    : routing.defaultLocale;
   const t = await getTranslations({ locale: active, namespace: "site" });
   const tagline = t("tagline");
 
@@ -81,53 +89,51 @@ export default async function OpengraphImage({
   ]);
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        backgroundColor: colors.bg.light,
+        padding: "96px",
+      }}
+    >
       <div
         style={{
-          width: "100%",
-          height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          backgroundColor: colors.bg.light,
-          padding: "96px",
+          fontFamily: "Source Serif 4",
+          fontSize: 72,
+          letterSpacing: "-0.02em",
+          color: colors.ink.light,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            fontFamily: "Source Serif 4",
-            fontSize: 72,
-            letterSpacing: "-0.02em",
-            color: colors.ink.light,
-          }}
-        >
-          {siteConfig.name}
-        </div>
-
-        {/* The terracotta rule — accent doing exactly the decorative job it is for. */}
-        <div
-          style={{
-            display: "flex",
-            width: 140,
-            height: 5,
-            margin: "40px 0",
-            backgroundColor: colors.accent,
-          }}
-        />
-
-        <div
-          style={{
-            display: "flex",
-            fontFamily: "Inter",
-            fontSize: 32,
-            color: colors.ink.light,
-          }}
-        >
-          {tagline}
-        </div>
+        {siteConfig.name}
       </div>
-    ),
+
+      {/* The terracotta rule — accent doing exactly the decorative job it is for. */}
+      <div
+        style={{
+          display: "flex",
+          width: 140,
+          height: 5,
+          margin: "40px 0",
+          backgroundColor: colors.accent,
+        }}
+      />
+
+      <div
+        style={{
+          display: "flex",
+          fontFamily: "Inter",
+          fontSize: 32,
+          color: colors.ink.light,
+        }}
+      >
+        {tagline}
+      </div>
+    </div>,
     {
       ...size,
       fonts: [

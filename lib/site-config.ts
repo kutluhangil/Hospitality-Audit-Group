@@ -52,7 +52,10 @@ export const mainNav: readonly NavLink[] = [
     labelKey: "services",
     href: "/hizmetler/gizli-musteri-denetimi",
     children: [
-      { labelKey: "mysteryShopping", href: "/hizmetler/gizli-musteri-denetimi" },
+      {
+        labelKey: "mysteryShopping",
+        href: "/hizmetler/gizli-musteri-denetimi",
+      },
       { labelKey: "staffTraining", href: "/hizmetler/personel-egitimi" },
     ],
   },

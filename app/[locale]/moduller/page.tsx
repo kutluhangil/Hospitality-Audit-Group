@@ -1,4 +1,5 @@
-import { setRequestLocale } from "next-intl/server";
+import { useTranslations } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { ModuleCard, toCatalogueEntry } from "@/components/modules/ModuleCard";
@@ -10,7 +11,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { alternatesFor } from "@/i18n/metadata";
 import type { LocaleParams } from "@/i18n/routing";
 import { criteriaCount } from "@/lib/audit-criteria";
-import { modules, SCALE_NOTE, trainingService } from "@/lib/modules-data";
+import { modules, trainingService } from "@/lib/modules-data";
 
 // generateMetadata rather than a static object: the canonical has to name the
 // URL this locale serves (/en/modules, not /moduller).
@@ -20,11 +21,11 @@ export async function generateMetadata({
   params: Promise<LocaleParams>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "modulesPage" });
 
   return {
-    title: "Modüler Hizmet Mimarisi",
-    description:
-      "Ön büro, F&B, wellness, kat hizmetleri ve 360° tam denetim modülleri. İhtiyacınız olan modülleri seçin, teklifinizi oluşturun.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: alternatesFor("/moduller", locale),
   };
 }
@@ -35,9 +36,6 @@ export async function generateMetadata({
  */
 const TRAINING_ENTRY = {
   id: trainingService.id,
-  title: trainingService.title,
-  summary: trainingService.summary,
-  scope: trainingService.scope,
   icon: trainingService.icon,
   price: trainingService.price,
 } as const;
@@ -50,22 +48,26 @@ export default async function ModulesPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
+  return <ModulesPageBody />;
+}
+
+function ModulesPageBody() {
+  const t = useTranslations("modulesPage");
+  const tModules = useTranslations("modules");
   const total = criteriaCount();
 
   return (
     <main className="mx-auto max-w-content px-6 py-16 md:py-24">
       <Reveal>
         <header className="max-w-2xl">
-          <Eyebrow>MODÜLER HİZMET MİMARİSİ</Eyebrow>
+          <Eyebrow>{t("eyebrow")}</Eyebrow>
           <h1 className="mt-3 font-serif text-4xl leading-[1.1] tracking-tight md:text-5xl">
-            Denetiminizi modül modül kurun.
+            {t("title")}
           </h1>
           <p className="mt-6 text-base leading-relaxed text-ink-muted md:text-lg">
-            İhtiyacınız olan modülleri özgürce seçin, yatırımınızı doğrudan
-            öncelikli alanlarınıza yönlendirin. Toplam {total} kriter; her biri
-            bir kanıt türüne bağlı.
+            {t("body", { total })}
           </p>
-          <p className="mt-3 text-sm text-ink-muted">{SCALE_NOTE}</p>
+          <p className="mt-3 text-sm text-ink-muted">{tModules("scaleNote")}</p>
         </header>
       </Reveal>
 

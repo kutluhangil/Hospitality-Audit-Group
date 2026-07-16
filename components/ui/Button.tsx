@@ -11,10 +11,12 @@ const base =
 
 const variants: Record<Variant, string> = {
   // --accent-strong rather than --accent: the brand terracotta cannot carry text at AA.
-  accent: "bg-accent-strong text-accent-strong-ink hover:bg-accent-strong-hover",
+  accent:
+    "bg-accent-strong text-accent-strong-ink hover:bg-accent-strong-hover",
   ghost: "border border-line text-ink hover:bg-bg-soft",
   // For use on the dark panels, where the page tokens would disappear.
-  terminal: "border border-terminal-ink/25 text-terminal-ink hover:bg-terminal-ink/10",
+  terminal:
+    "border border-terminal-ink/25 text-terminal-ink hover:bg-terminal-ink/10",
 };
 
 const sizes: Record<Size, string> = {
@@ -23,7 +25,9 @@ const sizes: Record<Size, string> = {
 };
 
 function classesFor(variant: Variant, size: Size, className?: string) {
-  return [base, variants[variant], sizes[size], className].filter(Boolean).join(" ");
+  return [base, variants[variant], sizes[size], className]
+    .filter(Boolean)
+    .join(" ");
 }
 
 type CommonProps = { variant?: Variant; size?: Size; className?: string };
@@ -31,7 +35,9 @@ type CommonProps = { variant?: Variant; size?: Size; className?: string };
 // href is an internal route rather than a string: the locale-aware Link only
 // accepts pathnames it knows how to localise, and that check is worth keeping.
 type ButtonAsLink = CommonProps &
-  Omit<ComponentPropsWithoutRef<typeof Link>, "className" | "href"> & { href: AppPathname };
+  Omit<ComponentPropsWithoutRef<typeof Link>, "className" | "href"> & {
+    href: AppPathname;
+  };
 
 type ButtonAsButton = CommonProps &
   Omit<ComponentPropsWithoutRef<"button">, "className"> & { href?: undefined };
@@ -39,12 +45,29 @@ type ButtonAsButton = CommonProps &
 export type ButtonProps = ButtonAsLink | ButtonAsButton;
 
 /** Renders a Next Link when given an href, a native button otherwise. */
-export function Button({ variant = "accent", size = "md", className, ...props }: ButtonProps) {
+export function Button({
+  variant = "accent",
+  size = "md",
+  className,
+  ...props
+}: ButtonProps) {
   if (props.href !== undefined) {
     const { href, ...rest } = props as ButtonAsLink;
-    return <Link href={href} className={classesFor(variant, size, className)} {...rest} />;
+    return (
+      <Link
+        href={href}
+        className={classesFor(variant, size, className)}
+        {...rest}
+      />
+    );
   }
 
   const { type = "button", ...rest } = props as ButtonAsButton;
-  return <button type={type} className={classesFor(variant, size, className)} {...rest} />;
+  return (
+    <button
+      type={type}
+      className={classesFor(variant, size, className)}
+      {...rest}
+    />
+  );
 }

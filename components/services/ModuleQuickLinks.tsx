@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { Link } from "@/i18n/navigation";
 import { moduleIcons, modules, type ModuleCode } from "@/lib/modules-data";
 
@@ -11,6 +13,8 @@ type ModuleQuickLinksProps = {
  * The cards point at /moduller, where the quote cart lives.
  */
 export function ModuleQuickLinks({ codes }: ModuleQuickLinksProps) {
+  const t = useTranslations("catalogue");
+  const tModules = useTranslations("modules");
   const selected = modules.filter((module) => codes.includes(module.code));
 
   return (
@@ -25,9 +29,11 @@ export function ModuleQuickLinks({ codes }: ModuleQuickLinksProps) {
             >
               <Icon aria-hidden className="size-6 text-accent" />
               <span className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-                MODÜL {module.code}
+                {t("moduleLabel")} {module.code}
               </span>
-              <span className="mt-2 font-serif text-lg">{module.title}</span>
+              <span className="mt-2 font-serif text-lg">
+                {tModules(`${module.code}.title`)}
+              </span>
             </Link>
           </li>
         );

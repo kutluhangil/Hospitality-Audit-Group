@@ -40,7 +40,11 @@ const programmes = [
   },
 ] as const;
 
-export default async function StaffTrainingPage({ params }: { params: Promise<LocaleParams> }) {
+export default async function StaffTrainingPage({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -62,13 +66,15 @@ export default async function StaffTrainingPage({ params }: { params: Promise<Lo
         <Reveal className="mt-6">
           <div className="max-w-2xl space-y-5 text-base leading-relaxed text-ink-muted md:text-lg">
             <p>
-              Eğitim programlarımız denetim bulgularından beslenir: sahada ölçülen sapma, doğrudan o
-              sapmayı kapatacak içeriği belirler. Genel geçer bir müfredat değil, tesisinizin kendi
-              raporundan çıkan bir program alırsınız.
+              Eğitim programlarımız denetim bulgularından beslenir: sahada
+              ölçülen sapma, doğrudan o sapmayı kapatacak içeriği belirler.
+              Genel geçer bir müfredat değil, tesisinizin kendi raporundan çıkan
+              bir program alırsınız.
             </p>
             <p>
-              Eğitimi bağımsız olarak da satın alabilirsiniz. Denetim yaptırmamış tesislerde program,
-              ön test sonuçlarına göre kurgulanır; sonuç yine ölçümle doğrulanır.
+              Eğitimi bağımsız olarak da satın alabilirsiniz. Denetim
+              yaptırmamış tesislerde program, ön test sonuçlarına göre
+              kurgulanır; sonuç yine ölçümle doğrulanır.
             </p>
           </div>
         </Reveal>
@@ -98,7 +104,8 @@ export default async function StaffTrainingPage({ params }: { params: Promise<Lo
           </Reveal>
           <Reveal className="mt-10">
             <MonoRibbon>
-              YERİNDE EĞİTİM · ATÖLYE · ROL CANLANDIRMA · ÖLÇÜM: ÖN/SON TEST + TAKİP DENETİMİ
+              YERİNDE EĞİTİM · ATÖLYE · ROL CANLANDIRMA · ÖLÇÜM: ÖN/SON TEST +
+              TAKİP DENETİMİ
             </MonoRibbon>
           </Reveal>
         </div>
@@ -120,7 +127,11 @@ export default async function StaffTrainingPage({ params }: { params: Promise<Lo
             <Button href="/moduller" size="lg">
               Teklif Alın
             </Button>
-            <Button href="/hizmetler/gizli-musteri-denetimi" variant="ghost" size="lg">
+            <Button
+              href="/hizmetler/gizli-musteri-denetimi"
+              variant="ghost"
+              size="lg"
+            >
               Denetim Hizmetini İnceleyin
             </Button>
           </ClosingCta>

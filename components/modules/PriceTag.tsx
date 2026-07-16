@@ -1,5 +1,6 @@
-import { formatPrice } from "@/lib/cart-math";
-import { PRICING_NOTE } from "@/lib/modules-data";
+import { useTranslations } from "next-intl";
+
+import { useFormatPrice } from "@/lib/use-format-price";
 
 /**
  * Prices are listed VAT-inclusive, so the note says so rather than leaving a
@@ -14,6 +15,9 @@ export function PriceTag({
   size?: "md" | "lg";
   className?: string;
 }) {
+  const t = useTranslations("modules");
+  const formatPrice = useFormatPrice();
+
   return (
     <p className={className}>
       <span
@@ -25,7 +29,7 @@ export function PriceTag({
         {formatPrice(amount)}
       </span>
       <span className="mt-1.5 block font-mono text-[0.65rem] uppercase tracking-[0.15em] text-ink-muted">
-        {PRICING_NOTE}
+        {t("pricingNote")}
       </span>
     </p>
   );

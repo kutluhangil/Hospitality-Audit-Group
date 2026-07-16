@@ -23,7 +23,12 @@ function linkClasses(active: boolean) {
 
 /** Decorative rule under the active entry — accent as line work, never as text. */
 function ActiveRule() {
-  return <span aria-hidden="true" className="absolute inset-x-3 bottom-0 h-px bg-accent" />;
+  return (
+    <span
+      aria-hidden="true"
+      className="absolute inset-x-3 bottom-0 h-px bg-accent"
+    />
+  );
 }
 
 function NavDropdown({ item, pathname }: { item: NavLink; pathname: string }) {
@@ -93,7 +98,9 @@ function NavDropdown({ item, pathname }: { item: NavLink; pathname: string }) {
                 aria-current={current ? "page" : undefined}
                 onClick={() => setOpen(false)}
                 className={`block rounded-xl2 px-3 py-2 text-sm transition-colors duration-150 ${
-                  current ? "text-ink" : "text-ink-muted hover:bg-bg-soft hover:text-ink"
+                  current
+                    ? "text-ink"
+                    : "text-ink-muted hover:bg-bg-soft hover:text-ink"
                 }`}
               >
                 {t(child.labelKey)}
@@ -126,7 +133,13 @@ export function Header() {
           <ul className="flex items-center gap-1">
             {mainNav.map((item) => {
               if (item.children) {
-                return <NavDropdown key={item.href} item={item} pathname={pathname} />;
+                return (
+                  <NavDropdown
+                    key={item.href}
+                    item={item}
+                    pathname={pathname}
+                  />
+                );
               }
 
               const current = item.href === pathname;

@@ -5,7 +5,10 @@ import { ClosingCta } from "@/components/services/ClosingCta";
 import { DefinitionCard } from "@/components/services/DefinitionCard";
 import { Faq, type FaqItem } from "@/components/services/Faq";
 import { PageHero } from "@/components/services/PageHero";
-import { ProcessStep, type ProcessStepData } from "@/components/services/ProcessStep";
+import {
+  ProcessStep,
+  type ProcessStepData,
+} from "@/components/services/ProcessStep";
 import { TrustBox } from "@/components/services/TrustBox";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
@@ -33,7 +36,8 @@ const steps: readonly ProcessStepData[] = [
   {
     number: "02",
     name: "SAHA",
-    summary: "Habersiz gizli müşteri ziyareti; standart kontrol listeleriyle kanıt toplama.",
+    summary:
+      "Habersiz gizli müşteri ziyareti; standart kontrol listeleriyle kanıt toplama.",
     detail: [
       "Gerçek rezervasyon, gerçek misafir profiliyle giriş",
       "Modüle göre 1–3 gece konaklama",
@@ -44,7 +48,8 @@ const steps: readonly ProcessStepData[] = [
   {
     number: "03",
     name: "RAPOR",
-    summary: "SWOT + ROI analizi; gelir kaçağı ve gelişim alanları net rakamlarla.",
+    summary:
+      "SWOT + ROI analizi; gelir kaçağı ve gelişim alanları net rakamlarla.",
     detail: [
       "Saha ziyareti sonrası 48 saat içinde ön bulgu paylaşımı",
       "10 iş günü içinde tam SWOT raporu",
@@ -110,7 +115,11 @@ const faqItems: readonly FaqItem[] = [
   },
 ];
 
-export default async function ProcessPage({ params }: { params: Promise<LocaleParams> }) {
+export default async function ProcessPage({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -159,13 +168,14 @@ export default async function ProcessPage({ params }: { params: Promise<LocalePa
         <Reveal>
           <TrustBox title="KVKK uyumu ve karşılıklı NDA">
             <p>
-              Denetim süreci karşılıklı bir gizlilik sözleşmesiyle başlar. Tesisinizin adı, bulgular
-              ve raporun tamamı yalnızca sizinle paylaşılır; referans olarak kullanılmaz.
+              Denetim süreci karşılıklı bir gizlilik sözleşmesiyle başlar.
+              Tesisinizin adı, bulgular ve raporun tamamı yalnızca sizinle
+              paylaşılır; referans olarak kullanılmaz.
             </p>
             <p>
-              Sahada toplanan veriler %100 KVKK uyumlu şekilde işlenir. Kayıtlar denetimin amacıyla
-              sınırlı tutulur, personelin kimliğini hedef alan bir değerlendirme üretilmez —
-              ölçülen kişi değil, süreçtir.
+              Sahada toplanan veriler %100 KVKK uyumlu şekilde işlenir. Kayıtlar
+              denetimin amacıyla sınırlı tutulur, personelin kimliğini hedef
+              alan bir değerlendirme üretilmez — ölçülen kişi değil, süreçtir.
             </p>
           </TrustBox>
         </Reveal>
@@ -183,7 +193,11 @@ export default async function ProcessPage({ params }: { params: Promise<LocalePa
             <Button href="/moduller" size="lg">
               Teklif Alın
             </Button>
-            <Button href="/hizmetler/gizli-musteri-denetimi" variant="ghost" size="lg">
+            <Button
+              href="/hizmetler/gizli-musteri-denetimi"
+              variant="ghost"
+              size="lg"
+            >
               Denetim Hizmetini İnceleyin
             </Button>
           </ClosingCta>

@@ -23,7 +23,10 @@ export function CriterionCard({ criterion }: { criterion: Criterion }) {
         <span className="font-mono text-xs tracking-[0.12em] text-accent-strong">
           {criterion.code}
         </span>
-        <EvidenceBadge category={criterion.evidence} label={criterion.evidenceLabel} />
+        <EvidenceBadge
+          category={criterion.evidence}
+          label={criterion.evidenceLabel}
+        />
       </header>
 
       {/*
@@ -38,7 +41,9 @@ export function CriterionCard({ criterion }: { criterion: Criterion }) {
 
       {criterion.threshold ? (
         <p className="mt-4 flex items-baseline gap-2 border-t border-line pt-3 font-mono text-xs">
-          <span className="uppercase tracking-[0.16em] text-ink-muted">Eşik</span>
+          <span className="uppercase tracking-[0.16em] text-ink-muted">
+            Eşik
+          </span>
           <span className="text-accent-strong">{criterion.threshold}</span>
         </p>
       ) : null}

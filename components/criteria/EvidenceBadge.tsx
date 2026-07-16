@@ -15,7 +15,10 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import { EVIDENCE_CATEGORIES, type EvidenceCategory } from "@/lib/criteria/types";
+import {
+  EVIDENCE_CATEGORIES,
+  type EvidenceCategory,
+} from "@/lib/criteria/types";
 
 /**
  * Resolved here rather than in the data file so the criteria stay plain data —
@@ -52,7 +55,11 @@ type EvidenceBadgeProps = {
   className?: string;
 };
 
-export function EvidenceBadge({ category, label, className }: EvidenceBadgeProps) {
+export function EvidenceBadge({
+  category,
+  label,
+  className,
+}: EvidenceBadgeProps) {
   const Icon = ICONS[category];
   const canonical = EVIDENCE_CATEGORIES[category].title;
 
@@ -69,7 +76,12 @@ export function EvidenceBadge({ category, label, className }: EvidenceBadgeProps
       // the site counts by, so it belongs in the accessible name too.
       title={canonical === label ? label : `${label} — ${canonical}`}
     >
-      <Icon size={12} strokeWidth={1.75} className="text-accent" aria-hidden="true" />
+      <Icon
+        size={12}
+        strokeWidth={1.75}
+        className="text-accent"
+        aria-hidden="true"
+      />
       {label}
     </span>
   );

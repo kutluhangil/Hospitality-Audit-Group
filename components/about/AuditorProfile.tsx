@@ -24,13 +24,17 @@ export function AuditorProfile() {
       <Reveal className="mt-10">
         <dl className="grid grid-cols-2 gap-6 border-y border-line py-6 sm:max-w-md">
           <div>
-            <dd className="font-mono text-4xl text-ink">{company.denetciSayisi}</dd>
+            <dd className="font-mono text-4xl text-ink">
+              {company.denetciSayisi}
+            </dd>
             <dt className="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-ink-muted">
               denetçi
             </dt>
           </div>
           <div>
-            <dd className="font-mono text-4xl text-ink">{company.ortalamaKidemYil} yıl</dd>
+            <dd className="font-mono text-4xl text-ink">
+              {company.ortalamaKidemYil} yıl
+            </dd>
             <dt className="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-ink-muted">
               ortalama sektör kıdemi
             </dt>

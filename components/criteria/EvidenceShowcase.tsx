@@ -1,9 +1,17 @@
 import Image from "next/image";
 
-import { EvidenceBadge, evidenceIcon } from "@/components/criteria/EvidenceBadge";
+import {
+  EvidenceBadge,
+  evidenceIcon,
+} from "@/components/criteria/EvidenceBadge";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { criteriaCount, evidenceBreakdown, evidenceTypeCount, thresholds } from "@/lib/audit-criteria";
+import {
+  criteriaCount,
+  evidenceBreakdown,
+  evidenceTypeCount,
+  thresholds,
+} from "@/lib/audit-criteria";
 import { EVIDENCE_CATEGORIES } from "@/lib/criteria/types";
 import type { ModuleCode } from "@/lib/modules-data";
 
@@ -63,7 +71,9 @@ export function EvidenceShowcase({
             { term: "ölçülebilir eşik", value: bounds },
           ].map((stat) => (
             <div key={stat.term}>
-              <dd className="font-mono text-3xl text-ink md:text-4xl">{stat.value}</dd>
+              <dd className="font-mono text-3xl text-ink md:text-4xl">
+                {stat.value}
+              </dd>
               <dt className="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-ink-muted">
                 {stat.term}
               </dt>

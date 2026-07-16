@@ -2,7 +2,8 @@ import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 
 import type { BillingRequest } from "@/lib/billing-schema";
 import { hasCorporateIdentity } from "@/lib/company-data";
-import { priceOf, titleOf, type CartItemId } from "@/lib/modules-data";
+import { RECORD_CATEGORY, recordTitleOf } from "@/lib/module-records";
+import { priceOf, type CartItemId } from "@/lib/modules-data";
 
 /**
  * The payment provider boundary. iyzico exists only inside this file.
@@ -93,7 +94,10 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function readString(source: Record<string, unknown>, key: string): string | null {
+function readString(
+  source: Record<string, unknown>,
+  key: string,
+): string | null {
   const value = source[key];
   return typeof value === "string" && value.length > 0 ? value : null;
 }
@@ -114,7 +118,11 @@ function toProviderAmount(tl: number): string {
  * a live merchant account. The random key must be echoed in `x-iyzi-rnd` and is
  * part of the signed payload, so it is generated once and used twice.
  */
-function authHeaders(config: PaymentConfig, uriPath: string, body: string): Record<string, string> {
+function authHeaders(
+  config: PaymentConfig,
+  uriPath: string,
+  body: string,
+): Record<string, string> {
   const randomKey = `${Date.now()}${randomBytes(8).toString("hex")}`;
   const signature = createHmac("sha256", config.secretKey)
     .update(randomKey + uriPath + body)
@@ -134,7 +142,10 @@ function authHeaders(config: PaymentConfig, uriPath: string, body: string): Reco
 const PROVIDER_TIMEOUT_MS = 20_000;
 
 /** Every provider call goes through here, so timeouts and shape checks cannot be forgotten. */
-async function callProvider(uriPath: string, payload: unknown): Promise<Record<string, unknown>> {
+async function callProvider(
+  uriPath: string,
+  payload: unknown,
+): Promise<Record<string, unknown>> {
   const config = requireConfig();
   const body = JSON.stringify(payload);
 
@@ -147,7 +158,9 @@ async function callProvider(uriPath: string, payload: unknown): Promise<Record<s
       signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
     });
   } catch (error) {
-    throw new PaymentError(`Payment provider unreachable at ${uriPath}.`, { cause: error });
+    throw new PaymentError(`Payment provider unreachable at ${uriPath}.`, {
+      cause: error,
+    });
   }
 
   const text = await response.text();
@@ -213,7 +226,10 @@ export type PaymentSession = {
 };
 
 /** iyzico models every buyer as a person, even when the invoice is corporate. */
-function buyerNames(billing: BillingRequest): { name: string; surname: string } {
+function buyerNames(billing: BillingRequest): {
+  name: string;
+  surname: string;
+} {
   if (billing.faturaTipi === "bireysel") {
     const parts = billing.adSoyad.split(/\s+/);
     const surname = parts.length > 1 ? parts[parts.length - 1] : parts[0];
@@ -232,11 +248,15 @@ function buyerNames(billing: BillingRequest): { name: string; surname: string } 
  * invoices cannot be settled without a merchant account to test against.
  */
 function buyerIdentityNumber(billing: BillingRequest): string {
-  return billing.faturaTipi === "bireysel" ? billing.tcKimlikNo : billing.vergiNo;
+  return billing.faturaTipi === "bireysel"
+    ? billing.tcKimlikNo
+    : billing.vergiNo;
 }
 
 function contactNameOf(billing: BillingRequest): string {
-  return billing.faturaTipi === "bireysel" ? billing.adSoyad : billing.ticaretUnvani;
+  return billing.faturaTipi === "bireysel"
+    ? billing.adSoyad
+    : billing.ticaretUnvani;
 }
 
 function addressOf(billing: BillingRequest) {
@@ -250,7 +270,8 @@ function addressOf(billing: BillingRequest) {
   };
 }
 
-const CHECKOUT_INITIALIZE_PATH = "/payment/iyzipos/checkoutform/initialize/auth/ecom";
+const CHECKOUT_INITIALIZE_PATH =
+  "/payment/iyzipos/checkoutform/initialize/auth/ecom";
 const CHECKOUT_RETRIEVE_PATH = "/payment/iyzipos/checkoutform/auth/ecom/detail";
 
 /**
@@ -259,7 +280,9 @@ const CHECKOUT_RETRIEVE_PATH = "/payment/iyzipos/checkoutform/auth/ecom/detail";
  * Nothing is charged here — the buyer enters their card on the provider's page
  * and the outcome only becomes real in `resolveCallback`.
  */
-export async function createPaymentSession(input: PaymentSessionInput): Promise<PaymentSession> {
+export async function createPaymentSession(
+  input: PaymentSessionInput,
+): Promise<PaymentSession> {
   const { name, surname } = buyerNames(input.billing);
   const address = addressOf(input.billing);
   const amount = toProviderAmount(input.amount);
@@ -294,8 +317,8 @@ export async function createPaymentSession(input: PaymentSessionInput): Promise<
     billingAddress: address,
     basketItems: input.items.map((id) => ({
       id,
-      name: titleOf(id),
-      category1: "Denetim Hizmeti",
+      name: recordTitleOf(id),
+      category1: RECORD_CATEGORY,
       itemType: "VIRTUAL",
       price: toProviderAmount(priceOf(id)),
     })),
@@ -342,14 +365,29 @@ export type PaymentOutcome = {
  * (accepting an unsigned result) is the one that cannot be allowed, so the
  * signature is required rather than checked-when-present.
  */
-function verifyRetrieveSignature(config: PaymentConfig, response: Record<string, unknown>): boolean {
+function verifyRetrieveSignature(
+  config: PaymentConfig,
+  response: Record<string, unknown>,
+): boolean {
   const claimed = readString(response, "signature");
   if (!claimed) return false;
 
-  const fields = ["paymentId", "currency", "basketId", "conversationId", "paidPrice", "price", "token"];
-  const payload = fields.map((field) => readString(response, field) ?? "").join("");
+  const fields = [
+    "paymentId",
+    "currency",
+    "basketId",
+    "conversationId",
+    "paidPrice",
+    "price",
+    "token",
+  ];
+  const payload = fields
+    .map((field) => readString(response, field) ?? "")
+    .join("");
 
-  const expected = createHmac("sha256", config.secretKey).update(payload).digest("hex");
+  const expected = createHmac("sha256", config.secretKey)
+    .update(payload)
+    .digest("hex");
 
   const claimedBytes = Buffer.from(claimed, "utf8");
   const expectedBytes = Buffer.from(expected, "utf8");
@@ -430,7 +468,9 @@ const OUTCOME_MAX_AGE_MS = 60 * 60 * 1000;
 type OutcomeClaim = PaymentOutcome & { iat: number };
 
 function outcomeSignature(config: PaymentConfig, body: string): string {
-  return createHmac("sha256", config.secretKey).update(body).digest("base64url");
+  return createHmac("sha256", config.secretKey)
+    .update(body)
+    .digest("base64url");
 }
 
 export function signOutcome(outcome: PaymentOutcome): string {
@@ -468,14 +508,17 @@ export function verifyOutcome(token: string): PaymentOutcome | null {
   if (!isRecord(parsed)) return null;
 
   const { iat, status } = parsed;
-  if (typeof iat !== "number" || Date.now() - iat > OUTCOME_MAX_AGE_MS) return null;
-  if (status !== "success" && status !== "failure" && status !== "unknown") return null;
+  if (typeof iat !== "number" || Date.now() - iat > OUTCOME_MAX_AGE_MS)
+    return null;
+  if (status !== "success" && status !== "failure" && status !== "unknown")
+    return null;
 
   return {
     status,
     reference: readString(parsed, "reference") ?? "",
     providerPaymentId: readString(parsed, "providerPaymentId"),
-    paidAmount: typeof parsed.paidAmount === "number" ? parsed.paidAmount : null,
+    paidAmount:
+      typeof parsed.paidAmount === "number" ? parsed.paidAmount : null,
     failureReason: readString(parsed, "failureReason"),
   };
 }

@@ -7,7 +7,11 @@ import type { Perspective } from "@/lib/criteria/types";
  * own words, why this department is where money leaks — so they get the pull
  * quote treatment rather than being buried above a table.
  */
-export function PerspectiveBlock({ perspectives }: { perspectives: readonly Perspective[] }) {
+export function PerspectiveBlock({
+  perspectives,
+}: {
+  perspectives: readonly Perspective[];
+}) {
   return (
     <div className="space-y-10">
       {perspectives.map((perspective, index) => (

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+import { recordTitleOf } from "@/lib/module-records";
 import { getModule } from "@/lib/modules-data";
 import {
   createReference,
@@ -37,8 +38,13 @@ function formatModuleLines(selected: readonly string[]): string {
   if (selected.length === 0) {
     return "Modül seçilmedi — genel görüşme talebi.";
   }
+  // Turkish regardless of the locale the form was submitted from: this mail is
+  // read by the team, and it has to match the contract and the invoice.
   return selected
-    .map((code) => `  ${code} — ${getModule(code)?.title ?? "bilinmeyen modül"}`)
+    .map((code) => {
+      const known = getModule(code);
+      return `  ${code} — ${known ? recordTitleOf(known.code) : "bilinmeyen modül"}`;
+    })
     .join("\n");
 }
 
@@ -84,7 +90,9 @@ function contactBody(request: ContactRequest, ref: string): string {
 }
 
 function bodyFor(request: TeklifRequest, ref: string): string {
-  return request.type === "contact" ? contactBody(request, ref) : quoteBody(request, ref);
+  return request.type === "contact"
+    ? contactBody(request, ref)
+    : quoteBody(request, ref);
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
@@ -109,7 +117,10 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   const result = validateTeklifRequest(body);
   if (!result.ok) {
-    return NextResponse.json({ error: formatValidationErrors(result.errors) }, { status: 400 });
+    return NextResponse.json(
+      { error: formatValidationErrors(result.errors) },
+      { status: 400 },
+    );
   }
 
   const payload = result.value;
@@ -148,13 +159,21 @@ export async function POST(request: Request): Promise<NextResponse> {
     });
 
     if (error) {
-      console.error(`[api/teklif] Resend rejected the message (ref=${ref}):`, error);
+      console.error(
+        `[api/teklif] Resend rejected the message (ref=${ref}):`,
+        error,
+      );
       return NextResponse.json({ error: DELIVERY_FAILURE }, { status: 500 });
     }
 
-    console.log(`[api/teklif] Sent ${payload.type} request ref=${ref} as e-mail ${data?.id}.`);
+    console.log(
+      `[api/teklif] Sent ${payload.type} request ref=${ref} as e-mail ${data?.id}.`,
+    );
   } catch (error) {
-    console.error(`[api/teklif] Resend threw while sending (ref=${ref}):`, error);
+    console.error(
+      `[api/teklif] Resend threw while sending (ref=${ref}):`,
+      error,
+    );
     return NextResponse.json({ error: DELIVERY_FAILURE }, { status: 500 });
   }
 

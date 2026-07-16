@@ -53,7 +53,9 @@ export function LocaleSwitcher({ className }: { className?: string }) {
                   // is only two characters, which is far short of it on its own.
                   "inline-flex h-11 min-w-11 items-center justify-center rounded-xl2 px-1",
                   "font-mono text-xs tracking-wide transition-colors duration-150",
-                  current ? "text-accent-strong" : "text-ink-muted hover:text-ink",
+                  current
+                    ? "text-accent-strong"
+                    : "text-ink-muted hover:text-ink",
                 ].join(" ")}
               >
                 <span className="sr-only">{t(`${locale}Full`)}</span>

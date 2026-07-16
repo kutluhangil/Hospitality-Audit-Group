@@ -12,7 +12,8 @@ import { HONEYPOT_FIELD } from "@/lib/quote-schema";
  * label/error/aria wiring so no form can forget a piece of it.
  */
 
-const labelClasses = "block font-mono text-xs uppercase tracking-[0.2em] text-ink-muted";
+const labelClasses =
+  "block font-mono text-xs uppercase tracking-[0.2em] text-ink-muted";
 
 const controlBase =
   "mt-2 w-full rounded-xl2 border bg-surface px-4 py-3 text-sm text-ink " +
@@ -67,7 +68,13 @@ type TextFieldProps = {
   error?: string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "id" | "className">;
 
-export function TextField({ id, label, error, required, ...props }: TextFieldProps) {
+export function TextField({
+  id,
+  label,
+  error,
+  required,
+  ...props
+}: TextFieldProps) {
   return (
     <FieldShell id={id} label={label} required={required} error={error}>
       <input
@@ -90,7 +97,10 @@ type SelectFieldProps = {
   options: readonly string[];
   /** Rendered as the empty first option, since these selects are optional. */
   placeholder: string;
-} & Omit<SelectHTMLAttributes<HTMLSelectElement>, "id" | "className" | "children">;
+} & Omit<
+  SelectHTMLAttributes<HTMLSelectElement>,
+  "id" | "className" | "children"
+>;
 
 export function SelectField({
   id,
@@ -129,7 +139,14 @@ type TextareaFieldProps = {
   error?: string;
 } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "id" | "className">;
 
-export function TextareaField({ id, label, error, required, rows = 5, ...props }: TextareaFieldProps) {
+export function TextareaField({
+  id,
+  label,
+  error,
+  required,
+  rows = 5,
+  ...props
+}: TextareaFieldProps) {
   return (
     <FieldShell id={id} label={label} required={required} error={error}>
       <textarea
@@ -151,9 +168,18 @@ type CheckboxFieldProps = {
   error?: string;
   /** Free-form so the KVKK label can carry its link. */
   children: ReactNode;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, "id" | "className" | "type" | "children">;
+} & Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "id" | "className" | "type" | "children"
+>;
 
-export function CheckboxField({ id, error, children, required, ...props }: CheckboxFieldProps) {
+export function CheckboxField({
+  id,
+  error,
+  children,
+  required,
+  ...props
+}: CheckboxFieldProps) {
   return (
     <div>
       <div className="flex items-start gap-3">
@@ -212,7 +238,10 @@ type FormErrorProps = { message: string };
 /** Server-side failure, shown above the submit button. */
 export function FormError({ message }: FormErrorProps) {
   return (
-    <p role="alert" className="rounded-xl2 border border-accent bg-bg-soft p-4 text-sm text-ink">
+    <p
+      role="alert"
+      className="rounded-xl2 border border-accent bg-bg-soft p-4 text-sm text-ink"
+    >
       {message}
     </p>
   );

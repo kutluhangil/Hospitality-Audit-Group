@@ -1,3 +1,4 @@
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -15,7 +16,7 @@ import { alternatesFor } from "@/i18n/metadata";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { criteriaCount, getCriteria, thresholds } from "@/lib/audit-criteria";
 import { illustrationFor } from "@/lib/illustrations";
-import { modules, SCALE_NOTE } from "@/lib/modules-data";
+import { modules } from "@/lib/modules-data";
 
 type ModuleParams = { locale: AppLocale; slug: string };
 
@@ -43,9 +44,18 @@ export async function generateMetadata({
   const auditModule = moduleFor(slug);
   if (!auditModule) return {};
 
+  const t = await getTranslations({ locale, namespace: "modulePage" });
+  const tModules = await getTranslations({ locale, namespace: "modules" });
+
   return {
-    title: `Modül ${auditModule.code} — ${auditModule.title}`,
-    description: `${auditModule.summary} ${criteriaCount(auditModule.code)} kriter, her biri bir kanıt türüne bağlı.`,
+    title: t("metaTitle", {
+      code: auditModule.code,
+      title: tModules(`${auditModule.code}.title`),
+    }),
+    description: t("metaDescription", {
+      summary: tModules(`${auditModule.code}.summary`),
+      count: criteriaCount(auditModule.code),
+    }),
     // The canonical has to be the URL this locale actually serves, not the
     // internal path — otherwise the English page declares a Turkish canonical
     // and asks to be dropped from the index.
@@ -58,9 +68,16 @@ export default async function ModuleDetailPage({
 }: {
   params: Promise<ModuleParams>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
   const auditModule = moduleFor(slug);
   if (!auditModule) notFound();
+
+  // getTranslations rather than useTranslations: this component is async, and a
+  // hook cannot be called in one.
+  const tCatalogue = await getTranslations({ locale, namespace: "catalogue" });
+  const tModules = await getTranslations({ locale, namespace: "modules" });
 
   const criteria = getCriteria(auditModule.code);
   if (!criteria) {
@@ -78,8 +95,8 @@ export default async function ModuleDetailPage({
   return (
     <main>
       <PageHero
-        eyebrow={`MODÜL ${auditModule.code}`}
-        title={auditModule.title}
+        eyebrow={`${tCatalogue("moduleLabel")} ${auditModule.code}`}
+        title={tModules(`${auditModule.code}.title`)}
         lede={criteria.subtitle}
       />
 
@@ -115,7 +132,7 @@ export default async function ModuleDetailPage({
                 Özel Teklif İsteyin
               </Button>
               <p className="text-xs leading-relaxed text-ink-muted">
-                {SCALE_NOTE}
+                {tModules("scaleNote")}
               </p>
             </div>
           </Reveal>
@@ -186,7 +203,7 @@ export default async function ModuleDetailPage({
                 <h2 className="font-serif text-2xl md:text-3xl">
                   Modül {auditModule.code} ile başlayalım.
                 </h2>
-                <p className="mt-2 text-ink-muted">{SCALE_NOTE}</p>
+                <p className="mt-2 text-ink-muted">{tModules("scaleNote")}</p>
               </div>
               <div className="flex shrink-0 flex-wrap gap-3">
                 <CartButton id={auditModule.code} size="lg" />

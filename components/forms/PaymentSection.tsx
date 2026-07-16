@@ -36,8 +36,9 @@ export function PaymentSection() {
         Listelenen fiyatı kabul edin, şimdi ödeyin.
       </h2>
       <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-muted">
-        Seçtiğiniz hizmetler için fatura bilgilerinizi girin ve ödemeyi tamamlayın. Denetim takvimi,
-        ödemenin ardından 48 saat içinde sizinle birlikte planlanır.
+        Seçtiğiniz hizmetler için fatura bilgilerinizi girin ve ödemeyi
+        tamamlayın. Denetim takvimi, ödemenin ardından 48 saat içinde sizinle
+        birlikte planlanır.
       </p>
 
       <div className="mt-8">

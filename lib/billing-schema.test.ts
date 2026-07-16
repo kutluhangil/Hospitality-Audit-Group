@@ -53,7 +53,10 @@ const INDIVIDUAL_INPUT = {
 };
 
 /** Builds a payload with one key genuinely absent, rather than set to undefined. */
-function without<T extends object, K extends keyof T>(source: T, key: K): Omit<T, K> {
+function without<T extends object, K extends keyof T>(
+  source: T,
+  key: K,
+): Omit<T, K> {
   const copy = { ...source };
   delete copy[key];
   return copy;
@@ -63,7 +66,9 @@ function without<T extends object, K extends keyof T>(source: T, key: K): Omit<T
 function errorFor(input: unknown, field: BillingField): string | undefined {
   const result = validateBillingRequest(input);
   if (result.ok) {
-    throw new Error(`Expected validation to fail on "${field}", but it passed.`);
+    throw new Error(
+      `Expected validation to fail on "${field}", but it passed.`,
+    );
   }
   return result.errors[field];
 }
@@ -100,7 +105,11 @@ describe("isValidTcKimlikNo", () => {
   it("catches adjacent transpositions", () => {
     expect(isValidTcKimlikNo("12345678950")).toBe(true);
     // Swap the 4 and the 5 in the middle.
-    expect(isValidTcKimlikNo("12345678950".slice(0, 3) + "54" + "12345678950".slice(5))).toBe(false);
+    expect(
+      isValidTcKimlikNo(
+        "12345678950".slice(0, 3) + "54" + "12345678950".slice(5),
+      ),
+    ).toBe(false);
   });
 
   it("rejects a leading zero", () => {
@@ -146,28 +155,44 @@ describe("validateBillingRequest — invoice type", () => {
   });
 
   it("rejects an unknown invoice type by name", () => {
-    expect(errorFor({ ...CORPORATE_INPUT, faturaTipi: "vakif" }, "faturaTipi")).toContain("vakif");
+    expect(
+      errorFor({ ...CORPORATE_INPUT, faturaTipi: "vakif" }, "faturaTipi"),
+    ).toContain("vakif");
   });
 
   it("does not let a corporate payload smuggle in a TC kimlik instead of a vergi no", () => {
-    const payload = { ...without(CORPORATE_INPUT, "vergiNo"), tcKimlikNo: VALID_TCKN };
+    const payload = {
+      ...without(CORPORATE_INPUT, "vergiNo"),
+      tcKimlikNo: VALID_TCKN,
+    };
     expect(errorFor(payload, "vergiNo")).toBeDefined();
   });
 
   it("requires the vergi no to be 10 digits, and says how many were sent", () => {
-    expect(errorFor({ ...CORPORATE_INPUT, vergiNo: "123456789" }, "vergiNo")).toContain("9 rakam");
-    expect(errorFor({ ...CORPORATE_INPUT, vergiNo: "12345678901" }, "vergiNo")).toContain("11 rakam");
+    expect(
+      errorFor({ ...CORPORATE_INPUT, vergiNo: "123456789" }, "vergiNo"),
+    ).toContain("9 rakam");
+    expect(
+      errorFor({ ...CORPORATE_INPUT, vergiNo: "12345678901" }, "vergiNo"),
+    ).toContain("11 rakam");
   });
 
   it("runs the TC kimlik checksum, not just its length", () => {
     // 11 digits, so a length check would wave this through and put it on an invoice.
-    const message = errorFor({ ...INDIVIDUAL_INPUT, tcKimlikNo: "12345678901" }, "tcKimlikNo");
+    const message = errorFor(
+      { ...INDIVIDUAL_INPUT, tcKimlikNo: "12345678901" },
+      "tcKimlikNo",
+    );
     expect(message).toContain("doğrulanamadı");
   });
 
   it("requires ticaret unvanı and vergi dairesi for a corporate invoice", () => {
-    expect(errorFor({ ...CORPORATE_INPUT, ticaretUnvani: "  " }, "ticaretUnvani")).toBeDefined();
-    expect(errorFor({ ...CORPORATE_INPUT, vergiDairesi: "" }, "vergiDairesi")).toBeDefined();
+    expect(
+      errorFor({ ...CORPORATE_INPUT, ticaretUnvani: "  " }, "ticaretUnvani"),
+    ).toBeDefined();
+    expect(
+      errorFor({ ...CORPORATE_INPUT, vergiDairesi: "" }, "vergiDairesi"),
+    ).toBeDefined();
   });
 });
 
@@ -180,70 +205,113 @@ describe("validateBillingRequest — address and contact", () => {
   });
 
   it("requires a 5-digit posta kodu", () => {
-    const bad = { ...CORPORATE_INPUT, adres: { ...VALID_ADDRESS, postaKodu: "343" } };
+    const bad = {
+      ...CORPORATE_INPUT,
+      adres: { ...VALID_ADDRESS, postaKodu: "343" },
+    };
     expect(errorFor(bad, "postaKodu")).toBeDefined();
   });
 
   it("rejects a missing address object outright rather than inventing one", () => {
-    expect(errorFor(without(CORPORATE_INPUT, "adres"), "acikAdres")).toBeDefined();
+    expect(
+      errorFor(without(CORPORATE_INPUT, "adres"), "acikAdres"),
+    ).toBeDefined();
   });
 
   it("requires a plausible e-mail and a telephone", () => {
-    expect(errorFor({ ...CORPORATE_INPUT, email: "muhasebe" }, "email")).toBeDefined();
+    expect(
+      errorFor({ ...CORPORATE_INPUT, email: "muhasebe" }, "email"),
+    ).toBeDefined();
     // Unlike the quote form, the phone is mandatory: an invoice needs a reachable buyer.
-    expect(errorFor({ ...CORPORATE_INPUT, telefon: "" }, "telefon")).toBeDefined();
+    expect(
+      errorFor({ ...CORPORATE_INPUT, telefon: "" }, "telefon"),
+    ).toBeDefined();
   });
 });
 
 describe("validateBillingRequest — consents", () => {
-  const consents = ["mesafeliSatisOnay", "onBilgilendirmeOnay", "kvkkConsent"] as const;
+  const consents = [
+    "mesafeliSatisOnay",
+    "onBilgilendirmeOnay",
+    "kvkkConsent",
+  ] as const;
 
   it("blocks payment when any single consent is missing", () => {
     for (const consent of consents) {
-      expect(errorFor({ ...CORPORATE_INPUT, [consent]: false }, consent)).toBeDefined();
-      expect(errorFor({ ...CORPORATE_INPUT, [consent]: undefined }, consent)).toBeDefined();
+      expect(
+        errorFor({ ...CORPORATE_INPUT, [consent]: false }, consent),
+      ).toBeDefined();
+      expect(
+        errorFor({ ...CORPORATE_INPUT, [consent]: undefined }, consent),
+      ).toBeDefined();
     }
   });
 
   it("names the specific consent that is missing", () => {
-    expect(errorFor({ ...CORPORATE_INPUT, mesafeliSatisOnay: false }, "mesafeliSatisOnay")).toContain(
-      "Mesafeli Satış Sözleşmesi",
-    );
     expect(
-      errorFor({ ...CORPORATE_INPUT, onBilgilendirmeOnay: false }, "onBilgilendirmeOnay"),
+      errorFor(
+        { ...CORPORATE_INPUT, mesafeliSatisOnay: false },
+        "mesafeliSatisOnay",
+      ),
+    ).toContain("Mesafeli Satış Sözleşmesi");
+    expect(
+      errorFor(
+        { ...CORPORATE_INPUT, onBilgilendirmeOnay: false },
+        "onBilgilendirmeOnay",
+      ),
     ).toContain("Ön Bilgilendirme");
-    expect(errorFor({ ...CORPORATE_INPUT, kvkkConsent: false }, "kvkkConsent")).toContain("KVKK");
+    expect(
+      errorFor({ ...CORPORATE_INPUT, kvkkConsent: false }, "kvkkConsent"),
+    ).toContain("KVKK");
   });
 
   it("accepts only a literal true — not a truthy value", () => {
     // "on" is what an unguarded HTML checkbox would send. It is not consent.
-    expect(errorFor({ ...CORPORATE_INPUT, kvkkConsent: "on" }, "kvkkConsent")).toBeDefined();
-    expect(errorFor({ ...CORPORATE_INPUT, kvkkConsent: 1 }, "kvkkConsent")).toBeDefined();
+    expect(
+      errorFor({ ...CORPORATE_INPUT, kvkkConsent: "on" }, "kvkkConsent"),
+    ).toBeDefined();
+    expect(
+      errorFor({ ...CORPORATE_INPUT, kvkkConsent: 1 }, "kvkkConsent"),
+    ).toBeDefined();
   });
 });
 
 describe("validateBillingRequest — basket", () => {
   it("refuses an empty basket", () => {
-    expect(errorFor({ ...CORPORATE_INPUT, selectedItems: [] }, "selectedItems")).toBeDefined();
+    expect(
+      errorFor({ ...CORPORATE_INPUT, selectedItems: [] }, "selectedItems"),
+    ).toBeDefined();
   });
 
   it("refuses unknown item codes and names them", () => {
-    const message = errorFor({ ...CORPORATE_INPUT, selectedItems: ["A", "Z"] }, "selectedItems");
+    const message = errorFor(
+      { ...CORPORATE_INPUT, selectedItems: ["A", "Z"] },
+      "selectedItems",
+    );
     expect(message).toContain("Z");
   });
 
   it("refuses to bill a module the 360° package already covers", () => {
-    const message = errorFor({ ...CORPORATE_INPUT, selectedItems: ["D", "A"] }, "selectedItems");
+    const message = errorFor(
+      { ...CORPORATE_INPUT, selectedItems: ["D", "A"] },
+      "selectedItems",
+    );
     expect(message).toContain("A");
   });
 
   it("still sells training alongside the package — it is not covered", () => {
-    const result = validateBillingRequest({ ...CORPORATE_INPUT, selectedItems: ["D", "EGITIM"] });
+    const result = validateBillingRequest({
+      ...CORPORATE_INPUT,
+      selectedItems: ["D", "EGITIM"],
+    });
     expect(result.ok).toBe(true);
   });
 
   it("normalises duplicates and click order into catalogue order", () => {
-    const result = validateBillingRequest({ ...CORPORATE_INPUT, selectedItems: ["B", "A", "A"] });
+    const result = validateBillingRequest({
+      ...CORPORATE_INPUT,
+      selectedItems: ["B", "A", "A"],
+    });
     if (!result.ok) throw new Error("Expected a valid payload");
     expect(result.value.selectedItems).toEqual(["A", "B"]);
   });
@@ -273,7 +341,11 @@ describe("the server recomputes the total", () => {
   });
 
   it("prices the basket from the catalogue, ignoring anything the client claimed", () => {
-    const result = validateBillingRequest({ ...CORPORATE_INPUT, selectedItems: ["A", "B"], total: 1 });
+    const result = validateBillingRequest({
+      ...CORPORATE_INPUT,
+      selectedItems: ["A", "B"],
+      total: 1,
+    });
     if (!result.ok) throw new Error("Expected a valid payload");
 
     const totals = billingTotals(result.value.selectedItems);
@@ -283,15 +355,24 @@ describe("the server recomputes the total", () => {
   });
 
   it("charges the package price for D, not the sum of what D contains", () => {
-    const result = validateBillingRequest({ ...CORPORATE_INPUT, selectedItems: ["D"] });
+    const result = validateBillingRequest({
+      ...CORPORATE_INPUT,
+      selectedItems: ["D"],
+    });
     if (!result.ok) throw new Error("Expected a valid payload");
     expect(billingTotals(result.value.selectedItems).total).toBe(50_000);
   });
 
   it("gives the same answer for the same basket every time", () => {
     // The total is a function of the catalogue alone; nothing about the buyer moves it.
-    const first = validateBillingRequest({ ...CORPORATE_INPUT, selectedItems: ["A", "B"] });
-    const second = validateBillingRequest({ ...INDIVIDUAL_INPUT, selectedItems: ["B", "A"] });
+    const first = validateBillingRequest({
+      ...CORPORATE_INPUT,
+      selectedItems: ["A", "B"],
+    });
+    const second = validateBillingRequest({
+      ...INDIVIDUAL_INPUT,
+      selectedItems: ["B", "A"],
+    });
     if (!first.ok || !second.ok) throw new Error("Expected valid payloads");
 
     expect(billingTotals(first.value.selectedItems)).toEqual(
@@ -302,7 +383,9 @@ describe("the server recomputes the total", () => {
 
 describe("createOrderReference", () => {
   it("is prefixed and unique across a burst", () => {
-    const references = new Set(Array.from({ length: 500 }, createOrderReference));
+    const references = new Set(
+      Array.from({ length: 500 }, createOrderReference),
+    );
     expect(references.size).toBe(500);
     for (const reference of references) {
       expect(reference.startsWith("SIP-")).toBe(true);

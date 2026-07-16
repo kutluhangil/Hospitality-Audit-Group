@@ -6,7 +6,11 @@ import {
   formatValidationErrors,
   validateBillingRequest,
 } from "@/lib/billing-schema";
-import { PaymentError, createPaymentSession, isPaymentEnabled } from "@/lib/payment";
+import {
+  PaymentError,
+  createPaymentSession,
+  isPaymentEnabled,
+} from "@/lib/payment";
 import { siteConfig } from "@/lib/site-config";
 
 // node:crypto and the provider signing in lib/payment.ts will not run on the edge.
@@ -53,12 +57,18 @@ export async function POST(request: Request): Promise<NextResponse> {
     body = await request.json();
   } catch (error) {
     console.error("[api/odeme] Request body was not valid JSON:", error);
-    return NextResponse.json({ error: "İstek gövdesi geçerli bir JSON değil." }, { status: 400 });
+    return NextResponse.json(
+      { error: "İstek gövdesi geçerli bir JSON değil." },
+      { status: 400 },
+    );
   }
 
   const result = validateBillingRequest(body);
   if (!result.ok) {
-    return NextResponse.json({ error: formatValidationErrors(result.errors) }, { status: 400 });
+    return NextResponse.json(
+      { error: formatValidationErrors(result.errors) },
+      { status: 400 },
+    );
   }
 
   const billing = result.value;
@@ -94,15 +104,26 @@ export async function POST(request: Request): Promise<NextResponse> {
         `items=${billing.selectedItems.join(",")}`,
     );
 
-    return NextResponse.json({ ok: true, redirectUrl: session.redirectUrl, ref: reference });
+    return NextResponse.json({
+      ok: true,
+      redirectUrl: session.redirectUrl,
+      ref: reference,
+    });
   } catch (error) {
     // A provider that throws is a real error, logged with its real cause. It is
     // never smoothed over into a success, and the buyer is told plainly that
     // nothing was charged — which is true: no card has been entered yet.
     if (error instanceof PaymentError) {
-      console.error(`[api/odeme] Provider failed to open payment ref=${reference}:`, error.message, error.cause);
+      console.error(
+        `[api/odeme] Provider failed to open payment ref=${reference}:`,
+        error.message,
+        error.cause,
+      );
     } else {
-      console.error(`[api/odeme] Unexpected failure opening payment ref=${reference}:`, error);
+      console.error(
+        `[api/odeme] Unexpected failure opening payment ref=${reference}:`,
+        error,
+      );
     }
     return NextResponse.json({ error: PROVIDER_FAILURE }, { status: 500 });
   }

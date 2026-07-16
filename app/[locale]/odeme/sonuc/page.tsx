@@ -7,7 +7,11 @@ import { Card } from "@/components/ui/Card";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { formatPrice } from "@/lib/cart-math";
-import { isPaymentEnabled, verifyOutcome, type PaymentOutcome } from "@/lib/payment";
+import {
+  isPaymentEnabled,
+  verifyOutcome,
+  type PaymentOutcome,
+} from "@/lib/payment";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -65,7 +69,13 @@ function OutcomePanel({ outcome }: { outcome: PaymentOutcome | null }) {
 }
 
 /** Mono reference line, matching the quote flow's `TALEP ALINDI — REF:`. */
-function ReferenceLine({ label, reference }: { label: string; reference: string }) {
+function ReferenceLine({
+  label,
+  reference,
+}: {
+  label: string;
+  reference: string;
+}) {
   return (
     <p className="font-mono text-sm text-accent-strong md:text-base">
       {label}
@@ -75,7 +85,9 @@ function ReferenceLine({ label, reference }: { label: string; reference: string 
 }
 
 function SupportLine({ children }: { children: React.ReactNode }) {
-  return <p className="mt-4 text-base leading-relaxed text-ink-muted">{children}</p>;
+  return (
+    <p className="mt-4 text-base leading-relaxed text-ink-muted">{children}</p>
+  );
 }
 
 function ContactLink() {
@@ -102,8 +114,8 @@ function SuccessPanel({ outcome }: { outcome: PaymentOutcome }) {
         </p>
       ) : null}
       <SupportLine>
-        Faturanız ve denetim takvimi teklifiniz 48 saat içinde e-posta adresinize iletilir. Bu
-        referansı saklayın.
+        Faturanız ve denetim takvimi teklifiniz 48 saat içinde e-posta
+        adresinize iletilir. Bu referansı saklayın.
       </SupportLine>
     </Card>
   );
@@ -121,7 +133,8 @@ function FailurePanel({ outcome }: { outcome: PaymentOutcome }) {
           : "Ödeme tamamlanamadı. Kartınızdan çekim yapılmadı."}
       </SupportLine>
       <SupportLine>
-        Seçiminiz duruyor — tekrar deneyebilir veya teklif formundan ilerleyebilirsiniz.
+        Seçiminiz duruyor — tekrar deneyebilir veya teklif formundan
+        ilerleyebilirsiniz.
       </SupportLine>
       <div className="mt-6">
         <Button href="/teklif" size="lg">
@@ -140,14 +153,18 @@ function FailurePanel({ outcome }: { outcome: PaymentOutcome }) {
 function UnknownPanel({ outcome }: { outcome: PaymentOutcome }) {
   return (
     <Card role="alert" className="border-accent p-8 md:p-10">
-      <ReferenceLine label="ÖDEME DURUMU DOĞRULANAMADI" reference={outcome.reference} />
+      <ReferenceLine
+        label="ÖDEME DURUMU DOĞRULANAMADI"
+        reference={outcome.reference}
+      />
       <SupportLine>
-        Ödemenizin sonucunu ödeme kuruluşundan teyit edemedik. Kartınızdan çekim yapılmış olabilir —
-        bu yüzden lütfen <strong className="text-ink">tekrar ödeme denemeyin.</strong>
+        Ödemenizin sonucunu ödeme kuruluşundan teyit edemedik. Kartınızdan çekim
+        yapılmış olabilir — bu yüzden lütfen{" "}
+        <strong className="text-ink">tekrar ödeme denemeyin.</strong>
       </SupportLine>
       <SupportLine>
-        Bu referansla <ContactLink /> adresine yazın; durumu sizin için kontrol edip aynı gün
-        dönelim.
+        Bu referansla <ContactLink /> adresine yazın; durumu sizin için kontrol
+        edip aynı gün dönelim.
       </SupportLine>
     </Card>
   );
@@ -157,13 +174,16 @@ function UnknownPanel({ outcome }: { outcome: PaymentOutcome }) {
 function UnreadablePanel() {
   return (
     <Card role="alert" className="border-accent p-8 md:p-10">
-      <p className="font-mono text-sm text-accent-strong md:text-base">ÖDEME SONUCU OKUNAMADI</p>
+      <p className="font-mono text-sm text-accent-strong md:text-base">
+        ÖDEME SONUCU OKUNAMADI
+      </p>
       <SupportLine>
-        Bu sayfa bir ödeme dönüşüne ait geçerli bir sonuç taşımıyor. Bağlantının süresi dolmuş
-        olabilir.
+        Bu sayfa bir ödeme dönüşüne ait geçerli bir sonuç taşımıyor. Bağlantının
+        süresi dolmuş olabilir.
       </SupportLine>
       <SupportLine>
-        Bir ödeme yaptıysanız durumu buradan göremeyiz — <ContactLink /> adresine yazın.
+        Bir ödeme yaptıysanız durumu buradan göremeyiz — <ContactLink />{" "}
+        adresine yazın.
       </SupportLine>
       <div className="mt-6">
         <Button href="/teklif" size="lg" variant="ghost">

@@ -1,8 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/Button";
 import { isRedundant } from "@/lib/cart-math";
-import { PACKAGE_MODULE, titleOf, type CartItemId } from "@/lib/modules-data";
+import { PACKAGE_MODULE, type CartItemId } from "@/lib/modules-data";
 import { useQuoteCart } from "@/lib/quote-cart";
 
 /**
@@ -25,11 +27,14 @@ export function CartButton({
   size?: "md" | "lg";
   className?: string;
 }) {
+  const t = useTranslations("cart");
+  const tModules = useTranslations("modules");
   const { has, toggle, hydrated, selected } = useQuoteCart();
 
   const covered = hydrated && isRedundant(id, selected);
   const inCart = hydrated && has(id);
-  const title = titleOf(id);
+  const title = tModules(`${id}.title`);
+  const packageTitle = tModules(`${PACKAGE_MODULE}.title`);
 
   if (covered) {
     return (
@@ -38,9 +43,9 @@ export function CartButton({
         size={size}
         className={className}
         disabled
-        aria-label={`${title}, ${titleOf(PACKAGE_MODULE)} paketine dahil`}
+        aria-label={t("coveredAria", { title, package: packageTitle })}
       >
-        {titleOf(PACKAGE_MODULE)} paketine dahil
+        {t("coveredBy", { package: packageTitle })}
       </Button>
     );
   }
@@ -53,9 +58,9 @@ export function CartButton({
       onClick={() => toggle(id)}
       disabled={!hydrated}
       aria-pressed={inCart}
-      aria-label={inCart ? `${title} modülünü sepetten çıkar` : `${title} modülünü sepete ekle`}
+      aria-label={inCart ? t("removeAria", { title }) : t("addAria", { title })}
     >
-      {inCart ? "Sepette ✓" : "Sepete Ekle"}
+      {inCart ? t("inCart") : t("add")}
     </Button>
   );
 }

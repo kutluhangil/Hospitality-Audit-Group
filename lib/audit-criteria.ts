@@ -3,7 +3,11 @@ import { MODULE_B } from "@/lib/criteria/module-b";
 import { MODULE_C } from "@/lib/criteria/module-c";
 import { MODULE_D } from "@/lib/criteria/module-d";
 import { MODULE_E } from "@/lib/criteria/module-e";
-import type { Criterion, EvidenceCategory, ModuleCriteria } from "@/lib/criteria/types";
+import type {
+  Criterion,
+  EvidenceCategory,
+  ModuleCriteria,
+} from "@/lib/criteria/types";
 import type { ModuleCode } from "@/lib/modules-data";
 
 export * from "@/lib/criteria/types";
@@ -25,11 +29,15 @@ export function getCriteria(module: ModuleCode): ModuleCriteria | undefined {
 }
 
 function select(module?: ModuleCode): readonly ModuleCriteria[] {
-  return module ? auditCriteria.filter((entry) => entry.module === module) : auditCriteria;
+  return module
+    ? auditCriteria.filter((entry) => entry.module === module)
+    : auditCriteria;
 }
 
 export function allCriteria(module?: ModuleCode): Criterion[] {
-  return select(module).flatMap((entry) => entry.groups.flatMap((group) => group.criteria));
+  return select(module).flatMap((entry) =>
+    entry.groups.flatMap((group) => group.criteria),
+  );
 }
 
 export function criteriaCount(module?: ModuleCode): number {
@@ -56,10 +64,13 @@ export function evidenceBreakdown(
 }
 
 export function evidenceTypeCount(module?: ModuleCode): number {
-  return new Set(allCriteria(module).map((criterion) => criterion.evidence)).size;
+  return new Set(allCriteria(module).map((criterion) => criterion.evidence))
+    .size;
 }
 
 /** Every criterion that states a measurable bound — the methodology's spine. */
 export function thresholds(module?: ModuleCode): Criterion[] {
-  return allCriteria(module).filter((criterion) => criterion.threshold !== undefined);
+  return allCriteria(module).filter(
+    (criterion) => criterion.threshold !== undefined,
+  );
 }

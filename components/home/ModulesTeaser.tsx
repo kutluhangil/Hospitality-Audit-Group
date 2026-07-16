@@ -7,6 +7,7 @@ import { modules, moduleIcons } from "@/lib/modules-data";
 
 export function ModulesTeaser() {
   const t = useTranslations("home.modulesTeaser");
+  const tModules = useTranslations("modules");
 
   return (
     <section className="border-y border-line bg-bg-soft">
@@ -26,9 +27,11 @@ export function ModulesTeaser() {
                     <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
                       {t("codePrefix")}-{module.code}
                     </p>
-                    <h2 className="mt-2 font-serif text-xl">{module.title}</h2>
+                    <h2 className="mt-2 font-serif text-xl">
+                      {tModules(`${module.code}.title`)}
+                    </h2>
                     <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-                      {module.summary}
+                      {tModules(`${module.code}.summary`)}
                     </p>
                   </Card>
                 </Reveal>
