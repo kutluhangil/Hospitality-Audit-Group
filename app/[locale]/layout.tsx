@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 import { Source_Serif_4, Inter, JetBrains_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 

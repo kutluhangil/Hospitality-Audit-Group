@@ -1,7 +1,9 @@
+import { useFormatter, useLocale, useTranslations } from "next-intl";
+
 import { Card } from "@/components/ui/Card";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Link } from "@/i18n/navigation";
-import type { AppPathname } from "@/i18n/routing";
+import { routing, type AppPathname } from "@/i18n/routing";
 
 /**
  * Typographic shell for the legal pages. @tailwindcss/typography is not
@@ -14,21 +16,38 @@ const MEASURE = "max-w-[68ch]";
 
 type LegalPageProps = {
   title: string;
-  /** Rendered as the "Son güncelleme" line; legal text is dated by convention. */
+  /**
+   * ISO date (YYYY-MM-DD). Legal text is dated by convention, and the date is
+   * rendered per locale rather than stored as prose — "16 Temmuz 2026" written
+   * out would read as Turkish on the English page.
+   */
   updated: string;
   children: React.ReactNode;
 };
 
 export function LegalPage({ title, updated, children }: LegalPageProps) {
+  const t = useTranslations("legal");
+  const format = useFormatter();
+
   return (
     <main className="mx-auto max-w-content px-4 py-16 sm:px-6 md:py-24">
       <div className={MEASURE}>
-        <Eyebrow tone="muted">Yasal</Eyebrow>
+        <Eyebrow tone="muted">{t("eyebrow")}</Eyebrow>
         <h1 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">
           {title}
         </h1>
-        <p className="mt-4 text-sm text-ink-muted">Son güncelleme: {updated}</p>
+        <p className="mt-4 text-sm text-ink-muted">
+          {t("updated", {
+            date: format.dateTime(new Date(`${updated}T00:00:00Z`), {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+              timeZone: "UTC",
+            }),
+          })}
+        </p>
 
+        <BindingLanguageNotice />
         <TemplateNotice />
 
         <div className="mt-12 space-y-10">{children}</div>
@@ -38,16 +57,43 @@ export function LegalPage({ title, updated, children }: LegalPageProps) {
 }
 
 /**
+ * Shown on every locale except the source one.
+ *
+ * These texts state the terms of a contract governed by Turkish law, and the
+ * Turkish version is the one that binds. A translation published without saying
+ * so invites a reader to rely on it — which is the whole problem. It sits above
+ * the draft notice because it is the more consequential of the two: the draft
+ * warning goes away after legal review; this one never does.
+ */
+function BindingLanguageNotice() {
+  const locale = useLocale();
+  const t = useTranslations("legal");
+
+  if (locale === routing.defaultLocale) return null;
+
+  return (
+    <Card tone="soft" className="mt-8 border-l-2 border-l-accent">
+      <Eyebrow tone="muted">{t("bindingEyebrow")}</Eyebrow>
+      <p className="mt-3 text-base leading-relaxed text-ink">
+        {t("bindingBody")}
+      </p>
+    </Card>
+  );
+}
+
+/**
  * Neither page has been through legal review. The terracotta border and the
  * mono label are here so the draft state is caught on sight rather than read
  * past — shipping either page unreviewed should feel like an obvious mistake.
  */
 function TemplateNotice() {
+  const t = useTranslations("legal");
+
   return (
     <Card tone="accent" className="mt-8 border-2">
-      <Eyebrow>Taslak — hukuk onayı bekliyor</Eyebrow>
+      <Eyebrow>{t("draftEyebrow")}</Eyebrow>
       <p className="mt-3 text-base leading-relaxed text-ink">
-        Bu metin şablondur; yayına almadan önce hukuk danışmanınızla teyit edin.
+        {t("draftBody")}
       </p>
     </Card>
   );
@@ -129,3 +175,51 @@ export function LegalList({ items }: { items: readonly string[] }) {
     </ul>
   );
 }
+
+/** Inline code — a storage key or a header name, never prose. */
+export function LegalCode({ children }: { children: React.ReactNode }) {
+  return (
+    <code className="rounded bg-bg-soft px-1.5 py-0.5 font-mono text-sm">
+      {children}
+    </code>
+  );
+}
+
+/**
+ * The rich-text tags every legal message may use.
+ *
+ * These paragraphs are single sentences with links inside them, and where a link
+ * falls in a sentence is not the same in Turkish and English — so the message
+ * owns the placement and this owns the rendering. Spread into a t.rich call and
+ * add page-specific tags alongside:
+ *
+ *   t.rich("s1.p1", { ...legalTags, contract: (c) => <LegalLink href="...">{c}</LegalLink> })
+ */
+export const legalTags = {
+  b: (chunks: React.ReactNode) => <strong>{chunks}</strong>,
+  code: (chunks: React.ReactNode) => <LegalCode>{chunks}</LegalCode>,
+  kvkk: (chunks: React.ReactNode) => (
+    <LegalLink href="/kvkk">{chunks}</LegalLink>
+  ),
+  privacy: (chunks: React.ReactNode) => (
+    <LegalLink href="/gizlilik-politikasi">{chunks}</LegalLink>
+  ),
+  modules: (chunks: React.ReactNode) => (
+    <LegalLink href="/moduller">{chunks}</LegalLink>
+  ),
+  process: (chunks: React.ReactNode) => (
+    <LegalLink href="/surec">{chunks}</LegalLink>
+  ),
+  quote: (chunks: React.ReactNode) => (
+    <LegalLink href="/teklif">{chunks}</LegalLink>
+  ),
+  contract: (chunks: React.ReactNode) => (
+    <LegalLink href="/mesafeli-satis-sozlesmesi">{chunks}</LegalLink>
+  ),
+  preInfo: (chunks: React.ReactNode) => (
+    <LegalLink href="/on-bilgilendirme">{chunks}</LegalLink>
+  ),
+  cancellation: (chunks: React.ReactNode) => (
+    <LegalLink href="/iptal-iade">{chunks}</LegalLink>
+  ),
+} as const;

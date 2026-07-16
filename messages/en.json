@@ -619,5 +619,367 @@
     "closingTitle": "Let us take an honest picture of your property.",
     "closingCtaPrimary": "Request a Quote",
     "closingCtaSecondary": "See How We Work"
+  },
+  "legal": {
+    "eyebrow": "Legal",
+    "updated": "Last updated: {date}",
+    "draftEyebrow": "Draft — pending legal review",
+    "draftBody": "This text is a template; have it confirmed by your legal adviser before publishing.",
+    "bindingEyebrow": "This translation is for information only",
+    "bindingBody": "The binding text is the Turkish version. This English rendering exists so it can be understood, not so it can be relied on: where the two differ, the Turkish text governs, and the contract itself is governed by Turkish law."
+  },
+  "privacyPage": {
+    "metaTitle": "Privacy Policy",
+    "metaDescription": "Which cookies this site uses, how form data is handled, which third-party services are involved, and how the data is protected.",
+    "title": "Privacy Policy",
+    "s1": {
+      "title": "1. Scope",
+      "p1": "This policy covers the {name} website published at {url}. For detail on how your personal data is processed under Law no. 6698 (KVKK), see the <kvkk>KVKK Privacy Notice</kvkk>."
+    },
+    "s2": {
+      "title": "2. Cookies and Local Storage",
+      "p1": "This site sets no tracking or advertising cookies. There is no analytics tool measuring visitor behaviour, no ad pixel and no social media tracker. The site places no cookie that identifies you.",
+      "p2": "The only data held in your browser is a localStorage entry named <code>hag-quote-cart</code>, holding your quote selection. It contains nothing but the codes of the audit modules you picked on the <modules>Modules</modules> page, so that your selection survives a page refresh.",
+      "items": [
+        "It stays in your own browser and is never sent to a server on its own",
+        "It contains nothing that identifies you — only module codes",
+        "It reaches us only when you submit the quote form, as the scope of your request",
+        "You can delete it at any time by clearing this site's data in your browser"
+      ]
+    },
+    "s3": {
+      "title": "3. Form Data",
+      "p1": "The name, email address, phone number, property name, property type, room count and message you enter on the quote and contact forms are used only to answer your request. They are sent to us by email; the site keeps no database of them.",
+      "p2": "The forms include a hidden field (a honeypot) to filter out automated submissions. It collects nothing about you."
+    },
+    "s4": {
+      "title": "4. Third-Party Services",
+      "p1": "The site uses only the following providers:",
+      "items": [
+        "Resend (Resend, Inc.) — used to deliver form content to us as email",
+        "Vercel (Vercel, Inc.) — used to host the website, and keeps technical server logs",
+        "iyzico (İyzi Ödeme ve Elektronik Para Hizmetleri A.Ş.) — used to collect payment when a purchase is made by card"
+      ],
+      "p2": "Fonts are served with the site itself; rendering a page sends no request to an external font or content provider. Resend and Vercel are located outside Turkey; iyzico is a payment institution established in Turkey and supervised by the BRSA."
+    },
+    "s5": {
+      "title": "5. Card Details",
+      "p1": "<b>Your card details never reach this site's servers at any point.</b> The card number, expiry date and security code are not entered into any form on this site; at the payment step they go directly to the payment institution's own page and are processed there. Verification happens on your bank's 3-D Secure screen.",
+      "p2": "So your card details are never seen, recorded or stored by us. All that comes back to us from the payment institution is the outcome (successful or not), the transaction number and the amount. Detail on the billing and address data we collect in order to issue an invoice is in the <kvkk>KVKK Privacy Notice</kvkk>."
+    },
+    "s6": {
+      "title": "6. Data Security",
+      "p1": "The site is served entirely over HTTPS. Form submissions travel over an encrypted connection, and the access keys for the email and payment providers are held server-side only; they are never sent to the browser.",
+      "p2": "Your data is kept for as long as answering your request requires, and deleted once that purpose has passed. Detail on retention periods is in the <kvkk>KVKK Privacy Notice</kvkk>."
+    },
+    "s7": {
+      "title": "7. Changes",
+      "p1": "This policy may be updated as our services or the law change. The current version is always published on this page, and the date at the top is updated with it."
+    },
+    "s8": {
+      "title": "8. Contact",
+      "p1": "For questions or requests about our privacy practices, write to <mail>{email}</mail>."
+    }
+  },
+  "kvkkPage": {
+    "metaTitle": "KVKK Privacy Notice",
+    "metaDescription": "Hospitality Audit Group's privacy notice under Law no. 6698 (KVKK): why your personal data is processed, how long it is kept, and what rights you have.",
+    "title": "KVKK Privacy Notice",
+    "collected": [
+      "Name",
+      "Email address",
+      "Phone number",
+      "Property name",
+      "Property type",
+      "Room count",
+      "Anything you tell us in the body of your message"
+    ],
+    "billing": [
+      "Invoice type (corporate or individual)",
+      "For a corporate invoice: registered name, tax office and tax number",
+      "For an individual invoice: name and Turkish ID number",
+      "Invoice address (country, province, district, street address, postcode)"
+    ],
+    "purposes": [
+      "Assessing and pricing the quote request you send us",
+      "Preparing the quote for the audit modules you asked for, and putting it to you",
+      "Answering questions and requests sent through the contact form",
+      "Contacting you so that your request can be concluded",
+      "Collecting and verifying payment through the payment institution, where the purchase is made by card",
+      "Issuing the invoice for the service purchased and sending it to you",
+      "Meeting the retention and record-keeping obligations under tax legislation and Law no. 6563",
+      "Concluding cancellation, refund and withdrawal requests"
+    ],
+    "rights": [
+      "To learn whether your personal data is being processed",
+      "To request information about it if it has been processed",
+      "To learn the purpose of the processing and whether the data is used in line with that purpose",
+      "To know the third parties, in Turkey or abroad, to whom your data has been transferred",
+      "To have your data corrected if it has been processed incompletely or inaccurately",
+      "To request erasure or destruction of your data under the conditions set out in Article 7 of the KVKK",
+      "To require that any correction, erasure or destruction be notified to the third parties your data was transferred to",
+      "To object to a result reached against you through analysis carried out solely by automated systems",
+      "To claim compensation if you suffer loss because your data was processed unlawfully"
+    ],
+    "s1": {
+      "title": "1. Data Controller",
+      "p1": "Under Law no. 6698 on the Protection of Personal Data (“KVKK”), your personal data is processed by {name} as data controller, in the terms set out below.",
+      "p2": "You can reach the data controller at <mail>{email}</mail>."
+    },
+    "s2": {
+      "title": "2. Personal Data Processed",
+      "p1": "The only data processed through this website is what you send us through the quote form and the contact form. That is:",
+      "p2": "The codes of the audit modules you selected on the quote form are sent along with it, to establish the scope of your request.",
+      "p3": "If you purchase the service by card, the following is also processed so that the invoice can be issued:",
+      "p4": "The card number, expiry date and security code are <b>not part of this</b>: card details never reach this site's servers at any point. They go straight to the payment institution's own page, and are never seen or stored by us.",
+      "p5": "The site collects no personal data beyond this; no analytics or advertising tool tracks visitor behaviour."
+    },
+    "s3": {
+      "title": "3. Purpose of Processing",
+      "p1": "Your personal data is processed for the following purposes:",
+      "p2": "It is not used for anything else: it is not added to marketing lists and it is not sold to third parties."
+    },
+    "s4": {
+      "title": "4. Legal Basis",
+      "p1": "Your personal data is processed by automated means, on the declaration you make by completing the form, on the legal bases in Article 5(2) of the KVKK: subparagraph (c), where processing is directly related to the conclusion or performance of a contract, and subparagraph (f), where processing is necessary for the legitimate interests of the data controller."
+    },
+    "s5": {
+      "title": "5. Retention Period",
+      "p1": "Your personal data is kept for as long as answering your request requires, and for the limitation periods set out in the applicable legislation. If no contractual relationship is formed once your request is concluded, your data is erased or anonymised within 12 months at the latest. Your right to request earlier erasure is reserved."
+    },
+    "s6": {
+      "title": "6. Transfer of Personal Data",
+      "p1": "Your personal data is transferred only so that your request can reach us and the service you purchased can be performed, and only to the suppliers we use:",
+      "items": [
+        "Resend (Resend, Inc.) for email delivery — form content reaches us as email over this infrastructure",
+        "Vercel (Vercel, Inc.) for hosting the website",
+        "iyzico (İyzi Ödeme ve Elektronik Para Hizmetleri A.Ş.) where the purchase is made by card — your name, contact and invoice/address details are transferred to the payment institution so the payment can be collected and verified"
+      ],
+      "p2": "Resend and Vercel are located outside Turkey, so transfers to them are transfers abroad within the meaning of Article 9 of the KVKK. iyzico is established in Turkey, so that transfer is not a transfer abroad. Your data is shared with nobody else; it may be passed only to public authorities legally empowered to receive it, where the law requires."
+    },
+    "s7": {
+      "title": "7. Your Rights Under Article 11 of the KVKK",
+      "p1": "As a data subject you have the following rights under Article 11 of the KVKK:"
+    },
+    "s8": {
+      "title": "8. Making a Request",
+      "p1": "You can send requests concerning the rights listed above to <mail>{email}</mail>. Your request will be concluded free of charge as soon as possible and within thirty days at the latest, depending on its nature. If it entails an additional cost, the fee set in the tariff determined by the Personal Data Protection Board may be charged."
+    }
+  },
+  "seller": {
+    "labelTradeName": "Registered name",
+    "labelAddress": "Address",
+    "labelRegistryNo": "Trade registry no",
+    "labelMersis": "MERSİS no",
+    "labelTaxOffice": "Tax office",
+    "labelTaxNo": "Tax no",
+    "labelPhone": "Phone",
+    "labelEmail": "Email",
+    "labelWebsite": "Website",
+    "incompleteEyebrow": "Seller details not yet complete",
+    "incompleteBody": "The SELLER's registered name, registered office, trade registry number, MERSİS number and tax office/number do not yet appear in this text. These are official registry records; they have not been invented, they have been left blank. The text will be completed with the real registry details before the payment path is opened."
+  },
+  "contractPage": {
+    "metaTitle": "Distance Sales Agreement",
+    "metaDescription": "The distance sales agreement for purchasing Hospitality Audit Group's audit services by card through the site: the parties, the fee, how the service is performed, the right of withdrawal and dispute resolution.",
+    "title": "Distance Sales Agreement",
+    "s1": {
+      "title": "1. The Parties",
+      "p1": "This Distance Sales Agreement (the “Agreement”) is concluded electronically between the SELLER, whose details appear below, and the BUYER, on the terms and conditions set out below.",
+      "seller": "SELLER",
+      "buyer": "BUYER",
+      "buyerBody": "The natural or legal person who declares their invoice and contact details when ordering. The details the BUYER declares appear in the order record and on the invoice issued, and form an integral part of this Agreement."
+    },
+    "s2": {
+      "title": "2. Subject of the Agreement",
+      "p1": "The subject of this Agreement is to set out the rights and obligations of the parties in relation to the sale and performance of the audit and/or training service — with the characteristics and price stated below — that the BUYER orders electronically through the website at {url}.",
+      "p2": "The Agreement has been prepared having regard to the provisions of Law no. 6502 on Consumer Protection and the Regulation on Distance Contracts. The explanation in Article 9 below is reserved as to whether those provisions apply to the BUYER."
+    },
+    "s3": {
+      "title": "3. The Service and Its Price",
+      "p1": "The service is an unannounced mystery guest audit visit at the property the BUYER specifies, and the audit report delivered after that visit. Its scope is limited to the modules the BUYER selected when ordering. The scope and criteria of the modules are published on the <modules>Modules</modules> page and form an annex to this Agreement.",
+      "p2": "The type, quantity and unit price of the service, and the total sale price, are as shown in the order summary and the order confirmation. All prices published on the site and shown in the order summary are in Turkish Lira and <b>include VAT at {vat}%</b>. No further tax or charge is levied. Detailed information on the characteristics and price of the service is on the <preInfo>Pre-Sale Information Form</preInfo>.",
+      "p3": "Payment is made in advance by the BUYER's credit or debit card through 3-D Secure verification. Card details never reach the SELLER's servers at any point; they go directly to the payment institution's own page. For detail, see the <privacy>Privacy Policy</privacy>."
+    },
+    "s4": {
+      "title": "4. General Provisions",
+      "items": [
+        "The SELLER undertakes to perform the service in full, in accordance with the characteristics stated in the order and together with the documents the legislation requires.",
+        "Performance of the service requires that this agreement has been approved electronically and that the price has been collected by the BUYER's chosen payment method.",
+        "If the price is not paid for any reason or is cancelled in the bank records, the SELLER is released from the obligation to perform the service.",
+        "Where performance of the ordered service becomes impossible, the SELLER notifies the BUYER in writing within three days of learning of it, and refunds the full amount collected within fourteen days of that notice at the latest."
+      ],
+      "p1": "The audit report and its findings are confidential; the SELLER does not share the property's name, the findings or the report content with third parties, and does not use them as a reference, without the BUYER's written consent."
+    },
+    "s5": {
+      "title": "5. How and When the Service Is Performed",
+      "p1": "Performance has two stages, and the distinction is decisive for the right of withdrawal:",
+      "items": [
+        "Setting the audit date: after payment is complete, the SELLER contacts the BUYER and agrees the date window for the audit visit. As the mystery guest method requires, the exact day and time are not disclosed to the BUYER.",
+        "The audit visit: performance is deemed to begin when the auditor checks in to the property as a guest.",
+        "Reporting: after the visit, the audit report is delivered within the agreed time to the email address the BUYER gave when ordering."
+      ],
+      "p2": "The audit visit takes place within thirty days of payment being completed at the latest. If that period is extended because of the property's occupancy, the season, or the BUYER's request, the new schedule is agreed by the parties in writing."
+    },
+    "s6": {
+      "title": "6. The BUYER's Declarations and Undertakings",
+      "p1": "By approving this Agreement electronically, the BUYER declares:",
+      "items": [
+        "That they have read and are aware, before purchasing, of the preliminary information on the essential characteristics of the service, the sale price, the payment method, the terms of performance and the right of withdrawal",
+        "That they confirmed this information electronically and only then began the payment process",
+        "That the invoice, contact and address details they gave when ordering are accurate and complete, and that any delay and cost arising from incorrect information is theirs",
+        "That the audit visit is carried out by the mystery guest method; that they will not announce the date of the visit, the auditor's identity, or the existence of the visit to the property's staff",
+        "That any announcement to the property's staff would destroy the measurement value of the audit, in which case the service is deemed to have been performed",
+        "That they will provide the accommodation and booking conditions needed for the audit visit on the agreed schedule"
+      ]
+    },
+    "s7": {
+      "title": "7. Right of Withdrawal",
+      "p1": "The service is one whose performance begins when the auditor enters the property. The right of withdrawal therefore applies in two different ways, according to whether performance has begun.",
+      "p2": "<b>a) Before the audit date is set — there is a right of withdrawal.</b> Within <b>fourteen days</b> of the order date, and while the date of the audit visit has not been set by the parties, the BUYER may withdraw from the agreement without giving any reason and without paying a penalty. The full amount collected is refunded to the card or account used within fourteen days of the withdrawal notice reaching the SELLER.",
+      "p3": "<b>b) After the audit date is set — the right continues, but cancellation is subject to conditions.</b> The right of withdrawal may still be exercised within the fourteen-day period after the date of the audit visit has been set; but for the costs the SELLER incurs through auditor assignment, booking and travel planning, the cancellation tiers on the <cancellation>Cancellation & Refund Policy</cancellation> apply.",
+      "p4": "<b>c) After the audit visit has begun — there is no right of withdrawal.</b> Under Article 15 of the Regulation on Distance Contracts, the right of withdrawal cannot be exercised for contracts concerning services whose performance has begun with the consumer's consent. Performance begins when the auditor checks in to the property as a guest; from that moment the right of withdrawal ends and no refund is made. This follows from the nature of the service: once the visit has taken place the measurement has been made, the auditor resource and travel cost have been spent, and the observation cannot be undone.",
+      "p5": "<b>The BUYER's express consent.</b> By approving this Agreement at the payment step, the BUYER accepts that the audit visit may take place before the fourteen-day withdrawal period expires, and <b>expressly consents</b> to performance beginning within that period. The BUYER further declares that they have been informed that the right of withdrawal is lost once performance begins. The payment step cannot be completed without this consent.",
+      "p6": "The withdrawal notice is sent in writing, within time, to <mail>{email}</mail>. Detail of the refund conditions and of force majeure is set out on the <cancellation>Cancellation & Refund Policy</cancellation>."
+    },
+    "s8": {
+      "title": "8. Dispute Resolution",
+      "p1": "In disputes arising from this Agreement, the BUYER may apply — within the monetary limits announced each year by the Ministry of Trade — to the <b>Consumer Arbitration Committee</b> at their own place of residence or at the place of the transaction, and, for disputes above those limits, to the <b>Consumer Courts</b>.",
+      "p2": "Where the BUYER is not a consumer within the meaning of Law no. 6502, general provisions apply to disputes and the competent court is determined by the general rules of jurisdiction. See Article 9 below for this distinction."
+    },
+    "s9": {
+      "title": "9. Consumer Status — Note for Legal Counsel",
+      "p1": "Law no. 6502 defines a consumer as “a natural or legal person acting for non-commercial or non-professional purposes”. The service on this site is a business service aimed at hotels and accommodation properties, and the buyer is in fact acting for commercial purposes. For most sales the BUYER is therefore expected <b>not to hold consumer status</b>; in that case the right-of-withdrawal and Consumer Arbitration Committee provisions of the Consumer Protection law and the Distance Contracts Regulation may not be binding.",
+      "p2": "This text has been drafted to apply the protective provisions of consumer legislation <b>voluntarily and in the BUYER's favour</b>. Which provisions are binding by law, which carry the character of a contractual undertaking, and how the possibility of an individual buyer is to be handled <b>must be clarified by legal counsel</b>. This page is not legal advice; it is a draft prepared for review."
+    },
+    "s10": {
+      "title": "10. Entry Into Force",
+      "p1": "At the payment step the BUYER confirms electronically that they have read, understood and accepted all the terms of this Agreement. The Agreement is concluded and enters into force upon that approval and the collection of payment. A copy of the Agreement is sent to the email address the BUYER gave when ordering, together with the order confirmation, and is retained by the SELLER."
+    }
+  },
+  "preInfoPage": {
+    "metaTitle": "Pre-Sale Information Form",
+    "metaDescription": "Pre-sale information under the Regulation on Distance Contracts: seller details, the essential characteristics of the audit service, VAT-inclusive prices, payment and performance terms, the right of withdrawal and complaint channels.",
+    "title": "Pre-Sale Information Form",
+    "characteristics": [
+      "The service is an unannounced mystery guest audit visit at the accommodation property the BUYER specifies, carried out without prior notice to staff.",
+      "The auditor enters the property as a guest and measures the criteria of the ordered modules on site.",
+      "Each criterion is marked Yes / No / Not applicable on site and tied to a form of evidence — a stopwatch, observation, audio recording, document check.",
+      "After the visit the findings, together with their evidence, are delivered to the BUYER as an audit report.",
+      "The scope of the service is limited to the modules selected when ordering; the modules' criteria are published on the Modules page."
+    ],
+    "s1": {
+      "title": "1. Purpose of the Form",
+      "p1": "This form has been prepared under the Regulation on Distance Contracts to inform the BUYER before ordering electronically through {url}. At the payment step the BUYER confirms electronically that they have read this form and been informed. The payment step cannot be completed without that confirmation.",
+      "p2": "Confirming this form does not remove the requirement to accept the <contract>Distance Sales Agreement</contract> by a separate approval; the two texts are approved separately."
+    },
+    "s2": {
+      "title": "2. Seller Details"
+    },
+    "s3": {
+      "title": "3. Essential Characteristics of the Service",
+      "p1": "The scope, criteria and evidence types of the modules are published in detail on the <modules>Modules</modules> page, and how the audit process works on the <process>Process</process> page. The information on those pages is an annex to this form."
+    },
+    "s4": {
+      "title": "4. Price",
+      "p1": "All prices published on the site and shown in the order summary are in Turkish Lira and <b>include VAT at {vat}%</b> ({pricingNote}). No further tax, commission, service charge or cost is added on top. The VAT amount is also shown separately in the order summary for transparency; that breakdown does not change the total.",
+      "p2": "Current list prices (VAT included):",
+      "p3": "The 360° Full Audit is offered at a lower price than buying its constituent modules separately. {scaleNote} Prices that vary with scale are set separately before purchase, through the <quote>quote</quote> path.",
+      "p4": "The price binding on the BUYER is the total shown in the order summary at the moment the order is placed and stated in the order confirmation. Price changes do not apply to orders placed before the change."
+    },
+    "s5": {
+      "title": "5. Payment and Performance",
+      "p1": "Payment is made in advance by credit or debit card through 3-D Secure verification. Card details never reach this site's servers at any point; they go directly to the payment institution's own page and are processed there.",
+      "items": [
+        "After payment is complete, the date window for the audit visit is agreed with the BUYER.",
+        "As the mystery guest method requires, the exact day and time are not disclosed to the BUYER; otherwise the measurement loses its value.",
+        "The audit visit takes place within thirty days of payment being completed at the latest.",
+        "The audit report is sent, after the visit, to the email address the BUYER gave when ordering.",
+        "The invoice is issued according to the invoice details declared when ordering, and sent to the same address."
+      ]
+    },
+    "s6": {
+      "title": "6. Right of Withdrawal and Its Exception",
+      "p1": "Within <b>fourteen days</b> of the order date, the BUYER has the right to withdraw from the agreement without giving any reason and without paying a penalty. The withdrawal notice is sent in writing, within that period, to <mail>{email}</mail>.",
+      "p2": "<b>Exception to the right of withdrawal: it cannot be exercised for services whose performance has begun.</b> Under Article 15 of the Regulation on Distance Contracts, the right of withdrawal cannot be exercised for contracts concerning services whose performance has begun with the BUYER's consent. For this service, performance <b>begins when the auditor checks in to the property as a guest</b>. From that moment the right of withdrawal ends and no refund is made.",
+      "p3": "At the payment step the BUYER <b>expressly confirms</b> that they know the audit visit may take place before the fourteen-day withdrawal period expires, and that the right of withdrawal is lost once performance begins. While the audit date has not yet been set the right of withdrawal may be exercised in any case, and the full amount collected is refunded.",
+      "p4": "The deduction tiers applied to cancellations after the date is set, the refund period, the refund method and force majeure are set out on the <cancellation>Cancellation & Refund Policy</cancellation>."
+    },
+    "s7": {
+      "title": "7. Complaints and Objections",
+      "p1": "Please send any complaint or objection about the service first to <mail>{email}</mail> or to {phone} ({hours}). Your request is assessed as soon as possible and answered in writing.",
+      "p2": "If no resolution is reached, the BUYER may apply — within the monetary limits announced each year by the Ministry of Trade — to the <b>Consumer Arbitration Committee</b> at their own place of residence or at the place of the transaction, and, for disputes above those limits, to the <b>Consumer Courts</b>."
+    },
+    "s8": {
+      "title": "8. Consumer Status — Note for Legal Counsel",
+      "p1": "This form has been drafted on the assumption that the buyer is a consumer within the meaning of Law no. 6502. But the service on this site is a business service aimed at accommodation properties, and the buyer is in fact acting for commercial purposes; for most sales there will therefore be <b>no consumer status</b>. Whether the pre-information obligation and the right of withdrawal are mandatory by law for such a buyer, and which parts of this form are binding obligations and which are voluntary undertakings, <b>must be clarified by legal counsel</b>. This page is not legal advice; it is a draft prepared for review."
+    }
+  },
+  "cancellationPage": {
+    "metaTitle": "Cancellation & Refund Policy",
+    "metaDescription": "Cancellation terms before the audit visit, the deduction tiers applied once a date is set, why no refund is made after the visit begins, the refund period, and force majeure.",
+    "title": "Cancellation & Refund Policy",
+    "ladder": [
+      "While the audit date has not yet been set: no deduction — the full amount collected is refunded.",
+      "15 days or more before the visit: no deduction — the full amount is refunded.",
+      "8–14 days before the visit: 25% deduction — 75% of the amount is refunded.",
+      "3–7 days before the visit: 50% deduction — 50% of the amount is refunded.",
+      "Less than 48 hours before the visit: no refund — auditor assignment, the accommodation booking and travel costs are no longer recoverable at this stage.",
+      "After the auditor has entered the property: no refund — performance of the service has begun."
+    ],
+    "forceMajeure": [
+      "Natural disaster, fire, flood, earthquake",
+      "Epidemic and the travel or accommodation restrictions that follow from it",
+      "Closure of the property or of transport by decision of the authorities",
+      "War, mobilisation, acts of terror and general strike",
+      "Comparable events outside the parties' control that make the visit genuinely impossible"
+    ],
+    "s1": {
+      "title": "1. Scope",
+      "p1": "This policy sets out the terms for cancelling audit and training services purchased by card through {url}, and for refunding their price. It applies together with the <contract>Distance Sales Agreement</contract> and the <preInfo>Pre-Sale Information Form</preInfo>, and forms an integral part of those texts.",
+      "p2": "It does not apply to requests that proceed by the quote path with no card collected; the terms of that kind of work are set in a separate agreement signed by the parties."
+    },
+    "s2": {
+      "title": "2. What Cancellation Is Measured Against: the Audit Date",
+      "p1": "What decides the refund terms for this service is not the time since the order but <b>the time left until the audit visit</b>. The reason is concrete: no cost arises on the seller's side at the moment of purchase, but the moment the visit is scheduled an auditor is set aside for that date, accommodation is booked at the property, and travel is planned. As the visit date approaches, those costs become unrecoverable.",
+      "p2": "The cancellation request is sent in writing to <mail>{email}</mail>. In applying the tiers below, <b>the moment the request reaches that address</b> is what counts."
+    },
+    "s3": {
+      "title": "3. Cancellation Tiers",
+      "draftEyebrow": "The rates are a draft — to be set by the business owner",
+      "draftBody": "The day ranges and deduction rates below are a <b>proposal</b>, not a decision. Before publishing they must be set by the business owner against the real auditor and travel costs, and confirmed by legal counsel. A deduction that exceeds the actual loss is open to challenge by the buyer.",
+      "p1": "The deduction rate is calculated on the cancelled service lines, not on the whole order. On a partial cancellation the lines that are not cancelled remain in force."
+    },
+    "s4": {
+      "title": "4. No Refund After the Visit Begins",
+      "p1": "Performance is deemed to begin when the auditor checks in to the property as a guest. <b>From that moment cancellation and refund are not possible.</b>",
+      "p2": "This follows from the nature of the service: once the visit has begun the measurement has been made, the auditor resource and travel cost have been spent, and the observation cannot be undone. Article 15 of the Regulation on Distance Contracts also provides that the right of withdrawal cannot be exercised for services whose performance has begun with the buyer's consent. At the payment step the buyer expressly consents to performance beginning within the withdrawal period.",
+      "p3": "Dissatisfaction with the report's findings is not a ground for refund; an audit is a measurement service, not one whose result is promised in advance. But if the report does not cover the modules ordered, if criteria are measured incompletely, or if findings are not tied to evidence, the buyer may rely on the defective-performance provisions; in that case the visit is first repeated free of charge."
+    },
+    "s5": {
+      "title": "5. Rescheduling — an Alternative to Cancelling",
+      "p1": "Rescheduling the audit date instead of cancelling may be preferred. The first reschedule requested <b>more than 7 days</b> before the visit is made with no deduction, and a new date is agreed by the parties. Later reschedule requests are assessed against the cancellation tier in force at the time.",
+      "p2": "The rescheduling window is also a draft in this section; it will be set by the business owner."
+    },
+    "s6": {
+      "title": "6. Refund Period and Method",
+      "p1": "The refund is made <b>to the card used for payment itself</b>. It cannot be made in cash, by transfer, or to another account; this is the card institutions' rule, not the seller's preference.",
+      "items": [
+        "The refund amount is passed to the payment institution within fourteen days of the cancellation request arriving at the latest.",
+        "How long it takes to appear on your card statement depends on your bank, and can be two to three weeks after the refund is sent. That period is not within the seller's control.",
+        "The amount refunded corresponds to the relevant proportion of the VAT-inclusive amount collected; no further deduction or processing charge is taken from the refund.",
+        "If an invoice was issued, the refund invoice or the required document is sent to the email address the buyer gave when ordering."
+      ]
+    },
+    "s7": {
+      "title": "7. Force Majeure",
+      "p1": "If one of the following prevents the visit from taking place, neither party is deemed in default and the cancellation tiers do not apply:",
+      "p2": "In a force majeure event the visit is first rescheduled with no deduction. If the obstacle does not clear, or the parties cannot agree a new date, the agreement ends and the full amount collected is refunded with no deduction, by the procedure in section 6.",
+      "p3": "If force majeure arises after the visit has begun, no refund is made for the part of the service performed; for the part that cannot be performed the parties agree a resolution."
+    },
+    "s8": {
+      "title": "8. Seller Details and Requests",
+      "p1": "You can send cancellation, refund and rescheduling requests, and objections to this policy, to <mail>{email}</mail> or to {phone} ({hours}). The bodies you may apply to in a dispute are set out in Article 8 of the <contract>Distance Sales Agreement</contract>."
+    }
   }
 }

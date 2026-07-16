@@ -619,5 +619,365 @@
     "closingTitle": "Tesisinizin gerçek fotoğrafını çekelim.",
     "closingCtaPrimary": "Teklif Alın",
     "closingCtaSecondary": "Sürecimizi İnceleyin"
+  },
+  "legal": {
+    "eyebrow": "Yasal",
+    "updated": "Son güncelleme: {date}",
+    "draftEyebrow": "Taslak — hukuk onayı bekliyor",
+    "draftBody": "Bu metin şablondur; yayına almadan önce hukuk danışmanınızla teyit edin."
+  },
+  "privacyPage": {
+    "metaTitle": "Gizlilik Politikası",
+    "metaDescription": "Bu sitede hangi çerezlerin kullanıldığı, form verilerinin nasıl işlendiği, hangi üçüncü taraf hizmetlerin devrede olduğu ve verilerin nasıl korunduğu.",
+    "title": "Gizlilik Politikası",
+    "s1": {
+      "title": "1. Kapsam",
+      "p1": "Bu politika, {url} adresinde yayınlanan {name} web sitesini kapsar. Kişisel verilerinizin 6698 sayılı KVKK kapsamında işlenmesine ilişkin ayrıntılı bilgi için <kvkk>KVKK Aydınlatma Metni</kvkk> sayfasını inceleyebilirsiniz."
+    },
+    "s2": {
+      "title": "2. Çerezler ve Yerel Depolama",
+      "p1": "Bu site hiçbir takip veya reklam çerezi kullanmaz. Ziyaretçi davranışını ölçen bir analiz aracı, reklam pikseli veya sosyal medya izleyicisi bulunmaz. Site, sizi tanımlayan bir çerez yerleştirmez.",
+      "p2": "Tarayıcınızda tutulan tek veri, teklif sepetinize ilişkin <code>hag-quote-cart</code> adlı bir yerel depolama (localStorage) kaydıdır. Bu kayıt yalnızca <modules>Modüller</modules> sayfasında seçtiğiniz denetim modüllerinin kodlarını içerir; böylece sayfayı yenilediğinizde seçiminiz korunur.",
+      "items": [
+        "Kayıt yalnızca kendi tarayıcınızda tutulur ve kendiliğinden sunucuya gönderilmez",
+        "Kimliğinizi tanımlayan hiçbir bilgi içermez; yalnızca modül kodlarından oluşur",
+        "Yalnızca siz teklif formunu gönderdiğinizde, talebinizin kapsamı olarak tarafımıza iletilir",
+        "Tarayıcınızın site verilerini temizleyerek dilediğiniz zaman silebilirsiniz"
+      ]
+    },
+    "s3": {
+      "title": "3. Form Verileri",
+      "p1": "Teklif ve iletişim formlarına girdiğiniz ad soyad, e-posta adresi, telefon numarası, tesis adı, tesis tipi, oda sayısı ve mesaj bilgileri yalnızca talebinizi karşılamak için kullanılır. Bu bilgiler tarafımıza e-posta olarak iletilir; sitede bir veritabanında saklanmaz.",
+      "p2": "Formlar, otomatik gönderimleri elemek için görünmeyen bir alan (honeypot) içerir. Bu alan hakkınızda herhangi bir bilgi toplamaz."
+    },
+    "s4": {
+      "title": "4. Üçüncü Taraf Hizmetler",
+      "p1": "Site, yalnızca aşağıdaki hizmet sağlayıcıları kullanır:",
+      "items": [
+        "Resend (Resend, Inc.) — form içeriğinin tarafımıza e-posta olarak iletilmesi için kullanılır",
+        "Vercel (Vercel, Inc.) — web sitesinin barındırılması için kullanılır ve teknik sunucu kayıtları tutar",
+        "iyzico (İyzi Ödeme ve Elektronik Para Hizmetleri A.Ş.) — kart ile satın alma hâlinde ödemenin tahsil edilmesi için kullanılır"
+      ],
+      "p2": "Yazı tipleri siteyle birlikte sunulur; sayfa görüntülenirken harici bir yazı tipi veya içerik sağlayıcısına istek gönderilmez. Resend ve Vercel yurt dışında bulunmaktadır; iyzico, Türkiye’de yerleşik ve BDDK denetimine tabi bir ödeme kuruluşudur."
+    },
+    "s5": {
+      "title": "5. Kart Bilgileri",
+      "p1": "<b>Kart bilgileriniz bu sitenin sunucularına hiçbir aşamada ulaşmaz.</b> Kart numarası, son kullanma tarihi ve güvenlik kodu bu sitede yer alan bir forma girilmez; ödeme adımında doğrudan ödeme kuruluşunun kendi sayfasına iletilir ve orada işlenir. Doğrulama, bankanızın 3D Secure ekranı üzerinden yapılır.",
+      "p2": "Bu nedenle kart bilgileriniz tarafımızca görülmez, kaydedilmez ve saklanmaz. Ödeme kuruluşundan tarafımıza yalnızca işlemin sonucu (başarılı/başarısız), işlem numarası ve tutar bilgisi döner. Faturanın düzenlenmesi için topladığımız fatura ve adres bilgilerine ilişkin ayrıntı <kvkk>KVKK Aydınlatma Metni</kvkk> sayfasındadır."
+    },
+    "s6": {
+      "title": "6. Veri Güvenliği",
+      "p1": "Site tamamen HTTPS üzerinden sunulur. Form gönderimleri şifreli bağlantı üzerinden iletilir ve e-posta ile ödeme sağlayıcısının erişim anahtarları yalnızca sunucu tarafında tutulur; tarayıcıya gönderilmez.",
+      "p2": "Verileriniz, talebinizin karşılanması için gereken süre boyunca saklanır ve bu amaç ortadan kalktığında silinir. Saklama süresine ilişkin ayrıntılar <kvkk>KVKK Aydınlatma Metni</kvkk> sayfasında yer alır."
+    },
+    "s7": {
+      "title": "7. Değişiklikler",
+      "p1": "Bu politika, hizmetlerimizde veya mevzuatta meydana gelen değişikliklere bağlı olarak güncellenebilir. Güncel sürüm her zaman bu sayfada yayınlanır ve sayfa başındaki tarih güncellenir."
+    },
+    "s8": {
+      "title": "8. İletişim",
+      "p1": "Gizlilik uygulamalarımıza ilişkin soru ve talepleriniz için <mail>{email}</mail> adresine yazabilirsiniz."
+    }
+  },
+  "kvkkPage": {
+    "metaTitle": "KVKK Aydınlatma Metni",
+    "metaDescription": "Hospitality Audit Group'un 6698 sayılı KVKK kapsamında kişisel verilerinizi hangi amaçla işlediğini, ne kadar sürede sakladığını ve haklarınızı açıklayan aydınlatma metni.",
+    "title": "KVKK Aydınlatma Metni",
+    "collected": [
+      "Ad soyad",
+      "E-posta adresi",
+      "Telefon numarası",
+      "Tesis adı",
+      "Tesis tipi",
+      "Oda sayısı",
+      "Mesaj içeriğinde tarafınızca paylaşılan bilgiler"
+    ],
+    "billing": [
+      "Fatura tipi (kurumsal veya bireysel)",
+      "Kurumsal fatura için: ticaret unvanı, vergi dairesi ve vergi numarası",
+      "Bireysel fatura için: ad soyad ve T.C. kimlik numarası",
+      "Fatura adresi (ülke, il, ilçe, açık adres, posta kodu)"
+    ],
+    "purposes": [
+      "Tarafınızca iletilen teklif talebinin değerlendirilmesi ve fiyatlandırılması",
+      "Talep ettiğiniz denetim modüllerine ilişkin teklifin hazırlanması ve tarafınıza sunulması",
+      "İletişim formu üzerinden iletilen soru ve taleplerin yanıtlanması",
+      "Talebinizin sonuçlandırılabilmesi için sizinle iletişime geçilmesi",
+      "Kart ile satın alma hâlinde ödemenin ödeme kuruluşu aracılığıyla tahsil edilmesi ve doğrulanması",
+      "Satın alınan hizmete ilişkin faturanın düzenlenmesi ve tarafınıza iletilmesi",
+      "Vergi mevzuatı ile 6563 sayılı Kanun kapsamındaki saklama ve belgelendirme yükümlülüklerinin yerine getirilmesi",
+      "İptal, iade ve cayma taleplerinin sonuçlandırılması"
+    ],
+    "rights": [
+      "Kişisel verilerinizin işlenip işlenmediğini öğrenme",
+      "Kişisel verileriniz işlenmişse buna ilişkin bilgi talep etme",
+      "Kişisel verilerinizin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme",
+      "Yurt içinde veya yurt dışında kişisel verilerinizin aktarıldığı üçüncü kişileri bilme",
+      "Kişisel verilerinizin eksik veya yanlış işlenmiş olması hâlinde bunların düzeltilmesini isteme",
+      "KVKK'nın 7. maddesinde öngörülen şartlar çerçevesinde kişisel verilerinizin silinmesini veya yok edilmesini isteme",
+      "Düzeltme, silme ve yok edilme taleplerinizin, kişisel verilerinizin aktarıldığı üçüncü kişilere bildirilmesini isteme",
+      "İşlenen verilerinizin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme",
+      "Kişisel verilerinizin kanuna aykırı olarak işlenmesi sebebiyle zarara uğramanız hâlinde zararın giderilmesini talep etme"
+    ],
+    "s1": {
+      "title": "1. Veri Sorumlusu",
+      "p1": "6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) uyarınca kişisel verileriniz, veri sorumlusu sıfatıyla {name} tarafından aşağıda açıklanan kapsamda işlenmektedir.",
+      "p2": "Veri sorumlusuna <mail>{email}</mail> adresinden ulaşabilirsiniz."
+    },
+    "s2": {
+      "title": "2. İşlenen Kişisel Veriler",
+      "p1": "Bu web sitesi üzerinden yalnızca teklif formu ve iletişim formu aracılığıyla tarafınızca iletilen veriler işlenir. İşlenen veriler şunlardır:",
+      "p2": "Teklif formunda seçtiğiniz denetim modüllerinin kodları da talebinizin kapsamını belirlemek üzere formla birlikte iletilir.",
+      "p3": "Hizmeti kart ile satın almanız hâlinde, faturanın düzenlenebilmesi için aşağıdaki bilgiler ayrıca işlenir:",
+      "p4": "Kart numarası, son kullanma tarihi ve güvenlik kodu bu bilgilere <b>dahil değildir</b>: kart bilgileri bu sitenin sunucularına hiçbir aşamada ulaşmaz, doğrudan ödeme kuruluşunun kendi sayfasına iletilir ve tarafımızca görülmez veya saklanmaz.",
+      "p5": "Site, bunların dışında herhangi bir kişisel veri toplamaz; ziyaretçi davranışını izleyen bir analiz veya reklam aracı kullanılmaz."
+    },
+    "s3": {
+      "title": "3. Kişisel Verilerin İşlenme Amacı",
+      "p1": "Kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:",
+      "p2": "Verileriniz bu amaçların dışında kullanılmaz; pazarlama listelerine eklenmez ve üçüncü kişilere satılmaz."
+    },
+    "s4": {
+      "title": "4. Hukuki Sebep",
+      "p1": "Kişisel verileriniz, KVKK’nın 5. maddesinin 2. fıkrasının (c) bendi uyarınca bir sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması ve (f) bendi uyarınca veri sorumlusunun meşru menfaatleri için veri işlenmesinin zorunlu olması hukuki sebeplerine dayanarak, formu doldurarak tarafımıza ilettiğiniz beyanınız üzerine otomatik yollarla işlenmektedir."
+    },
+    "s5": {
+      "title": "5. Saklama Süresi",
+      "p1": "Kişisel verileriniz, talebinizin karşılanması için gerekli olan süre boyunca ve ilgili mevzuatta öngörülen zamanaşımı süreleri saklanır. Talebinizin sonuçlanmasının ardından bir sözleşme ilişkisi kurulmadıysa verileriniz en geç 12 ay içinde silinir veya anonim hâle getirilir. Bu süreden önce silinmesini talep etme hakkınız saklıdır."
+    },
+    "s6": {
+      "title": "6. Kişisel Verilerin Aktarılması",
+      "p1": "Kişisel verileriniz, yalnızca talebinizin tarafımıza ulaştırılabilmesi ve satın aldığınız hizmetin ifası amacıyla, hizmet alınan tedarikçilerle sınırlı olmak üzere aktarılır:",
+      "items": [
+        "E-posta iletimi için Resend (Resend, Inc.) — form içeriği tarafımıza e-posta olarak bu altyapı üzerinden iletilir",
+        "Web sitesinin barındırılması için Vercel (Vercel, Inc.)",
+        "Kart ile satın alma hâlinde iyzico (İyzi Ödeme ve Elektronik Para Hizmetleri A.Ş.) — ödemenin tahsili ve doğrulanması için ad soyad, iletişim ve fatura/adres bilgileriniz ödeme kuruluşuna aktarılır"
+      ],
+      "p2": "Resend ve Vercel yurt dışında bulunduğundan bu tedarikçilere yapılan aktarım, KVKK’nın 9. maddesi kapsamında yurt dışına aktarım niteliğindedir. iyzico Türkiye’de yerleşik olup bu aktarım yurt dışına aktarım niteliğinde değildir. Verileriniz bunların dışında hiçbir üçüncü kişiyle paylaşılmaz; yalnızca kanunen yetkili kamu kurum ve kuruluşlarına, mevzuatın zorunlu kıldığı hâllerde aktarılabilir."
+    },
+    "s7": {
+      "title": "7. KVKK 11. Madde Kapsamındaki Haklarınız",
+      "p1": "Veri sahibi olarak KVKK’nın 11. maddesi uyarınca aşağıdaki haklara sahipsiniz:"
+    },
+    "s8": {
+      "title": "8. Başvuru",
+      "p1": "Yukarıda sayılan haklarınıza ilişkin taleplerinizi <mail>{email}</mail> adresine iletebilirsiniz. Başvurunuz, talebinizin niteliğine göre en kısa sürede ve en geç otuz gün içinde ücretsiz olarak sonuçlandırılır. İşlemin ayrıca bir maliyet gerektirmesi hâlinde Kişisel Verileri Koruma Kurulu tarafından belirlenen tarifedeki ücret talep edilebilir."
+    }
+  },
+  "seller": {
+    "labelTradeName": "Unvan",
+    "labelAddress": "Adres",
+    "labelRegistryNo": "Ticaret Sicil No",
+    "labelMersis": "MERSİS No",
+    "labelTaxOffice": "Vergi Dairesi",
+    "labelTaxNo": "Vergi No",
+    "labelPhone": "Telefon",
+    "labelEmail": "E-posta",
+    "labelWebsite": "Web sitesi",
+    "incompleteEyebrow": "Satıcı bilgileri tamamlanmadı",
+    "incompleteBody": "SATICI’nın ticaret unvanı, merkez adresi, ticaret sicil numarası, MERSİS numarası ve vergi dairesi/numarası bu metinde henüz yer almamaktadır. Bu bilgiler resmî sicil kayıtlarıdır; uydurulmamış, boş bırakılmıştır. Metin, satış yoluna açılmadan önce gerçek sicil bilgileriyle tamamlanacaktır."
+  },
+  "contractPage": {
+    "metaTitle": "Mesafeli Satış Sözleşmesi",
+    "metaDescription": "Hospitality Audit Group denetim hizmetlerinin site üzerinden kart ile satın alınmasına ilişkin mesafeli satış sözleşmesi: taraflar, hizmet bedeli, ifa şekli, cayma hakkı ve uyuşmazlık çözümü.",
+    "title": "Mesafeli Satış Sözleşmesi",
+    "s1": {
+      "title": "1. Taraflar",
+      "p1": "İşbu Mesafeli Satış Sözleşmesi (“Sözleşme”), aşağıda bilgileri yer alan SATICI ile ALICI arasında, aşağıda belirtilen hüküm ve şartlar çerçevesinde elektronik ortamda kurulmuştur.",
+      "seller": "SATICI",
+      "buyer": "ALICI",
+      "buyerBody": "Sipariş sırasında fatura ve iletişim bilgilerini beyan eden gerçek veya tüzel kişidir. ALICI’nın beyan ettiği bilgiler, sipariş kaydında ve düzenlenen faturada yer alır ve bu Sözleşme’nin ayrılmaz parçasıdır."
+    },
+    "s2": {
+      "title": "2. Sözleşmenin Konusu",
+      "p1": "İşbu Sözleşme’nin konusu, ALICI’nın {url} adresindeki web sitesi üzerinden elektronik ortamda siparişini verdiği, aşağıda nitelikleri ve satış bedeli belirtilen denetim ve/veya eğitim hizmetinin satışı ile ifasına ilişkin olarak tarafların hak ve yükümlülüklerinin belirlenmesidir.",
+      "p2": "Sözleşme, 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği hükümleri dikkate alınarak hazırlanmıştır. Bu hükümlerin ALICI’ya uygulanabilirliği bakımından aşağıda 9. maddedeki açıklama saklıdır."
+    },
+    "s3": {
+      "title": "3. Sözleşme Konusu Hizmet ve Bedeli",
+      "p1": "Sözleşme konusu hizmet, ALICI’nın belirttiği tesiste, önceden haber verilmeksizin gerçekleştirilen gizli müşteri denetim ziyareti ve bu ziyaretin ardından teslim edilen denetim raporudur. Hizmetin kapsamı, ALICI’nın siparişinde seçtiği modüller ile sınırlıdır. Modüllerin kapsamı ve kriterleri <modules>Modüller</modules> sayfasında yayımlanmıştır ve bu Sözleşme’nin ekidir.",
+      "p2": "Hizmetin türü, adedi ve birim bedeli ile toplam satış bedeli, sipariş özetinde ve sipariş onayında yer aldığı şekildedir. Sitede yayımlanan ve sipariş özetinde gösterilen tüm fiyatlar Türk Lirası cinsinden olup <b>%{vat} KDV dahildir</b>. Ayrıca bir vergi veya masraf talep edilmez. Hizmetin niteliklerine ve bedeline ilişkin ayrıntılı bilgi <preInfo>Ön Bilgilendirme Formu</preInfo> sayfasında yer alır.",
+      "p3": "Ödeme, ALICI’nın kredi/banka kartı ile 3D Secure doğrulaması üzerinden peşin olarak yapılır. Kart bilgileri SATICI’nın sunucularına hiçbir aşamada ulaşmaz; doğrudan ödeme kuruluşunun kendi sayfasına iletilir. Ayrıntı için <privacy>Gizlilik Politikası</privacy> sayfasına bakınız."
+    },
+    "s4": {
+      "title": "4. Genel Hükümler",
+      "items": [
+        "SATICI, sözleşme konusu hizmeti eksiksiz, siparişte belirtilen niteliklere uygun ve mevzuatın gerektirdiği belgelerle birlikte ifa etmeyi kabul eder.",
+        "Sözleşme konusu hizmetin ifası için bu sözleşmenin elektronik ortamda onaylanmış ve bedelin ALICI’nın tercih ettiği ödeme yöntemiyle tahsil edilmiş olması gerekir.",
+        "Bedelin herhangi bir sebeple ödenmemesi veya banka kayıtlarında iptal edilmesi hâlinde SATICI, hizmeti ifa yükümlülüğünden kurtulmuş sayılır.",
+        "SATICI, sipariş konusu hizmetin ifasının imkânsızlaştığı hâllerde durumu öğrendiği tarihten itibaren üç gün içinde ALICI’ya yazılı olarak bildirir ve tahsil edilen tutarın tamamını en geç bildirimden itibaren on dört gün içinde iade eder."
+      ],
+      "p1": "Denetim raporu ve bulguları gizlidir; SATICI, ALICI’nın yazılı izni olmaksızın tesis adını, bulguları veya rapor içeriğini üçüncü kişilerle paylaşmaz, referans olarak kullanmaz."
+    },
+    "s5": {
+      "title": "5. İfa Şekli ve Süresi",
+      "p1": "Hizmetin ifası iki aşamadan oluşur ve bu ayrım cayma hakkı bakımından belirleyicidir:",
+      "items": [
+        "Denetim tarihinin belirlenmesi: Ödemenin tamamlanmasının ardından SATICI, ALICI ile iletişime geçerek denetim ziyaretinin yapılacağı tarih aralığını mutabakatla belirler. Gizli müşteri yönteminin gereği olarak kesin gün ve saat ALICI’ya bildirilmez.",
+        "Denetim ziyareti: Denetçinin tesise misafir sıfatıyla giriş (check-in) yapmasıyla hizmetin ifası başlamış sayılır.",
+        "Raporlama: Ziyaretin tamamlanmasının ardından denetim raporu, mutabık kalınan süre içinde ALICI’nın siparişte belirttiği e-posta adresine iletilir."
+      ],
+      "p2": "Denetim ziyareti, ödemenin tamamlanmasından itibaren en geç otuz gün içinde gerçekleştirilir. Tesisin doluluk durumu, sezon veya ALICI’nın talebi nedeniyle bu sürenin uzaması hâlinde yeni takvim taraflarca yazılı olarak mutabık kalınarak belirlenir."
+    },
+    "s6": {
+      "title": "6. ALICI'nın Beyan ve Taahhütleri",
+      "p1": "ALICI, bu Sözleşme’yi elektronik ortamda onaylamakla:",
+      "items": [
+        "Sözleşme konusu hizmetin temel nitelikleri, satış bedeli, ödeme şekli, ifa koşulları ve cayma hakkına ilişkin ön bilgileri satın alma işleminden önce okuduğunu ve bilgi sahibi olduğunu",
+        "Bu bilgileri elektronik ortamda teyit ettiğini ve sonrasında ödeme işlemine başladığını",
+        "Sipariş sırasında verdiği fatura, iletişim ve adres bilgilerinin doğru ve eksiksiz olduğunu; hatalı bilgiden doğan gecikme ve masrafların kendisine ait olacağını",
+        "Denetim ziyaretinin gizli müşteri yöntemiyle yapıldığını; ziyaretin tarihini, denetçinin kimliğini veya ziyaretin varlığını tesis personeline duyurmayacağını",
+        "Tesis personeline yapılacak duyurunun denetimin ölçüm değerini ortadan kaldıracağını ve bu hâlde hizmetin ifa edilmiş sayılacağını",
+        "Denetim ziyaretinin gerçekleştirilebilmesi için gerekli konaklama/rezervasyon koşullarını mutabık kalınan takvimde sağlayacağını"
+      ]
+    },
+    "s7": {
+      "title": "7. Cayma Hakkı",
+      "p1": "Sözleşme konusu hizmet, ifası denetçinin tesise giriş yapmasıyla başlayan bir hizmettir. Bu nedenle cayma hakkı, ifanın başlayıp başlamadığına göre iki farklı şekilde uygulanır.",
+      "p2": "<b>a) Denetim tarihi belirlenmeden önce — cayma hakkı vardır.</b> ALICI, sipariş tarihinden itibaren <b>on dört gün</b> içinde ve denetim ziyaretinin tarihi taraflarca belirlenmemişken, hiçbir gerekçe göstermeksizin ve cezai şart ödemeksizin sözleşmeden cayabilir. Cayma bildiriminin SATICI’ya ulaştığı tarihten itibaren on dört gün içinde tahsil edilen tutarın tamamı, ödemede kullanılan kart veya hesaba iade edilir.",
+      "p3": "<b>b) Denetim tarihi belirlendikten sonra — cayma hakkı devam eder, iptal koşullara bağlıdır.</b> Denetim ziyaretinin tarihi taraflarca belirlendikten sonra da on dört günlük süre içinde cayma hakkı kullanılabilir; ancak SATICI’nın denetçi ataması, rezervasyon ve seyahat planlaması nedeniyle katlandığı masraflar bakımından <cancellation>İptal & İade Politikası</cancellation> sayfasındaki iptal basamakları uygulanır.",
+      "p4": "<b>c) Denetim ziyareti başladıktan sonra — cayma hakkı yoktur.</b> Mesafeli Sözleşmeler Yönetmeliği’nin 15. maddesi uyarınca, ALICI’nın onayı ile ifasına başlanan hizmetlere ilişkin sözleşmelerde cayma hakkı kullanılamaz. Denetçinin tesise misafir sıfatıyla giriş yapmasıyla hizmetin ifası başlamış olur; bu andan itibaren cayma hakkı sona erer ve bedel iadesi yapılmaz. Bu, hizmetin doğasından kaynaklanır: ziyaret gerçekleştiği anda ölçüm yapılmış, denetçi kaynağı ve seyahat maliyeti harcanmış olur ve yapılan gözlem geri alınamaz.",
+      "p5": "<b>ALICI’nın açık onayı.</b> ALICI, ödeme adımında bu Sözleşme’yi onaylamakla, denetim ziyaretinin on dört günlük cayma süresi dolmadan gerçekleştirilebileceğini kabul eder ve hizmetin ifasına bu süre içinde başlanmasına <b>açıkça onay verir</b>. ALICI ayrıca, ifanın başlamasıyla birlikte cayma hakkını kaybedeceği konusunda bilgilendirildiğini beyan eder. Bu onay alınmadan ödeme adımı tamamlanamaz.",
+      "p6": "Cayma bildirimi, süresi içinde <mail>{email}</mail> adresine yazılı olarak iletilir. İade koşullarının ayrıntısı ve mücbir sebep hâlleri <cancellation>İptal & İade Politikası</cancellation> sayfasında düzenlenmiştir."
+    },
+    "s8": {
+      "title": "8. Uyuşmazlık Çözümü",
+      "p1": "İşbu Sözleşme’den doğan uyuşmazlıklarda ALICI, Ticaret Bakanlığı tarafından her yıl ilan edilen parasal sınırlar dâhilinde kendi yerleşim yerindeki veya işlemin yapıldığı yerdeki <b>Tüketici Hakem Heyetleri</b>’ne, bu sınırların üzerindeki uyuşmazlıklarda ise <b>Tüketici Mahkemeleri</b>’ne başvurabilir.",
+      "p2": "ALICI’nın 6502 sayılı Kanun anlamında tüketici sayılmadığı hâllerde uyuşmazlıklarda genel hükümler uygulanır ve yetkili yargı mercii genel yetki kurallarına göre belirlenir. Bu ayrım için aşağıdaki 9. maddeye bakınız."
+    },
+    "s9": {
+      "title": "9. Tüketici Sıfatı — Hukuk Danışmanına Not",
+      "p1": "6502 sayılı Kanun, tüketiciyi “ticari veya mesleki olmayan amaçlarla hareket eden gerçek veya tüzel kişi” olarak tanımlar. Bu sitedeki hizmet, otel ve konaklama tesislerine yönelik bir işletme hizmetidir ve alıcı fiilen ticari amaçla hareket etmektedir. Bu nedenle satışların büyük bölümünde ALICI’nın <b>tüketici sıfatını taşımaması</b> beklenir; bu hâlde Tüketicinin Korunması Hakkında Kanun ile Mesafeli Sözleşmeler Yönetmeliği’nin cayma hakkı ve Tüketici Hakem Heyeti’ne başvuru hükümleri bağlayıcı olmayabilir.",
+      "p2": "Bu metin, tüketici mevzuatının koruyucu hükümlerini <b>ALICI lehine ve gönüllü olarak</b> uygulayacak biçimde kaleme alınmıştır. Hangi hükümlerin kanunen bağlayıcı olduğu, hangilerinin sözleşmesel taahhüt niteliği taşıdığı ve bireysel alıcı ihtimalinin nasıl ele alınacağı <b>hukuk danışmanı tarafından netleştirilmelidir</b>. Bu sayfa hukuki görüş değildir; inceleme için hazırlanmış bir taslaktır."
+    },
+    "s10": {
+      "title": "10. Yürürlük",
+      "p1": "ALICI, ödeme adımında bu Sözleşme’nin tüm koşullarını okuduğunu, anladığını ve kabul ettiğini elektronik ortamda onaylar. Sözleşme, bu onayın verilmesi ve ödemenin tahsil edilmesiyle birlikte kurulur ve yürürlüğe girer. Sözleşme’nin bir örneği, ALICI’nın siparişte belirttiği e-posta adresine sipariş onayı ile birlikte iletilir ve SATICI nezdinde saklanır."
+    }
+  },
+  "preInfoPage": {
+    "metaTitle": "Ön Bilgilendirme Formu",
+    "metaDescription": "Mesafeli Sözleşmeler Yönetmeliği uyarınca satış öncesi bilgilendirme: satıcı bilgileri, denetim hizmetinin temel nitelikleri, KDV dahil fiyat, ödeme ve ifa koşulları, cayma hakkı ve şikâyet yolları.",
+    "title": "Ön Bilgilendirme Formu",
+    "characteristics": [
+      "Hizmet, ALICI’nın belirttiği konaklama tesisinde, personele önceden haber verilmeksizin gerçekleştirilen bir gizli müşteri denetim ziyaretidir.",
+      "Denetçi, tesise misafir sıfatıyla giriş yapar ve sipariş edilen modüllerin kriterlerini sahada ölçer.",
+      "Her kriter sahada Evet / Hayır / Uygulanamaz olarak işaretlenir ve kronometre, gözlem, ses kaydı, evrak kontrolü gibi bir kanıt türüne bağlanır.",
+      "Ziyaretin ardından bulgular, kanıtlarıyla birlikte bir denetim raporu hâlinde ALICI’ya teslim edilir.",
+      "Hizmetin kapsamı, siparişte seçilen modüllerle sınırlıdır; modüllerin kriterleri Modüller sayfasında yayımlanmıştır."
+    ],
+    "s1": {
+      "title": "1. Formun Amacı",
+      "p1": "Bu form, Mesafeli Sözleşmeler Yönetmeliği uyarınca, {url} adresi üzerinden elektronik ortamda sipariş vermeden önce ALICI’nın bilgilendirilmesi amacıyla hazırlanmıştır. ALICI, ödeme adımında bu formu okuduğunu ve bilgilendirildiğini elektronik ortamda teyit eder. Teyit verilmeden ödeme adımı tamamlanamaz.",
+      "p2": "Bu formun teyidi, <contract>Mesafeli Satış Sözleşmesi</contract>’nin ayrı bir onayla kabul edilmesi zorunluluğunu ortadan kaldırmaz; iki metin ayrı ayrı onaylanır."
+    },
+    "s2": {
+      "title": "2. Satıcı Bilgileri"
+    },
+    "s3": {
+      "title": "3. Hizmetin Temel Nitelikleri",
+      "p1": "Modüllerin kapsamı, kriterleri ve kanıt türleri <modules>Modüller</modules> sayfasında, denetim sürecinin işleyişi ise <process>Süreç</process> sayfasında ayrıntılı olarak yayımlanmıştır. Bu sayfalardaki bilgiler bu formun ekidir."
+    },
+    "s4": {
+      "title": "4. Fiyat",
+      "p1": "Sitede yayımlanan ve sipariş özetinde gösterilen tüm fiyatlar Türk Lirası cinsindendir ve <b>%{vat} KDV dahildir</b> ({pricingNote}). Fiyatların üzerine ayrıca bir vergi, komisyon, hizmet bedeli veya masraf eklenmez. Sipariş özetinde KDV tutarı şeffaflık için ayrıştırılmış olarak da gösterilir; bu ayrıştırma toplam bedeli değiştirmez.",
+      "p2": "Güncel liste fiyatları (KDV dahil):",
+      "p3": "360° Tam Denetim, kapsamındaki modüllerin ayrı ayrı satın alınmasına göre daha düşük bir bedelle sunulur. {scaleNote} Ölçeğe bağlı olarak farklılaşan fiyatlar, satın alma öncesi <quote>teklif</quote> yoluyla ayrıca belirlenir.",
+      "p4": "ALICI için bağlayıcı olan bedel, siparişin verildiği anda sipariş özetinde gösterilen ve sipariş onayında yer alan toplam tutardır. Fiyat değişiklikleri, değişiklikten önce verilen siparişlere uygulanmaz."
+    },
+    "s5": {
+      "title": "5. Ödeme ve İfa",
+      "p1": "Ödeme, kredi veya banka kartı ile 3D Secure doğrulaması üzerinden peşin olarak yapılır. Kart bilgileri hiçbir aşamada bu sitenin sunucularına ulaşmaz; ödeme kuruluşunun kendi sayfasına doğrudan iletilir ve orada işlenir.",
+      "items": [
+        "Ödemenin tamamlanmasının ardından denetim ziyaretinin tarih aralığı ALICI ile mutabakatla belirlenir.",
+        "Gizli müşteri yönteminin gereği olarak kesin gün ve saat ALICI’ya bildirilmez; aksi hâlde ölçüm değerini yitirir.",
+        "Denetim ziyareti, ödemenin tamamlanmasından itibaren en geç otuz gün içinde gerçekleştirilir.",
+        "Denetim raporu, ziyaretin tamamlanmasının ardından ALICI’nın siparişte belirttiği e-posta adresine iletilir.",
+        "Fatura, siparişte beyan edilen fatura bilgilerine göre düzenlenir ve aynı adrese gönderilir."
+      ]
+    },
+    "s6": {
+      "title": "6. Cayma Hakkı ve İstisnası",
+      "p1": "ALICI, sipariş tarihinden itibaren <b>on dört gün</b> içinde, hiçbir gerekçe göstermeksizin ve cezai şart ödemeksizin sözleşmeden cayma hakkına sahiptir. Cayma bildirimi bu süre içinde <mail>{email}</mail> adresine yazılı olarak iletilir.",
+      "p2": "<b>Cayma hakkının istisnası: ifasına başlanmış hizmetlerde cayma hakkı kullanılamaz.</b> Mesafeli Sözleşmeler Yönetmeliği’nin 15. maddesi uyarınca, ALICI’nın onayı ile ifasına başlanan hizmetlere ilişkin sözleşmelerde cayma hakkı kullanılamaz. Bu hizmette ifa, <b>denetçinin tesise misafir sıfatıyla giriş yapmasıyla başlar</b>. Bu andan itibaren cayma hakkı sona erer ve bedel iadesi yapılmaz.",
+      "p3": "ALICI, ödeme adımında, denetim ziyaretinin on dört günlük cayma süresi dolmadan gerçekleştirilebileceğini ve ifanın başlamasıyla cayma hakkını kaybedeceğini bildiğini <b>açıkça onaylar</b>. Denetim tarihi henüz belirlenmemişken cayma hakkı her hâlde kullanılabilir ve tahsil edilen tutarın tamamı iade edilir.",
+      "p4": "Tarih belirlendikten sonraki iptallerde uygulanacak kesinti basamakları, iade süresi, iade yöntemi ve mücbir sebep hâlleri <cancellation>İptal & İade Politikası</cancellation> sayfasında düzenlenmiştir."
+    },
+    "s7": {
+      "title": "7. Şikâyet ve İtiraz",
+      "p1": "Hizmete ilişkin her türlü şikâyet ve itirazınızı öncelikle <mail>{email}</mail> adresine veya {phone} numarasına ({hours}) iletebilirsiniz. Başvurunuz en kısa sürede değerlendirilir ve tarafınıza yazılı olarak yanıt verilir.",
+      "p2": "Çözüme ulaşılamaması hâlinde ALICI, Ticaret Bakanlığı tarafından her yıl ilan edilen parasal sınırlar dâhilinde kendi yerleşim yerindeki veya işlemin yapıldığı yerdeki <b>Tüketici Hakem Heyetleri</b>’ne, bu sınırların üzerindeki uyuşmazlıklarda ise <b>Tüketici Mahkemeleri</b>’ne başvurabilir."
+    },
+    "s8": {
+      "title": "8. Tüketici Sıfatı — Hukuk Danışmanına Not",
+      "p1": "Bu form, alıcının 6502 sayılı Kanun anlamında tüketici olduğu varsayımıyla kaleme alınmıştır. Ancak bu sitedeki hizmet konaklama tesislerine yönelik bir işletme hizmetidir ve alıcı fiilen ticari amaçla hareket etmektedir; bu nedenle satışların büyük bölümünde <b>tüketici sıfatı bulunmayacaktır</b>. Böyle bir alıcı bakımından ön bilgilendirme yükümlülüğünün ve cayma hakkının kanunen zorunlu olup olmadığı, bu formun hangi kısımlarının bağlayıcı yükümlülük hangilerinin gönüllü taahhüt sayılacağı <b>hukuk danışmanı tarafından netleştirilmelidir</b>. Bu sayfa hukuki görüş değildir; inceleme için hazırlanmış bir taslaktır."
+    }
+  },
+  "cancellationPage": {
+    "metaTitle": "İptal & İade Politikası",
+    "metaDescription": "Denetim ziyareti öncesi iptal koşulları, tarih belirlendikten sonra uygulanan kesinti basamakları, ziyaret başladıktan sonra iade yapılamamasının sebebi, iade süresi ve mücbir sebep hâlleri.",
+    "title": "İptal & İade Politikası",
+    "ladder": [
+      "Denetim tarihi henüz belirlenmemişken: kesinti yok — tahsil edilen tutarın tamamı iade edilir.",
+      "Ziyarete 15 gün ve daha uzun süre kala: kesinti yok — tutarın tamamı iade edilir.",
+      "Ziyarete 8–14 gün kala: %25 kesinti — tutarın %75’i iade edilir.",
+      "Ziyarete 3–7 gün kala: %50 kesinti — tutarın %50’si iade edilir.",
+      "Ziyarete 48 saatten az kala: iade yapılmaz — denetçi ataması, konaklama rezervasyonu ve seyahat masrafları bu aşamada geri alınamaz durumdadır.",
+      "Denetçi tesise giriş yaptıktan sonra: iade yapılmaz — hizmetin ifası başlamıştır."
+    ],
+    "forceMajeure": [
+      "Doğal afet, yangın, sel, deprem",
+      "Salgın hastalık ve buna bağlı seyahat veya konaklama kısıtlamaları",
+      "Resmî makamların kararıyla tesisin veya ulaşımın kapatılması",
+      "Savaş, seferberlik, terör olayları ve genel grev",
+      "Tarafların kontrolü dışında kalan ve ziyareti fiilen imkânsız kılan benzer hâller"
+    ],
+    "s1": {
+      "title": "1. Kapsam",
+      "p1": "Bu politika, {url} adresi üzerinden kart ile satın alınan denetim ve eğitim hizmetlerinin iptali ile bedel iadesine ilişkin koşulları düzenler. <contract>Mesafeli Satış Sözleşmesi</contract> ve <preInfo>Ön Bilgilendirme Formu</preInfo> ile birlikte uygulanır ve bu metinlerin ayrılmaz parçasıdır.",
+      "p2": "Teklif yoluyla ilerleyen ve karttan tahsilat yapılmayan taleplerde bu politika uygulanmaz; bu tür işlerin koşulları tarafların imzaladığı ayrı sözleşmede belirlenir."
+    },
+    "s2": {
+      "title": "2. İptalin Dayandığı Ölçüt: Denetim Tarihi",
+      "p1": "Bu hizmette iade koşullarını belirleyen şey, siparişin üzerinden geçen süre değil <b>denetim ziyaretine kalan süredir</b>. Sebebi somuttur: satın alma anında satıcı tarafında bir maliyet doğmaz, ancak ziyaret takvime alındığı anda bir denetçi o tarihe ayrılır, tesiste konaklama rezerve edilir ve seyahat planlanır. Ziyaret tarihi yaklaştıkça bu masraflar geri alınamaz hâle gelir.",
+      "p2": "İptal talebi, <mail>{email}</mail> adresine yazılı olarak iletilir. Aşağıdaki basamakların uygulanmasında <b>talebin bu adrese ulaştığı an</b> esas alınır."
+    },
+    "s3": {
+      "title": "3. İptal Basamakları",
+      "draftEyebrow": "Oranlar taslaktır — işletme sahibi tarafından belirlenecek",
+      "draftBody": "Aşağıdaki gün aralıkları ve kesinti oranları bir <b>öneridir</b>, karar değildir. Yayına almadan önce işletme sahibi tarafından gerçek denetçi ve seyahat maliyetlerine göre belirlenmeli, hukuk danışmanınca teyit edilmelidir. Fiili zararı aşan bir kesinti, alıcı tarafından itiraza açıktır.",
+      "p1": "Kesinti oranı, siparişin tamamı üzerinden değil, iptal edilen hizmet kalemleri üzerinden hesaplanır. Kısmi iptal hâlinde iptal edilmeyen kalemler yürürlükte kalır."
+    },
+    "s4": {
+      "title": "4. Ziyaret Başladıktan Sonra İade Yapılmaz",
+      "p1": "Denetçinin tesise misafir sıfatıyla giriş (check-in) yapmasıyla hizmetin ifası başlamış sayılır. <b>Bu andan itibaren iptal ve iade mümkün değildir.</b>",
+      "p2": "Bunun sebebi hizmetin doğasıdır: ziyaret başladığı anda ölçüm yapılmış, denetçi kaynağı ve seyahat maliyeti harcanmış olur ve yapılan gözlem geri alınamaz. Mesafeli Sözleşmeler Yönetmeliği’nin 15. maddesi de, alıcının onayı ile ifasına başlanan hizmetlerde cayma hakkının kullanılamayacağını düzenler. Alıcı, ödeme adımında ifanın cayma süresi içinde başlamasına açıkça onay verir.",
+      "p3": "Raporun bulgularından memnun olunmaması bir iade sebebi değildir; denetim, sonucu önceden taahhüt edilen bir hizmet değil, ölçüm hizmetidir. Ancak raporun sipariş edilen modülleri kapsamaması, kriterlerin eksik ölçülmesi veya bulguların kanıta bağlanmaması hâlinde alıcı ayıplı ifa hükümlerine başvurabilir; bu durumda öncelikle ziyaret ücretsiz olarak yenilenir."
+    },
+    "s5": {
+      "title": "5. Erteleme — İptale Alternatif",
+      "p1": "Denetim tarihinin iptal yerine ertelenmesi tercih edilebilir. Ziyarete <b>7 günden fazla süre</b> kala talep edilen ilk erteleme kesintisiz yapılır ve yeni tarih taraflarca mutabakatla belirlenir. Sonraki erteleme talepleri, o an geçerli olan iptal basamağına göre değerlendirilir.",
+      "p2": "Erteleme süresi de bu bölümde bir taslaktır; işletme sahibi tarafından belirlenecektir."
+    },
+    "s6": {
+      "title": "6. İade Süresi ve Yöntemi",
+      "p1": "İade, <b>ödemenin yapıldığı kartın kendisine</b> yapılır. Nakit, havale veya başka bir hesaba iade yapılamaz; bu, kart kuruluşlarının kuralıdır ve satıcının tercihi değildir.",
+      "items": [
+        "İade tutarı, iptal talebinin ulaşmasından itibaren en geç on dört gün içinde ödeme kuruluşuna iletilir.",
+        "Tutarın kart ekstresine yansıma süresi bankanıza bağlıdır ve iadenin gönderilmesinden sonra iki ile üç haftayı bulabilir. Bu süre satıcının kontrolünde değildir.",
+        "İade edilen tutar, KDV dahil olarak tahsil edilen tutarın ilgili oranına karşılık gelir; iadeden ayrıca bir kesinti veya işlem masrafı düşülmez.",
+        "Fatura düzenlenmişse iadeye ilişkin iade faturası veya gerekli belge, alıcının siparişte belirttiği e-posta adresine iletilir."
+      ]
+    },
+    "s7": {
+      "title": "7. Mücbir Sebep",
+      "p1": "Aşağıdaki hâllerden birinin ziyaretin gerçekleştirilmesini engellemesi durumunda hiçbir taraf temerrüde düşmüş sayılmaz ve iptal basamakları uygulanmaz:",
+      "p2": "Mücbir sebep hâlinde ziyaret öncelikle kesintisiz olarak ertelenir. Engelin ortadan kalkmaması veya taraflarca yeni bir tarihte mutabık kalınamaması hâlinde sözleşme sona erer ve tahsil edilen tutarın tamamı, hiçbir kesinti yapılmaksızın 6. bölümdeki usulle iade edilir.",
+      "p3": "Mücbir sebep, ziyaret başladıktan sonra ortaya çıkarsa hizmetin ifa edilen kısmı bakımından iade yapılmaz; ifa edilemeyen kısım için taraflar mutabakatla çözüm belirler."
+    },
+    "s8": {
+      "title": "8. Satıcı Bilgileri ve Başvuru",
+      "p1": "İptal, iade ve erteleme talepleriniz ile bu politikaya ilişkin itirazlarınızı <mail>{email}</mail> adresine veya {phone} numarasına ({hours}) iletebilirsiniz. Uyuşmazlık hâlinde başvurulabilecek merciler <contract>Mesafeli Satış Sözleşmesi</contract>’nin 8. maddesinde belirtilmiştir."
+    }
   }
 }
