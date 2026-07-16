@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 
 import { Card } from "@/components/ui/Card";
@@ -57,11 +58,13 @@ export function LegalPage({ title, updated, illustrationSrc, children }: LegalPa
 
         {illustrationSrc && (
           <aside className="hidden lg:block lg:col-span-4 xl:col-span-3 sticky top-32 h-[calc(100vh-16rem)]">
-            <div className="h-full w-full overflow-hidden rounded-md border border-line">
-              <img
+            <div className="relative h-full w-full overflow-hidden rounded-md border border-line">
+              <Image
                 src={illustrationSrc}
                 alt=""
-                className="h-full w-full object-cover object-top"
+                fill
+                sizes="(min-width: 1280px) 25vw, 33vw"
+                className="object-cover object-top"
               />
             </div>
           </aside>
