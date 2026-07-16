@@ -979,5 +979,56 @@
       "title": "8. Satıcı Bilgileri ve Başvuru",
       "p1": "İptal, iade ve erteleme talepleriniz ile bu politikaya ilişkin itirazlarınızı <mail>{email}</mail> adresine veya {phone} numarasına ({hours}) iletebilirsiniz. Uyuşmazlık hâlinde başvurulabilecek merciler <contract>Mesafeli Satış Sözleşmesi</contract>’nin 8. maddesinde belirtilmiştir."
     }
+  },
+  "quotePage": {
+    "metaTitle": "Teklif Talebi",
+    "metaDescription": "Seçtiğiniz denetim modülleri için teklif talebi oluşturun. Ön bulgular 48 saat içinde paylaşılır.",
+    "eyebrow": "TEKLİF TALEBİ",
+    "titlePayment": "Nasıl ilerlemek istersiniz?",
+    "titleDefault": "Teklifinizi birlikte kuralım.",
+    "bodyPayment": "İki yol var: listelenen fiyatı kabul edip kartla ödeyebilir ya da tesisinizin ölçeğine göre teklif isteyebilirsiniz.",
+    "bodyDefault": "Seçtiğiniz modüller aşağıda listelenir. Modül seçmeden de gönderebilirsiniz — genel görüşme talebi olarak değerlendiririz.",
+    "chooser": {
+      "path1Label": "YOL 1",
+      "path1Title": "Kart ile öde",
+      "path1Body": "Listelenen fiyatı kabul edin, ödemeyi şimdi tamamlayın.",
+      "path2Label": "YOL 2",
+      "path2Title": "Teklif iste",
+      "path2Body": "Ölçeğinize göre fiyat konuşalım. Ödeme yok, fatura bilgisi yok."
+    },
+    "requestSection": {
+      "eyebrow": "YOL 2 — TEKLİF İSTE",
+      "title": "Tesisinizin ölçeğine göre fiyat isteyin.",
+      "body": "{scaleNote} Bu yolda ödeme alınmaz ve fatura bilgisi istenmez — önce konuşur, sonra fiyatlarız."
+    }
+  },
+  "paymentResultPage": {
+    "metaTitle": "Ödeme Sonucu",
+    "metaDescription": "Kart ödemenizin sonucu ve sipariş referansınız.",
+    "eyebrow": "ÖDEME",
+    "title": "Ödeme sonucu",
+    "success": {
+      "label": "ÖDEME ALINDI",
+      "collected": "TAHSİL EDİLEN: {amount}",
+      "body": "Faturanız ve denetim takvimi teklifiniz 48 saat içinde e-posta adresinize iletilir. Bu referansı saklayın."
+    },
+    "failure": {
+      "label": "ÖDEME ALINMADI",
+      "reason": "Ödeme kuruluşunun bildirdiği sebep: {reason}",
+      "genericBody": "Ödeme tamamlanamadı. Kartınızdan çekim yapılmadı.",
+      "standingBody": "Seçiminiz duruyor — tekrar deneyebilir veya teklif formundan ilerleyebilirsiniz.",
+      "back": "Teklif Sayfasına Dön"
+    },
+    "unknown": {
+      "label": "ÖDEME DURUMU DOĞRULANAMADI",
+      "body1": "Ödemenizin sonucunu ödeme kuruluşundan teyit edemedik. Kartınızdan çekim yapılmış olabilir — bu yüzden lütfen <b>tekrar ödeme denemeyin.</b>",
+      "body2": "Bu referansla <mail>{email}</mail> adresine yazın; durumu sizin için kontrol edip aynı gün dönelim."
+    },
+    "unreadable": {
+      "label": "ÖDEME SONUCU OKUNAMADI",
+      "body1": "Bu sayfa bir ödeme dönüşüne ait geçerli bir sonuç taşımıyor. Bağlantının süresi dolmuş olabilir.",
+      "body2": "Bir ödeme yaptıysanız durumu buradan göremeyiz — <mail>{email}</mail> adresine yazın.",
+      "back": "Teklif Sayfasına Dön"
+    }
   }
 }

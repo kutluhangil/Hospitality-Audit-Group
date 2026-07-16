@@ -981,5 +981,56 @@
       "title": "8. Seller Details and Requests",
       "p1": "You can send cancellation, refund and rescheduling requests, and objections to this policy, to <mail>{email}</mail> or to {phone} ({hours}). The bodies you may apply to in a dispute are set out in Article 8 of the <contract>Distance Sales Agreement</contract>."
     }
+  },
+  "quotePage": {
+    "metaTitle": "Quote Request",
+    "metaDescription": "Create a quote request for the audit modules you selected. Preliminary findings are shared within 48 hours.",
+    "eyebrow": "QUOTE REQUEST",
+    "titlePayment": "How would you like to proceed?",
+    "titleDefault": "Let's build your quote together.",
+    "bodyPayment": "There are two paths: accept the listed price and pay by card, or request a quote based on the scale of your property.",
+    "bodyDefault": "The modules you selected are listed below. You can submit without selecting any — we'll treat it as a general enquiry.",
+    "chooser": {
+      "path1Label": "PATH 1",
+      "path1Title": "Pay by card",
+      "path1Body": "Accept the listed price and complete payment now.",
+      "path2Label": "PATH 2",
+      "path2Title": "Request a quote",
+      "path2Body": "Let's talk price for your scale. No payment, no billing details."
+    },
+    "requestSection": {
+      "eyebrow": "PATH 2 — REQUEST A QUOTE",
+      "title": "Request a price for the scale of your property.",
+      "body": "{scaleNote} No payment is taken and no billing details are asked on this path — we talk first, then price."
+    }
+  },
+  "paymentResultPage": {
+    "metaTitle": "Payment Result",
+    "metaDescription": "The result of your card payment and your order reference.",
+    "eyebrow": "PAYMENT",
+    "title": "Payment result",
+    "success": {
+      "label": "PAYMENT RECEIVED",
+      "collected": "COLLECTED: {amount}",
+      "body": "Your invoice and audit-schedule proposal are sent to your email within 48 hours. Keep this reference."
+    },
+    "failure": {
+      "label": "PAYMENT NOT TAKEN",
+      "reason": "Reason reported by the payment institution: {reason}",
+      "genericBody": "The payment could not be completed. No charge was made to your card.",
+      "standingBody": "Your selection is kept — you can try again or proceed via the quote form.",
+      "back": "Back to Quote Page"
+    },
+    "unknown": {
+      "label": "PAYMENT STATUS COULD NOT BE VERIFIED",
+      "body1": "We could not confirm the result of your payment with the payment institution. A charge may have been made to your card — so please <b>do not attempt payment again.</b>",
+      "body2": "Write to <mail>{email}</mail> with this reference; we'll check the status for you and get back the same day."
+    },
+    "unreadable": {
+      "label": "PAYMENT RESULT COULD NOT BE READ",
+      "body1": "This page does not carry a valid result for a payment return. The link may have expired.",
+      "body2": "If you made a payment we cannot see the status here — write to <mail>{email}</mail>.",
+      "back": "Back to Quote Page"
+    }
   }
 }

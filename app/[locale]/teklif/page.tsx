@@ -5,15 +5,25 @@ import { PaymentSection } from "@/components/forms/PaymentSection";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
+import { alternatesFor } from "@/i18n/metadata";
 import type { LocaleParams } from "@/i18n/routing";
 
 import { isPaymentEnabled } from "@/lib/payment";
 
-export const metadata: Metadata = {
-  title: "Teklif Talebi",
-  description:
-    "Seçtiğiniz denetim modülleri için teklif talebi oluşturun. Ön bulgular 48 saat içinde paylaşılır.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "quotePage" });
+
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: alternatesFor("/teklif", locale),
+  };
+}
 
 /**
  * One page, two intents.
@@ -31,6 +41,7 @@ export default async function TeklifPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const tModules = await getTranslations({ locale, namespace: "modules" });
+  const t = await getTranslations({ locale, namespace: "quotePage" });
 
   const paymentEnabled = isPaymentEnabled();
 
@@ -38,16 +49,12 @@ export default async function TeklifPage({
     <main className="mx-auto max-w-content px-4 py-16 sm:px-6 md:py-24">
       <Reveal>
         <header className="max-w-2xl">
-          <Eyebrow>TEKLİF TALEBİ</Eyebrow>
+          <Eyebrow>{t("eyebrow")}</Eyebrow>
           <h1 className="mt-3 font-serif text-4xl leading-tight tracking-tight md:text-5xl">
-            {paymentEnabled
-              ? "Nasıl ilerlemek istersiniz?"
-              : "Teklifinizi birlikte kuralım."}
+            {paymentEnabled ? t("titlePayment") : t("titleDefault")}
           </h1>
           <p className="mt-4 text-base leading-relaxed text-ink-muted md:text-lg">
-            {paymentEnabled
-              ? "İki yol var: listelenen fiyatı kabul edip kartla ödeyebilir ya da tesisinizin ölçeğine göre teklif isteyebilirsiniz."
-              : "Seçtiğiniz modüller aşağıda listelenir. Modül seçmeden de gönderebilirsiniz — genel görüşme talebi olarak değerlendiririz."}
+            {paymentEnabled ? t("bodyPayment") : t("bodyDefault")}
           </p>
           <p className="mt-6 font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
             {tModules("pricingNote")}
@@ -57,7 +64,14 @@ export default async function TeklifPage({
 
       {paymentEnabled ? (
         <Reveal className="mt-10">
-          <PathChooser />
+          <PathChooser
+            path1Label={t("chooser.path1Label")}
+            path1Title={t("chooser.path1Title")}
+            path1Body={t("chooser.path1Body")}
+            path2Label={t("chooser.path2Label")}
+            path2Title={t("chooser.path2Title")}
+            path2Body={t("chooser.path2Body")}
+          />
         </Reveal>
       ) : null}
 
@@ -70,13 +84,12 @@ export default async function TeklifPage({
         <section id="teklif-iste" className="scroll-mt-24">
           {paymentEnabled ? (
             <div className="mb-8 border-t border-line pt-12 md:pt-16">
-              <Eyebrow>YOL 2 — TEKLİF İSTE</Eyebrow>
+              <Eyebrow>{t("requestSection.eyebrow")}</Eyebrow>
               <h2 className="mt-3 font-serif text-2xl leading-tight md:text-3xl">
-                Tesisinizin ölçeğine göre fiyat isteyin.
+                {t("requestSection.title")}
               </h2>
               <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-muted">
-                {tModules("scaleNote")} Bu yolda ödeme alınmaz ve fatura bilgisi
-                istenmez — önce konuşur, sonra fiyatlarız.
+                {t("requestSection.body", { scaleNote: tModules("scaleNote") })}
               </p>
             </div>
           ) : null}
@@ -91,20 +104,34 @@ export default async function TeklifPage({
  * Names both paths side by side before either form appears, so a visitor knows
  * which one they are about to be in rather than discovering it at the submit button.
  */
-function PathChooser() {
+function PathChooser({
+  path1Label,
+  path1Title,
+  path1Body,
+  path2Label,
+  path2Title,
+  path2Body,
+}: {
+  path1Label: string;
+  path1Title: string;
+  path1Body: string;
+  path2Label: string;
+  path2Title: string;
+  path2Body: string;
+}) {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       <PathCard
         href="#kart-ile-ode"
-        label="YOL 1"
-        title="Kart ile öde"
-        body="Listelenen fiyatı kabul edin, ödemeyi şimdi tamamlayın."
+        label={path1Label}
+        title={path1Title}
+        body={path1Body}
       />
       <PathCard
         href="#teklif-iste"
-        label="YOL 2"
-        title="Teklif iste"
-        body="Ölçeğinize göre fiyat konuşalım. Ödeme yok, fatura bilgisi yok."
+        label={path2Label}
+        title={path2Title}
+        body={path2Body}
       />
     </div>
   );
