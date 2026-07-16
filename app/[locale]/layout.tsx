@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { Source_Serif_4, Inter, JetBrains_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 
@@ -8,6 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { PlaceholderNotice } from "@/components/layout/PlaceholderNotice";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import { clientMessages } from "@/i18n/client-messages";
 import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { ogLocales, siteConfig } from "@/lib/site-config";
@@ -95,6 +96,10 @@ export default async function LocaleLayout({
   // dynamic as soon as it reads a translation.
   setRequestLocale(locale);
 
+  // Only what a "use client" component reads. The rest resolves on the server,
+  // where it costs nothing and never reaches the browser.
+  const messages = await getMessages();
+
   return (
     // suppressHydrationWarning is required: next-themes writes the theme class
     // onto <html> before React hydrates.
@@ -104,7 +109,7 @@ export default async function LocaleLayout({
       className={`${serif.variable} ${sans.variable} ${mono.variable}`}
     >
       <body className="bg-bg text-ink">
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={clientMessages(messages)}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

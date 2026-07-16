@@ -1,43 +1,37 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { ClosingCta } from "@/components/services/ClosingCta";
 import { DefinitionCard } from "@/components/services/DefinitionCard";
-import { ModuleQuickLinks } from "@/components/services/ModuleQuickLinks";
 import { MonoRibbon } from "@/components/services/MonoRibbon";
 import { PageHero } from "@/components/services/PageHero";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { alternatesFor } from "@/i18n/metadata";
 import type { LocaleParams } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Personel Eğitimi",
-  description:
-    "Denetim bulgularından beslenen, departman bazlı ve ölçülebilir yerinde eğitim programları: ön büro, F&B, kat hizmetleri ve vardiya yönetimi.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "trainingPage" });
 
-const programmes = [
-  {
-    label: "PROGRAM 01",
-    title: "Ön Büro Mükemmelliği",
-    description: "check-in hızı, şikâyet yönetimi, upselling teknikleri",
-  },
-  {
-    label: "PROGRAM 02",
-    title: "F&B Servis Standartları",
-    description: "servis akışı, menü tavsiye satışı, reçete disiplini",
-  },
-  {
-    label: "PROGRAM 03",
-    title: "Kat Hizmetleri Kalite Sistemi",
-    description: "hijyen standartları, oda kontrol listeleri",
-  },
-  {
-    label: "PROGRAM 04",
-    title: "Liderlik & Vardiya Yönetimi",
-    description: "süpervizör ve müdür seviyesi",
-  },
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: alternatesFor("/hizmetler/personel-egitimi", locale),
+  };
+}
+
+/** Numbering is positional; the copy lives under trainingPage.programmes. */
+const PROGRAMME_KEYS = [
+  "frontOffice",
+  "fnb",
+  "housekeeping",
+  "leadership",
 ] as const;
 
 export default async function StaffTrainingPage({
@@ -47,35 +41,20 @@ export default async function StaffTrainingPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "trainingPage" });
 
   return (
     <main>
-      <PageHero
-        eyebrow="PERSONEL EĞİTİMİ"
-        title="Denetimden Eğitime: Ölçülen Gelişir."
-        lede="Denetimde tespit edilen gelişim alanlarını, departman bazlı ve ölçülebilir eğitim programlarına çeviririz."
-      />
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} lede={t("lede")} />
 
       <section className="mx-auto max-w-content px-6 py-20 md:py-24">
         <Reveal>
-          <SectionHeading
-            eyebrow="KAPANIŞ DÖNGÜSÜ"
-            title="Denetim ve eğitim aynı döngünün iki yarısıdır"
-          />
+          <SectionHeading eyebrow={t("loopEyebrow")} title={t("loopTitle")} />
         </Reveal>
         <Reveal className="mt-6">
           <div className="max-w-2xl space-y-5 text-base leading-relaxed text-ink-muted md:text-lg">
-            <p>
-              Eğitim programlarımız denetim bulgularından beslenir: sahada
-              ölçülen sapma, doğrudan o sapmayı kapatacak içeriği belirler.
-              Genel geçer bir müfredat değil, tesisinizin kendi raporundan çıkan
-              bir program alırsınız.
-            </p>
-            <p>
-              Eğitimi bağımsız olarak da satın alabilirsiniz. Denetim
-              yaptırmamış tesislerde program, ön test sonuçlarına göre
-              kurgulanır; sonuç yine ölçümle doğrulanır.
-            </p>
+            <p>{t("loopBody1")}</p>
+            <p>{t("loopBody2")}</p>
           </div>
         </Reveal>
       </section>
@@ -84,19 +63,19 @@ export default async function StaffTrainingPage({
         <div className="mx-auto max-w-content px-6 py-20 md:py-24">
           <Reveal>
             <SectionHeading
-              eyebrow="PROGRAMLAR"
-              title="Departman bazlı eğitim programları"
-              description="Her program, denetimde ölçülen standartların birebir karşılığıdır."
+              eyebrow={t("programmesEyebrow")}
+              title={t("programmesTitle")}
+              description={t("programmesDescription")}
             />
           </Reveal>
           <Reveal className="mt-12">
             <ul className="grid gap-4 md:grid-cols-2">
-              {programmes.map((programme) => (
-                <li key={programme.title}>
+              {PROGRAMME_KEYS.map((key, index) => (
+                <li key={key}>
                   <DefinitionCard
-                    label={programme.label}
-                    title={programme.title}
-                    description={programme.description}
+                    label={`${t("programmeLabel")} ${String(index + 1).padStart(2, "0")}`}
+                    title={t(`programmes.${key}.title`)}
+                    description={t(`programmes.${key}.description`)}
                   />
                 </li>
               ))}
@@ -113,26 +92,33 @@ export default async function StaffTrainingPage({
 
       <section className="mx-auto max-w-content px-6 py-20 md:py-24">
         <Reveal>
+          {/*
+            Training carries no module letter, and pointing this block at one was
+            how it ended up showing the Housekeeping card and calling it training.
+            It is a catalogue line of its own, so the link goes to the catalogue.
+          */}
           <SectionHeading
-            eyebrow="İLGİLİ MODÜL"
-            title="Eğitimi teklifinize ekleyin"
-            description="Personel eğitimi, modül mimarisinde E koduyla yer alır; tek başına ya da denetim modüllerinin devamı olarak seçilebilir."
+            eyebrow={t("relatedEyebrow")}
+            title={t("relatedTitle")}
+            description={t("relatedDescription")}
           />
         </Reveal>
         <Reveal className="mt-10">
-          <ModuleQuickLinks codes={["E"]} />
+          <Button href="/moduller" size="lg">
+            {t("relatedCta")}
+          </Button>
         </Reveal>
         <Reveal className="mt-16">
-          <ClosingCta title="Ölçtüğünüz her sapma, kapatılabilir bir gelişim alanıdır.">
+          <ClosingCta title={t("closingTitle")}>
             <Button href="/moduller" size="lg">
-              Teklif Alın
+              {t("closingCtaPrimary")}
             </Button>
             <Button
               href="/hizmetler/gizli-musteri-denetimi"
               variant="ghost"
               size="lg"
             >
-              Denetim Hizmetini İnceleyin
+              {t("closingCtaSecondary")}
             </Button>
           </ClosingCta>
         </Reveal>

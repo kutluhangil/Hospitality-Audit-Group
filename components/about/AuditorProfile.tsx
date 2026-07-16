@@ -51,7 +51,7 @@ export function AuditorProfile() {
           {t("rolesLabel")}
         </p>
         <ul className="mt-4 flex flex-wrap gap-2">
-          {company.denetciGecmisi.map((role) => (
+          {(t.raw("roles") as readonly string[]).map((role) => (
             <li
               key={role}
               className="rounded-xl2 border border-line bg-surface px-3.5 py-2 text-sm text-ink"

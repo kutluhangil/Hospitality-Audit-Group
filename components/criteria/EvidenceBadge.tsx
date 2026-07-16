@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import {
   Timer,
   Eye,
@@ -15,10 +17,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import {
-  EVIDENCE_CATEGORIES,
-  type EvidenceCategory,
-} from "@/lib/criteria/types";
+import { type EvidenceCategory } from "@/lib/criteria/types";
 
 /**
  * Resolved here rather than in the data file so the criteria stay plain data —
@@ -60,8 +59,9 @@ export function EvidenceBadge({
   label,
   className,
 }: EvidenceBadgeProps) {
+  const t = useTranslations("evidence");
   const Icon = ICONS[category];
-  const canonical = EVIDENCE_CATEGORIES[category].title;
+  const canonical = t(`${category}.title`);
 
   return (
     <span

@@ -240,7 +240,19 @@
   },
   "modulePage": {
     "metaTitle": "Module {code} — {title}",
-    "metaDescription": "{summary} {count} criteria, each tied to a form of evidence."
+    "metaDescription": "{summary} {count} criteria, each tied to a form of evidence.",
+    "customQuote": "Request a Tailored Quote",
+    "perspectivesEyebrow": "WHY IT MATTERS",
+    "perspectivesTitle": "What does this department mean, and to whom?",
+    "perspectivesDescription": "The passages below are taken from the opening of our field guide — the point of view the audit was designed from.",
+    "boundsEyebrow": "MEASURABLE THRESHOLDS",
+    "boundsTitle": "The figures that end the argument",
+    "boundsDescription": "Some of this module's criteria are tied to a hard bound. It is either met or it is not; there is no room for interpretation.",
+    "schemaEyebrow": "{count} CRITERIA",
+    "schemaTitle": "The audit schema",
+    "schemaDescription": "In the field every criterion is marked Yes / No / Not applicable, and every mark is tied to a piece of evidence. The whole schema is below.",
+    "closingTitle": "Let us start with Module {code}.",
+    "allModules": "All Modules"
   },
   "contactPage": {
     "metaTitle": "Contact",
@@ -371,7 +383,13 @@
       "countLabel": "auditors",
       "seniorityValue": "{years} years",
       "seniorityLabel": "average industry seniority",
-      "rolesLabel": "The roles they came from"
+      "rolesLabel": "The roles they came from",
+      "roles": [
+        "General Manager — 5-star resort",
+        "Food & Beverage Director",
+        "Rooms Division Manager",
+        "Spa & Recreation Manager"
+      ]
     },
     "anonymity": {
       "eyebrow": "ANONYMITY",
@@ -434,5 +452,172 @@
       "Butik": "Boutique",
       "Zincir": "Chain"
     }
+  },
+  "evidence": {
+    "kronometre": {
+      "title": "Stopwatch",
+      "description": "Timing. How many seconds a standard actually takes to meet."
+    },
+    "gozlem": {
+      "title": "Observation",
+      "description": "The auditor watching on site, unannounced, as a real guest."
+    },
+    "sesKaydi": {
+      "title": "Audio Record",
+      "description": "What was said and how; upsell and complaint handling are measured here."
+    },
+    "davranis": {
+      "title": "Behavioural Analysis",
+      "description": "Staff reflexes: courtesy protocol, taking initiative, conduct in a crisis."
+    },
+    "fotograf": {
+      "title": "Photographic Evidence",
+      "description": "Macro and detail photography. What makes a hygiene finding indisputable."
+    },
+    "fizikselTest": {
+      "title": "Physical Test",
+      "description": "Touch, durability, and whether the equipment actually works."
+    },
+    "hijyenTesti": {
+      "title": "Hygiene & Chemical Test",
+      "description": "UV light, odour, swab and kit readings. Measures what the eye cannot see."
+    },
+    "simulasyon": {
+      "title": "Simulation",
+      "description": "A staged complaint or crisis. Response time and the chain behind it are measured."
+    },
+    "sistemAnalizi": {
+      "title": "System Analysis",
+      "description": "PMS, POS and CRM screens and logs. Where data flow between departments becomes visible."
+    },
+    "finansal": {
+      "title": "Financial Analysis",
+      "description": "Matching checks, folios and invoices. Where revenue leakage surfaces."
+    },
+    "evrak": {
+      "title": "Documents & Records",
+      "description": "Certificates, registry entries and archive checks."
+    },
+    "raporlama": {
+      "title": "Reporting Output",
+      "description": "Turning audit data into analysis a board can be shown."
+    },
+    "sahaHaritalama": {
+      "title": "Site Mapping",
+      "description": "A measured sweep of the outdoor areas: beach, poolside, safety lines."
+    }
+  },
+  "evidenceShowcase": {
+    "eyebrow": "NO CLAIM WITHOUT EVIDENCE",
+    "title": "How do we prove it?",
+    "description": "Every line in the audit report is tied to a form of evidence. “Service was slow” is an impression; 6 minutes 20 seconds on a stopwatch is a finding.",
+    "criteriaLabel": "criteria",
+    "typesLabel": "evidence types",
+    "boundsLabel": "measurable thresholds"
+  },
+  "trainingPage": {
+    "relatedEyebrow": "ADD IT TO YOUR QUOTE",
+    "relatedTitle": "Add training to your quote",
+    "relatedDescription": "Staff training is not an audit module: it carries no letter and no field guide. It sits in the catalogue as a line of its own, and can be chosen on its own or as what follows an audit.",
+    "relatedCta": "See it in the Catalogue",
+    "metaTitle": "Staff Training",
+    "metaDescription": "On-site training programmes, department by department and measurable, built from what the audit found: front office, F&B, housekeeping and shift management.",
+    "eyebrow": "STAFF TRAINING",
+    "title": "From Audit to Training: What Gets Measured Improves.",
+    "lede": "We turn the gaps the audit found into department-level training programmes with outcomes you can measure.",
+    "loopEyebrow": "CLOSING THE LOOP",
+    "loopTitle": "Audit and training are two halves of one cycle",
+    "loopBody1": "Our programmes are built from audit findings: the deviation measured on the floor decides the content that closes it. You do not get a general curriculum — you get a programme that came out of your own report.",
+    "loopBody2": "Training can also be bought on its own. For a property that has not been audited, the programme is built from pre-test results, and the outcome is still verified by measurement.",
+    "programmesEyebrow": "PROGRAMMES",
+    "programmesTitle": "Training programmes, department by department",
+    "programmesDescription": "Every programme maps one-to-one onto the standards the audit measures.",
+    "programmeLabel": "PROGRAMME",
+    "programmes": {
+      "frontOffice": {
+        "title": "Front Office Excellence",
+        "description": "check-in speed, complaint handling, upselling technique"
+      },
+      "fnb": {
+        "title": "F&B Service Standards",
+        "description": "service flow, menu recommendation, recipe discipline"
+      },
+      "housekeeping": {
+        "title": "Housekeeping Quality System",
+        "description": "hygiene standards, room checklists"
+      },
+      "leadership": {
+        "title": "Leadership & Shift Management",
+        "description": "supervisor and manager level"
+      }
+    },
+    "closingTitle": "Every deviation you measure is a gap you can close.",
+    "closingCtaPrimary": "Request a Quote",
+    "closingCtaSecondary": "See the Audit Service"
+  },
+  "auditServicePage": {
+    "metaTitle": "Hotel Audits by Mystery Guest",
+    "metaDescription": "We measure the whole guest experience from reservation to check-out, unannounced and impartial: welcome, front office, housekeeping, F&B and revenue leakage.",
+    "eyebrow": "MYSTERY GUEST AUDIT",
+    "title": "Hotel Audits by Mystery Guest",
+    "lede": "From reservation to check-out, we measure the whole guest experience — unannounced, and with no stake in the answer.",
+    "scopeEyebrow": "AUDIT SCOPE",
+    "scopeTitle": "What we measure",
+    "scopeDescription": "Every point of contact on the guest journey is measured against a standard checklist and a timestamped record.",
+    "measurements": {
+      "welcome": {
+        "title": "Welcome and First Impression",
+        "description": "booking accuracy, valet and bellboy speed, adherence to the check-in protocol"
+      },
+      "frontOffice": {
+        "title": "Front Office Effectiveness",
+        "description": "problem-solving reflexes, how the upsell is actually run"
+      },
+      "housekeeping": {
+        "title": "Housekeeping Precision",
+        "description": "room hygiene, amenity set, time to fulfil a request"
+      },
+      "checkout": {
+        "title": "Check-Out and Departure",
+        "description": "correct billing, loyalty enrolment, the courtesy of the send-off"
+      }
+    },
+    "revenueEyebrow": "MODULE B",
+    "revenueTitle": "F&B and Revenue Leakage",
+    "revenueDescription": "Food and beverage is where the guest experience is most concentrated — and so is the money you lose.",
+    "revenue": {
+      "service": {
+        "title": "Cuisine & Service",
+        "description": "Across the restaurant, à la carte and room service we measure service flow, presentation, speed, and how well the menu is actually sold."
+      },
+      "bar": {
+        "title": "Bar & Recipe Assurance",
+        "description": "Recipe measures and portion control are audited across the bar; deviations from standard and gaps in revenue protection are reported as figures."
+      }
+    },
+    "deliverablesEyebrow": "WHAT YOU GET",
+    "deliverablesTitle": "Your deliverables",
+    "deliverablesDescription": "An audit produces documents, not impressions. Everything the field returns lands in three deliverables.",
+    "deliverableLabel": "DELIVERABLE",
+    "deliverables": {
+      "swot": {
+        "title": "A board-ready SWOT report",
+        "description": "The evidence gathered on site, compiled under strengths, weaknesses, opportunities and threats, in a form you can present as it stands."
+      },
+      "roi": {
+        "title": "ROI analysis",
+        "description": "The revenue leakage we found, and the return on the fixes we propose, set against what the audit cost."
+      },
+      "scorecard": {
+        "title": "Department scorecard",
+        "description": "Every department scored separately against the standards audited, so a gap is addressed to the department that owns it."
+      }
+    },
+    "relatedEyebrow": "RELATED MODULES",
+    "relatedTitle": "Build your audit module by module",
+    "relatedDescription": "Pick the modules you need and point the spend straight at your priorities.",
+    "closingTitle": "Let us take an honest picture of your property.",
+    "closingCtaPrimary": "Request a Quote",
+    "closingCtaSecondary": "See How We Work"
   }
 }

@@ -48,12 +48,8 @@ export const company = {
   ortalamaKidemYil: 14, // PLACEHOLDER
 
   /** Past roles the audit team is drawn from. PLACEHOLDER — replace with the real mix. */
-  denetciGecmisi: [
-    "Genel Müdür — 5 yıldızlı resort",
-    "Yiyecek & İçecek Direktörü",
-    "Rooms Division Manager",
-    "SPA & Rekreasyon Müdürü",
-  ] as readonly string[],
+  // Auditor roles are copy, not registry data — they live under
+  // aboutPage.auditors.roles in messages/ so they read in the page's language.
 
   // ── Registry identifiers — NOT INVENTED. null until real. ──────────────
   ticaretUnvani: null as string | null,

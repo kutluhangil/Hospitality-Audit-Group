@@ -76,6 +76,7 @@ export default async function ModuleDetailPage({
 
   // getTranslations rather than useTranslations: this component is async, and a
   // hook cannot be called in one.
+  const t = await getTranslations({ locale, namespace: "modulePage" });
   const tCatalogue = await getTranslations({ locale, namespace: "catalogue" });
   const tModules = await getTranslations({ locale, namespace: "modules" });
 
@@ -129,7 +130,7 @@ export default async function ModuleDetailPage({
               <PriceTag amount={auditModule.price} />
               <CartButton id={auditModule.code} size="lg" />
               <Button href="/teklif" variant="ghost" size="lg">
-                Özel Teklif İsteyin
+                {t("customQuote")}
               </Button>
               <p className="text-xs leading-relaxed text-ink-muted">
                 {tModules("scaleNote")}
@@ -144,9 +145,9 @@ export default async function ModuleDetailPage({
           <div className="mx-auto max-w-content px-6 py-16 md:py-20">
             <Reveal>
               <SectionHeading
-                eyebrow="NEDEN ÖNEMLİ"
-                title="Bu departman kimin gözünde ne ifade ediyor?"
-                description="Aşağıdaki değerlendirmeler saha kılavuzumuzun giriş bölümünden alınmıştır — denetimi tasarlayan bakış açısı."
+                eyebrow={t("perspectivesEyebrow")}
+                title={t("perspectivesTitle")}
+                description={t("perspectivesDescription")}
               />
             </Reveal>
             <div className="mt-10">
@@ -160,9 +161,9 @@ export default async function ModuleDetailPage({
         <section className="mx-auto max-w-content px-6 py-16 md:py-20">
           <Reveal>
             <SectionHeading
-              eyebrow="ÖLÇÜLEBİLİR EŞİKLER"
-              title="Tartışmayı bitiren rakamlar"
-              description="Bu modüldeki kriterlerin bir kısmı net bir sınıra bağlıdır. Sınır ya geçilir ya geçilmez; yorum payı yoktur."
+              eyebrow={t("boundsEyebrow")}
+              title={t("boundsTitle")}
+              description={t("boundsDescription")}
             />
           </Reveal>
           <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -185,9 +186,9 @@ export default async function ModuleDetailPage({
       <section className="mx-auto max-w-content px-6 py-16 md:py-20">
         <Reveal>
           <SectionHeading
-            eyebrow={`${count} KRİTER`}
-            title="Denetim şeması"
-            description="Sahada her kritere Evet / Hayır / Uygulanamaz olarak karar verilir ve karar bir kanıta bağlanır. Aşağıda o şemanın tamamı yer alıyor."
+            eyebrow={t("schemaEyebrow", { count })}
+            title={t("schemaTitle")}
+            description={t("schemaDescription")}
           />
         </Reveal>
         <div className="mt-12">
@@ -201,14 +202,14 @@ export default async function ModuleDetailPage({
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
               <div>
                 <h2 className="font-serif text-2xl md:text-3xl">
-                  Modül {auditModule.code} ile başlayalım.
+                  {t("closingTitle", { code: auditModule.code })}
                 </h2>
                 <p className="mt-2 text-ink-muted">{tModules("scaleNote")}</p>
               </div>
               <div className="flex shrink-0 flex-wrap gap-3">
                 <CartButton id={auditModule.code} size="lg" />
                 <Button href="/moduller" variant="ghost" size="lg">
-                  Tüm Modüller
+                  {t("allModules")}
                 </Button>
               </div>
             </div>

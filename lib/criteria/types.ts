@@ -12,72 +12,26 @@ import type { ModuleCode } from "@/lib/modules-data";
  * Statistics on the site derive from `evidence`; `evidenceLabel` is what the
  * reader sees beside the criterion.
  */
+/**
+ * The evidence taxonomy: which method proves a criterion, and which icon draws
+ * it. Structure only — the title and the description a reader sees live under
+ * the `evidence` namespace in messages, keyed by the same key. A stopwatch
+ * measures seconds whatever the reader speaks; only its name changes.
+ */
 export const EVIDENCE_CATEGORIES = {
-  kronometre: {
-    title: "Kronometre",
-    description: "Süre ölçümü. Bir standardın kaç saniyede karşılandığı sayılır.",
-    icon: "Timer",
-  },
-  gozlem: {
-    title: "Gözlem",
-    description: "Denetçinin gerçek misafir olarak, yerinde ve habersiz gözlemi.",
-    icon: "Eye",
-  },
-  sesKaydi: {
-    title: "Ses Kaydı",
-    description: "Konuşma içeriği ve diksiyon kaydı; upsell ve şikâyet yönetimi burada ölçülür.",
-    icon: "Mic",
-  },
-  davranis: {
-    title: "Davranış Analizi",
-    description: "Personelin refleksi: nezaket protokolü, inisiyatif alma, kriz anındaki tutum.",
-    icon: "Users",
-  },
-  fotograf: {
-    title: "Fotoğraf Kanıtı",
-    description: "Makro ve detay fotoğraf. Hijyen bulgularının tartışmasız kanıtı.",
-    icon: "Camera",
-  },
-  fizikselTest: {
-    title: "Fiziksel Test",
-    description: "Dokunma, mukavemet ve donanım çalışma testi.",
-    icon: "Hand",
-  },
-  hijyenTesti: {
-    title: "Hijyen & Kimyasal Test",
-    description: "UV ışık, koku, swab ve kit ölçümü. Gözle görünmeyeni ölçer.",
-    icon: "FlaskConical",
-  },
-  simulasyon: {
-    title: "Simülasyon",
-    description: "Kurgulanmış şikâyet veya kriz senaryosu. Tepki süresi ve zinciri ölçülür.",
-    icon: "Siren",
-  },
-  sistemAnalizi: {
-    title: "Sistem Analizi",
-    description: "PMS, POS ve CRM ekran/log incelemesi. Departmanlar arası veri akışı burada görünür.",
-    icon: "MonitorCheck",
-  },
-  finansal: {
-    title: "Finansal Analiz",
-    description: "Adisyon, folyo ve fatura eşleme. Gelir kaçağı bu kalemde çıkar.",
-    icon: "Receipt",
-  },
-  evrak: {
-    title: "Evrak & Sicil",
-    description: "Belge, sertifika, sicil ve arşiv kontrolü.",
-    icon: "FileCheck",
-  },
-  raporlama: {
-    title: "Raporlama Çıktısı",
-    description: "Denetim verisinin yönetim kuruluna sunulabilir analize dönüştürülmesi.",
-    icon: "ClipboardList",
-  },
-  sahaHaritalama: {
-    title: "Saha Haritalama",
-    description: "Dış alanın ölçülü taranması: plaj, havuz çevresi, emniyet şeritleri.",
-    icon: "Map",
-  },
+  kronometre: { icon: "Timer" },
+  gozlem: { icon: "Eye" },
+  sesKaydi: { icon: "Mic" },
+  davranis: { icon: "Users" },
+  fotograf: { icon: "Camera" },
+  fizikselTest: { icon: "Hand" },
+  hijyenTesti: { icon: "FlaskConical" },
+  simulasyon: { icon: "Siren" },
+  sistemAnalizi: { icon: "MonitorCheck" },
+  finansal: { icon: "Receipt" },
+  evrak: { icon: "FileCheck" },
+  raporlama: { icon: "ClipboardList" },
+  sahaHaritalama: { icon: "Map" },
 } as const;
 
 export type EvidenceCategory = keyof typeof EVIDENCE_CATEGORIES;

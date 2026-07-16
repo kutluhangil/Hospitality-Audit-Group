@@ -240,7 +240,19 @@
   },
   "modulePage": {
     "metaTitle": "Modül {code} — {title}",
-    "metaDescription": "{summary} {count} kriter, her biri bir kanıt türüne bağlı."
+    "metaDescription": "{summary} {count} kriter, her biri bir kanıt türüne bağlı.",
+    "customQuote": "Özel Teklif İsteyin",
+    "perspectivesEyebrow": "NEDEN ÖNEMLİ",
+    "perspectivesTitle": "Bu departman kimin gözünde ne ifade ediyor?",
+    "perspectivesDescription": "Aşağıdaki değerlendirmeler saha kılavuzumuzun giriş bölümünden alınmıştır — denetimi tasarlayan bakış açısı.",
+    "boundsEyebrow": "ÖLÇÜLEBİLİR EŞİKLER",
+    "boundsTitle": "Tartışmayı bitiren rakamlar",
+    "boundsDescription": "Bu modüldeki kriterlerin bir kısmı net bir sınıra bağlıdır. Sınır ya geçilir ya geçilmez; yorum payı yoktur.",
+    "schemaEyebrow": "{count} KRİTER",
+    "schemaTitle": "Denetim şeması",
+    "schemaDescription": "Sahada her kritere Evet / Hayır / Uygulanamaz olarak karar verilir ve karar bir kanıta bağlanır. Aşağıda o şemanın tamamı yer alıyor.",
+    "closingTitle": "Modül {code} ile başlayalım.",
+    "allModules": "Tüm Modüller"
   },
   "contactPage": {
     "metaTitle": "İletişim",
@@ -371,7 +383,13 @@
       "countLabel": "denetçi",
       "seniorityValue": "{years} yıl",
       "seniorityLabel": "ortalama sektör kıdemi",
-      "rolesLabel": "Geldikleri pozisyonlar"
+      "rolesLabel": "Geldikleri pozisyonlar",
+      "roles": [
+        "Genel Müdür — 5 yıldızlı resort",
+        "Yiyecek & İçecek Direktörü",
+        "Rooms Division Manager",
+        "SPA & Rekreasyon Müdürü"
+      ]
     },
     "anonymity": {
       "eyebrow": "ANONİMLİK",
@@ -434,5 +452,172 @@
       "Butik": "Butik",
       "Zincir": "Zincir"
     }
+  },
+  "evidence": {
+    "kronometre": {
+      "title": "Kronometre",
+      "description": "Süre ölçümü. Bir standardın kaç saniyede karşılandığı sayılır."
+    },
+    "gozlem": {
+      "title": "Gözlem",
+      "description": "Denetçinin gerçek misafir olarak, yerinde ve habersiz gözlemi."
+    },
+    "sesKaydi": {
+      "title": "Ses Kaydı",
+      "description": "Konuşma içeriği ve diksiyon kaydı; upsell ve şikâyet yönetimi burada ölçülür."
+    },
+    "davranis": {
+      "title": "Davranış Analizi",
+      "description": "Personelin refleksi: nezaket protokolü, inisiyatif alma, kriz anındaki tutum."
+    },
+    "fotograf": {
+      "title": "Fotoğraf Kanıtı",
+      "description": "Makro ve detay fotoğraf. Hijyen bulgularının tartışmasız kanıtı."
+    },
+    "fizikselTest": {
+      "title": "Fiziksel Test",
+      "description": "Dokunma, mukavemet ve donanım çalışma testi."
+    },
+    "hijyenTesti": {
+      "title": "Hijyen & Kimyasal Test",
+      "description": "UV ışık, koku, swab ve kit ölçümü. Gözle görünmeyeni ölçer."
+    },
+    "simulasyon": {
+      "title": "Simülasyon",
+      "description": "Kurgulanmış şikâyet veya kriz senaryosu. Tepki süresi ve zinciri ölçülür."
+    },
+    "sistemAnalizi": {
+      "title": "Sistem Analizi",
+      "description": "PMS, POS ve CRM ekran/log incelemesi. Departmanlar arası veri akışı burada görünür."
+    },
+    "finansal": {
+      "title": "Finansal Analiz",
+      "description": "Adisyon, folyo ve fatura eşleme. Gelir kaçağı bu kalemde çıkar."
+    },
+    "evrak": {
+      "title": "Evrak & Sicil",
+      "description": "Belge, sertifika, sicil ve arşiv kontrolü."
+    },
+    "raporlama": {
+      "title": "Raporlama Çıktısı",
+      "description": "Denetim verisinin yönetim kuruluna sunulabilir analize dönüştürülmesi."
+    },
+    "sahaHaritalama": {
+      "title": "Saha Haritalama",
+      "description": "Dış alanın ölçülü taranması: plaj, havuz çevresi, emniyet şeritleri."
+    }
+  },
+  "evidenceShowcase": {
+    "eyebrow": "KANITSIZ İDDİA YOK",
+    "title": "Nasıl kanıtlarız?",
+    "description": "Denetim raporundaki her satır bir kanıt türüne bağlıdır. “Servis yavaştı” bir izlenimdir; kronometreyle ölçülmüş 6 dakika 20 saniye ise bir bulgudur.",
+    "criteriaLabel": "kriter",
+    "typesLabel": "kanıt türü",
+    "boundsLabel": "ölçülebilir eşik"
+  },
+  "trainingPage": {
+    "relatedEyebrow": "TEKLİFİNİZE EKLEYİN",
+    "relatedTitle": "Eğitimi teklifinize ekleyin",
+    "relatedDescription": "Personel eğitimi bir denetim modülü değildir; harfi ve saha kılavuzu yoktur. Katalogda ayrı bir kalem olarak yer alır ve tek başına ya da denetim modüllerinin devamı olarak seçilebilir.",
+    "relatedCta": "Katalogda İnceleyin",
+    "metaTitle": "Personel Eğitimi",
+    "metaDescription": "Denetim bulgularından beslenen, departman bazlı ve ölçülebilir yerinde eğitim programları: ön büro, F&B, kat hizmetleri ve vardiya yönetimi.",
+    "eyebrow": "PERSONEL EĞİTİMİ",
+    "title": "Denetimden Eğitime: Ölçülen Gelişir.",
+    "lede": "Denetimde tespit edilen gelişim alanlarını, departman bazlı ve ölçülebilir eğitim programlarına çeviririz.",
+    "loopEyebrow": "KAPANIŞ DÖNGÜSÜ",
+    "loopTitle": "Denetim ve eğitim aynı döngünün iki yarısıdır",
+    "loopBody1": "Eğitim programlarımız denetim bulgularından beslenir: sahada ölçülen sapma, doğrudan o sapmayı kapatacak içeriği belirler. Genel geçer bir müfredat değil, tesisinizin kendi raporundan çıkan bir program alırsınız.",
+    "loopBody2": "Eğitimi bağımsız olarak da satın alabilirsiniz. Denetim yaptırmamış tesislerde program, ön test sonuçlarına göre kurgulanır; sonuç yine ölçümle doğrulanır.",
+    "programmesEyebrow": "PROGRAMLAR",
+    "programmesTitle": "Departman bazlı eğitim programları",
+    "programmesDescription": "Her program, denetimde ölçülen standartların birebir karşılığıdır.",
+    "programmeLabel": "PROGRAM",
+    "programmes": {
+      "frontOffice": {
+        "title": "Ön Büro Mükemmelliği",
+        "description": "check-in hızı, şikâyet yönetimi, upselling teknikleri"
+      },
+      "fnb": {
+        "title": "F&B Servis Standartları",
+        "description": "servis akışı, menü tavsiye satışı, reçete disiplini"
+      },
+      "housekeeping": {
+        "title": "Kat Hizmetleri Kalite Sistemi",
+        "description": "hijyen standartları, oda kontrol listeleri"
+      },
+      "leadership": {
+        "title": "Liderlik & Vardiya Yönetimi",
+        "description": "süpervizör ve müdür seviyesi"
+      }
+    },
+    "closingTitle": "Ölçtüğünüz her sapma, kapatılabilir bir gelişim alanıdır.",
+    "closingCtaPrimary": "Teklif Alın",
+    "closingCtaSecondary": "Denetim Hizmetini İnceleyin"
+  },
+  "auditServicePage": {
+    "metaTitle": "Gizli Müşteri ile Otel Denetimi",
+    "metaDescription": "Rezervasyondan check-out'a misafir deneyimi döngüsünün tamamını habersiz ve tarafsız ölçüyoruz: karşılama, ön büro, kat hizmetleri, F&B ve gelir kaçağı denetimi.",
+    "eyebrow": "GİZLİ MÜŞTERİ DENETİMİ",
+    "title": "Gizli Müşteri ile Otel Denetimi",
+    "lede": "Rezervasyondan check-out'a, misafir deneyimi döngüsünün tamamını habersiz ve tarafsız ölçeriz.",
+    "scopeEyebrow": "DENETİM KAPSAMI",
+    "scopeTitle": "Neyi ölçeriz",
+    "scopeDescription": "Misafir yolculuğunun her teması, standart kontrol listeleriyle ve zaman damgalı kayıtlarla ölçülür.",
+    "measurements": {
+      "welcome": {
+        "title": "Karşılama ve İlk İzlenim",
+        "description": "rezervasyon doğruluğu, valet/bellboy hızı, check-in protokol uyumu"
+      },
+      "frontOffice": {
+        "title": "Ön Büro Verimliliği",
+        "description": "problem çözme refleksleri, upselling süreç yönetimi"
+      },
+      "housekeeping": {
+        "title": "Kat Hizmetleri Hassasiyeti",
+        "description": "oda hijyeni, buklet düzeni, talep karşılama süresi"
+      },
+      "checkout": {
+        "title": "Check-Out ve Uğurlama",
+        "description": "doğru faturalandırma, loyalty yönlendirme, uğurlama nezaketi"
+      }
+    },
+    "revenueEyebrow": "MODÜL B",
+    "revenueTitle": "F&B ve Gelir Kaçağı",
+    "revenueDescription": "Yiyecek ve içecek operasyonu, hem misafir deneyiminin hem de gelir kaybının en yoğun yaşandığı alandır.",
+    "revenue": {
+      "service": {
+        "title": "Gastronomi & Servis",
+        "description": "Restoran, à la carte ve oda servisinde servis akışı, sunum kalitesi, servis hızı ve menü tavsiye satış becerisi ölçülür."
+      },
+      "bar": {
+        "title": "Bar & Reçete Güvencesi",
+        "description": "Bar operasyonunda reçete gramajı ve porsiyon kontrolü denetlenir; standarttan sapmalar ve gelir koruma süreçlerindeki boşluklar rakamla raporlanır."
+      }
+    },
+    "deliverablesEyebrow": "TESLİMAT",
+    "deliverablesTitle": "Çıktınız",
+    "deliverablesDescription": "Denetim, izlenim değil belge üretir. Sahadan dönen her bulgu üç çıktıda toplanır.",
+    "deliverableLabel": "ÇIKTI",
+    "deliverables": {
+      "swot": {
+        "title": "Yönetim kuruluna hazır SWOT raporu",
+        "description": "Sahada toplanan kanıtlar; güçlü yönler, zayıf yönler, fırsatlar ve tehditler başlıkları altında, sunuma hazır biçimde derlenir."
+      },
+      "roi": {
+        "title": "ROI analizi",
+        "description": "Tespit edilen gelir kaçağı kalemleri ve önerilen iyileştirmelerin getirisi, denetim yatırımının karşısına konur."
+      },
+      "scorecard": {
+        "title": "Departman karnesi",
+        "description": "Her departman, denetlenen standartlar üzerinden ayrı ayrı puanlanır; gelişim alanları departman bazında adreslenir."
+      }
+    },
+    "relatedEyebrow": "İLGİLİ MODÜLLER",
+    "relatedTitle": "Denetimi modül modül kurun",
+    "relatedDescription": "İhtiyacınız olan modülleri özgürce seçin, yatırımınızı doğrudan öncelikli alanlarınıza yönlendirin.",
+    "closingTitle": "Tesisinizin gerçek fotoğrafını çekelim.",
+    "closingCtaPrimary": "Teklif Alın",
+    "closingCtaSecondary": "Sürecimizi İnceleyin"
   }
 }

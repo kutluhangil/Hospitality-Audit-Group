@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { ClosingCta } from "@/components/services/ClosingCta";
@@ -8,67 +8,33 @@ import { PageHero } from "@/components/services/PageHero";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { alternatesFor } from "@/i18n/metadata";
 import type { LocaleParams } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Gizli Müşteri ile Otel Denetimi",
-  description:
-    "Rezervasyondan check-out'a misafir deneyimi döngüsünün tamamını habersiz ve tarafsız ölçüyoruz: karşılama, ön büro, kat hizmetleri, F&B ve gelir kaçağı denetimi.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "auditServicePage" });
 
-const measurements = [
-  {
-    title: "Karşılama ve İlk İzlenim",
-    description:
-      "rezervasyon doğruluğu, valet/bellboy hızı, check-in protokol uyumu",
-  },
-  {
-    title: "Ön Büro Verimliliği",
-    description: "problem çözme refleksleri, upselling süreç yönetimi",
-  },
-  {
-    title: "Kat Hizmetleri Hassasiyeti",
-    description: "oda hijyeni, buklet düzeni, talep karşılama süresi",
-  },
-  {
-    title: "Check-Out ve Uğurlama",
-    description: "doğru faturalandırma, loyalty yönlendirme, uğurlama nezaketi",
-  },
-] as const;
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: alternatesFor("/hizmetler/gizli-musteri-denetimi", locale),
+  };
+}
 
-const revenueChecks = [
-  {
-    title: "Gastronomi & Servis",
-    description:
-      "Restoran, à la carte ve oda servisinde servis akışı, sunum kalitesi, servis hızı ve menü tavsiye satış becerisi ölçülür.",
-  },
-  {
-    title: "Bar & Reçete Güvencesi",
-    description:
-      "Bar operasyonunda reçete gramajı ve porsiyon kontrolü denetlenir; standarttan sapmalar ve gelir koruma süreçlerindeki boşluklar rakamla raporlanır.",
-  },
+/** Copy for all three lists lives under auditServicePage; order is the journey's. */
+const MEASUREMENT_KEYS = [
+  "welcome",
+  "frontOffice",
+  "housekeeping",
+  "checkout",
 ] as const;
-
-const deliverables = [
-  {
-    label: "ÇIKTI 01",
-    title: "Yönetim kuruluna hazır SWOT raporu",
-    description:
-      "Sahada toplanan kanıtlar; güçlü yönler, zayıf yönler, fırsatlar ve tehditler başlıkları altında, sunuma hazır biçimde derlenir.",
-  },
-  {
-    label: "ÇIKTI 02",
-    title: "ROI analizi",
-    description:
-      "Tespit edilen gelir kaçağı kalemleri ve önerilen iyileştirmelerin getirisi, denetim yatırımının karşısına konur.",
-  },
-  {
-    label: "ÇIKTI 03",
-    title: "Departman karnesi",
-    description:
-      "Her departman, denetlenen standartlar üzerinden ayrı ayrı puanlanır; gelişim alanları departman bazında adreslenir.",
-  },
-] as const;
+const REVENUE_KEYS = ["service", "bar"] as const;
+const DELIVERABLE_KEYS = ["swot", "roi", "scorecard"] as const;
 
 export default async function MysteryShopperAuditPage({
   params,
@@ -77,30 +43,27 @@ export default async function MysteryShopperAuditPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "auditServicePage" });
 
   return (
     <main>
-      <PageHero
-        eyebrow="GİZLİ MÜŞTERİ DENETİMİ"
-        title="Gizli Müşteri ile Otel Denetimi"
-        lede="Rezervasyondan check-out'a, misafir deneyimi döngüsünün tamamını habersiz ve tarafsız ölçeriz."
-      />
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} lede={t("lede")} />
 
       <section className="mx-auto max-w-content px-6 py-20 md:py-24">
         <Reveal>
           <SectionHeading
-            eyebrow="DENETİM KAPSAMI"
-            title="Neyi ölçeriz"
-            description="Misafir yolculuğunun her teması, standart kontrol listeleriyle ve zaman damgalı kayıtlarla ölçülür."
+            eyebrow={t("scopeEyebrow")}
+            title={t("scopeTitle")}
+            description={t("scopeDescription")}
           />
         </Reveal>
         <Reveal className="mt-12">
           <ul className="grid gap-4 md:grid-cols-2">
-            {measurements.map((item) => (
-              <li key={item.title}>
+            {MEASUREMENT_KEYS.map((key) => (
+              <li key={key}>
                 <DefinitionCard
-                  title={item.title}
-                  description={item.description}
+                  title={t(`measurements.${key}.title`)}
+                  description={t(`measurements.${key}.description`)}
                 />
               </li>
             ))}
@@ -112,18 +75,18 @@ export default async function MysteryShopperAuditPage({
         <div className="mx-auto max-w-content px-6 py-20 md:py-24">
           <Reveal>
             <SectionHeading
-              eyebrow="MODÜL B"
-              title="F&B ve Gelir Kaçağı"
-              description="Yiyecek ve içecek operasyonu, hem misafir deneyiminin hem de gelir kaybının en yoğun yaşandığı alandır."
+              eyebrow={t("revenueEyebrow")}
+              title={t("revenueTitle")}
+              description={t("revenueDescription")}
             />
           </Reveal>
           <Reveal className="mt-12">
             <ul className="grid gap-4 md:grid-cols-2">
-              {revenueChecks.map((item) => (
-                <li key={item.title}>
+              {REVENUE_KEYS.map((key) => (
+                <li key={key}>
                   <DefinitionCard
-                    title={item.title}
-                    description={item.description}
+                    title={t(`revenue.${key}.title`)}
+                    description={t(`revenue.${key}.description`)}
                   />
                 </li>
               ))}
@@ -135,19 +98,19 @@ export default async function MysteryShopperAuditPage({
       <section className="mx-auto max-w-content px-6 py-20 md:py-24">
         <Reveal>
           <SectionHeading
-            eyebrow="TESLİMAT"
-            title="Çıktınız"
-            description="Denetim, izlenim değil belge üretir. Sahadan dönen her bulgu üç çıktıda toplanır."
+            eyebrow={t("deliverablesEyebrow")}
+            title={t("deliverablesTitle")}
+            description={t("deliverablesDescription")}
           />
         </Reveal>
         <Reveal className="mt-12">
           <ul className="grid gap-4 md:grid-cols-3">
-            {deliverables.map((item) => (
-              <li key={item.title}>
+            {DELIVERABLE_KEYS.map((key, index) => (
+              <li key={key}>
                 <DefinitionCard
-                  label={item.label}
-                  title={item.title}
-                  description={item.description}
+                  label={`${t("deliverableLabel")} ${String(index + 1).padStart(2, "0")}`}
+                  title={t(`deliverables.${key}.title`)}
+                  description={t(`deliverables.${key}.description`)}
                 />
               </li>
             ))}
@@ -158,21 +121,23 @@ export default async function MysteryShopperAuditPage({
       <section className="mx-auto max-w-content px-6 pb-24">
         <Reveal>
           <SectionHeading
-            eyebrow="İLGİLİ MODÜLLER"
-            title="Denetimi modül modül kurun"
-            description="İhtiyacınız olan modülleri özgürce seçin, yatırımınızı doğrudan öncelikli alanlarınıza yönlendirin."
+            eyebrow={t("relatedEyebrow")}
+            title={t("relatedTitle")}
+            description={t("relatedDescription")}
           />
         </Reveal>
         <Reveal className="mt-10">
-          <ModuleQuickLinks codes={["A", "B", "C", "D"]} />
+          {/* The four single audit modules. Not D — that is the package, and it
+              belongs on /moduller next to its own price, not in a list of parts. */}
+          <ModuleQuickLinks codes={["A", "B", "C", "E"]} />
         </Reveal>
         <Reveal className="mt-16">
-          <ClosingCta title="Tesisinizin gerçek fotoğrafını çekelim.">
+          <ClosingCta title={t("closingTitle")}>
             <Button href="/moduller" size="lg">
-              Teklif Alın
+              {t("closingCtaPrimary")}
             </Button>
             <Button href="/surec" variant="ghost" size="lg">
-              Sürecimizi İnceleyin
+              {t("closingCtaSecondary")}
             </Button>
           </ClosingCta>
         </Reveal>

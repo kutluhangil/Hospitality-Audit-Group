@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import {
@@ -12,7 +13,6 @@ import {
   evidenceTypeCount,
   thresholds,
 } from "@/lib/audit-criteria";
-import { EVIDENCE_CATEGORIES } from "@/lib/criteria/types";
 import type { ModuleCode } from "@/lib/modules-data";
 
 /**
@@ -27,6 +27,8 @@ export function EvidenceShowcase({
   module?: ModuleCode;
   className?: string;
 }) {
+  const t = useTranslations("evidenceShowcase");
+  const tEvidence = useTranslations("evidence");
   const breakdown = evidenceBreakdown(module);
   const total = criteriaCount(module);
   const types = evidenceTypeCount(module);
@@ -37,9 +39,9 @@ export function EvidenceShowcase({
     <section className={className}>
       <Reveal>
         <SectionHeading
-          eyebrow="KANITSIZ İDDİA YOK"
-          title="Nasıl kanıtlarız?"
-          description="Denetim raporundaki her satır bir kanıt türüne bağlıdır. “Servis yavaştı” bir izlenimdir; kronometreyle ölçülmüş 6 dakika 20 saniye ise bir bulgudur."
+          eyebrow={t("eyebrow")}
+          title={t("title")}
+          description={t("description")}
         />
       </Reveal>
 
@@ -66,9 +68,9 @@ export function EvidenceShowcase({
       <Reveal className="mt-8">
         <dl className="grid grid-cols-3 gap-4 border-y border-line py-6">
           {[
-            { term: "kriter", value: total },
-            { term: "kanıt türü", value: types },
-            { term: "ölçülebilir eşik", value: bounds },
+            { term: t("criteriaLabel"), value: total },
+            { term: t("typesLabel"), value: types },
+            { term: t("boundsLabel"), value: bounds },
           ].map((stat) => (
             <div key={stat.term}>
               <dd className="font-mono text-3xl text-ink md:text-4xl">
@@ -84,7 +86,6 @@ export function EvidenceShowcase({
 
       <ul className="mt-8 space-y-2.5">
         {breakdown.map((entry, index) => {
-          const meta = EVIDENCE_CATEGORIES[entry.category];
           const Icon = evidenceIcon(entry.category);
           return (
             <Reveal key={entry.category} delay={Math.min(index, 6) * 0.03}>
@@ -96,7 +97,7 @@ export function EvidenceShowcase({
                   aria-hidden="true"
                 />
                 <span className="w-40 shrink-0 truncate font-mono text-xs uppercase tracking-[0.12em] text-ink md:w-52">
-                  {meta.title}
+                  {tEvidence(`${entry.category}.title`)}
                 </span>
                 {/* Proportional rule: the bar is the number, drawn. */}
                 <span className="hidden h-1.5 flex-1 overflow-hidden rounded-full bg-bg-soft sm:block">
@@ -119,6 +120,7 @@ export function EvidenceShowcase({
 
 /** Compact variant for a module page header: the methods this module leans on. */
 export function EvidenceSummary({ module }: { module: ModuleCode }) {
+  const t = useTranslations("evidence");
   const breakdown = evidenceBreakdown(module).slice(0, 5);
 
   return (
@@ -127,7 +129,7 @@ export function EvidenceSummary({ module }: { module: ModuleCode }) {
         <li key={entry.category}>
           <EvidenceBadge
             category={entry.category}
-            label={`${EVIDENCE_CATEGORIES[entry.category].title} · ${entry.count}`}
+            label={`${t(`${entry.category}.title`)} · ${entry.count}`}
           />
         </li>
       ))}
