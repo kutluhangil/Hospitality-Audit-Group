@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
+
 import { Logo } from "@/components/ui/Logo";
 import { Link } from "@/i18n/navigation";
 import { footerNav, siteConfig, type NavLink } from "@/lib/site-config";
@@ -42,18 +42,7 @@ export function Footer() {
   return (
     <footer className="border-t border-line bg-bg-soft">
       <div className="mx-auto max-w-content px-4 py-14 sm:px-6">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <Link href="/" className="flex flex-col items-start gap-4 text-ink">
-              <Logo size={72} />
-              <span className="font-serif text-lg font-semibold leading-tight">
-                {siteConfig.name}
-              </span>
-            </Link>
-            <p className="mt-4 max-w-xs text-sm text-ink-muted">
-              {tSite("tagline")}
-            </p>
-          </div>
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
 
           <FooterColumn title={t("services")} links={footerNav.hizmetler} />
           <FooterColumn title={t("corporate")} links={footerNav.kurumsal} />
@@ -86,9 +75,9 @@ export function Footer() {
             are reference material, not navigation, and distance-selling rules
             only require them to be reachable from every page — which the footer
             is. Wraps to as many lines as the viewport needs. */}
-        <div className="mt-12 border-t border-line pt-6">
-          <nav aria-label={t("legalNav")}>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2.5">
+        <div className="mt-16 border-t border-line pt-10">
+          <nav aria-label={t("legalNav")} className="mb-12">
+            <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5">
               {footerNav.hukuki.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className={linkClasses}>
@@ -99,11 +88,16 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div className="mt-6 flex items-center justify-between gap-4">
+          <div className="flex flex-col items-center justify-center gap-3 text-center">
             <p className="font-mono text-xs tracking-wide text-ink-muted">
               {t("copyright")}
             </p>
-            <ThemeToggle />
+            <p className="max-w-sm text-xs text-ink-muted">
+              {tSite("tagline")}
+            </p>
+            <Link href="/">
+              <Logo size={64} className="mt-2" />
+            </Link>
           </div>
         </div>
       </div>
