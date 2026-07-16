@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { Reveal } from "@/components/ui/Reveal";
 import { company } from "@/lib/company-data";
 
@@ -11,37 +13,18 @@ import { company } from "@/lib/company-data";
  * all, they simply do not render until they are real.
  */
 export function FoundingStory() {
+  const t = useTranslations("aboutPage.story");
+
   return (
     <Reveal>
       <div className="max-w-2xl space-y-6 text-base leading-relaxed text-ink-muted md:text-lg">
-        <p>
-          {company.merkez}&apos;da, {company.kurulusYili} yılında, aynı sorunu
-          yıllarca içeriden görmüş birkaç otelcinin masasında başladı. Hepsi
-          kendi tesisinde marka standardını yazmış, eğitimini vermiş, denetimini
-          kurmuştu. Ve hepsi aynı şeyi biliyordu: o standardın gece iki buçukta,
-          resepsiyonda, kimse bakmıyorken ne hâle geldiğini kimse ölçmüyordu.
-        </p>
-        <p>
-          İç denetim bunu yakalayamıyor. Personel kendisini kimin, ne zaman
-          izlediğini bilir; müdür lobiye indiğinde operasyon zaten
-          toparlanmıştır. Departman müdürleri de kendi departmanlarını tarafsız
-          değerlendiremez — kimse kendi sınavını okuyamaz. Geriye tek bakış
-          açısı kalıyor: misafirin gözü. Ölçülmeyen tek yer de tam olarak orası.
-        </p>
-        <p>
-          Bunun üzerine masanın tarafını değiştirdik. Bugün tesislere yönetici
-          olarak değil, misafir olarak giriyoruz. Gerçek rezervasyonla geliyor,
-          gerçek gece konaklıyor, gerçek fatura ödüyoruz. Kimse bizi beklemiyor,
-          kimse bizim için hazırlanmıyor. Gördüğümüz şey, misafirinizin gördüğü
-          şey.
-        </p>
-        <p>
-          Bir denetim şirketinin satabileceği tek şey, söylediğine
-          güvenilmesidir. Bu yüzden hiçbir tesisle danışmanlık, tedarik ya da
-          temsil ilişkimiz yok — bulguyu yazan elin, o bulgudan çıkar sağlaması
-          mümkün olmasın diye. Raporun kimseyi memnun etme görevi de yok.
-          Rahatsız ettiğinde bile aynı cümlelerle yazılır.
-        </p>
+        {/* The city and the year are placeholders in company-data, so they are
+            interpolated rather than written into the copy — replacing them must
+            not mean rewriting the paragraph in two languages. */}
+        <p>{t("p1", { city: company.merkez, year: company.kurulusYili })}</p>
+        <p>{t("p2")}</p>
+        <p>{t("p3")}</p>
+        <p>{t("p4")}</p>
       </div>
     </Reveal>
   );

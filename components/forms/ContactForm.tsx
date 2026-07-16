@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState, type FormEvent } from "react";
 
 import {
@@ -29,10 +30,9 @@ const EMPTY_VALUES: Values = { ad: "", email: "", konu: "", mesaj: "" };
 
 type Status = "idle" | "submitting" | "success";
 
-const NETWORK_FAILURE =
-  "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.";
-
 export function ContactForm() {
+  const t = useTranslations("forms");
+  const tContact = useTranslations("forms.contact");
   const [values, setValues] = useState<Values>(EMPTY_VALUES);
   const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState("");
@@ -81,7 +81,7 @@ export function ContactForm() {
       setStatus("success");
     } catch (error) {
       console.error("Contact submission failed:", error);
-      setSubmitError(NETWORK_FAILURE);
+      setSubmitError(t("networkFailure"));
       setStatus("idle");
     }
   }
@@ -90,10 +90,10 @@ export function ContactForm() {
     return (
       <Card tone="soft" role="status" className="p-8">
         <p className="font-mono text-sm text-accent-strong md:text-base">
-          MESAJ ALINDI — REF: {reference}
+          {tContact("received", { ref: reference })}
         </p>
         <p className="mt-4 text-base text-ink-muted">
-          48 saat içinde dönüş yapıyoruz.
+          {tContact("replyWindow")}
         </p>
       </Card>
     );
@@ -103,7 +103,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
       <TextField
         id="ad"
-        label="Ad"
+        label={tContact("name")}
         required
         autoComplete="name"
         value={values.ad}
@@ -112,7 +112,7 @@ export function ContactForm() {
       />
       <TextField
         id="email"
-        label="E-posta"
+        label={tContact("email")}
         type="email"
         required
         autoComplete="email"
@@ -122,7 +122,7 @@ export function ContactForm() {
       />
       <TextField
         id="konu"
-        label="Konu"
+        label={tContact("subject")}
         required
         value={values.konu}
         error={errors.konu}
@@ -130,7 +130,7 @@ export function ContactForm() {
       />
       <TextareaField
         id="mesaj"
-        label="Mesaj"
+        label={tContact("message")}
         required
         value={values.mesaj}
         error={errors.mesaj}
@@ -146,14 +146,19 @@ export function ContactForm() {
         error={errors.kvkkConsent}
         onChange={(event) => setConsent(event.target.checked)}
       >
-        Kişisel verilerimin{" "}
-        <Link
-          href="/kvkk"
-          className="text-accent-strong underline underline-offset-4 transition-colors duration-150 hover:text-accent-strong-hover"
-        >
-          KVKK Aydınlatma Metni
-        </Link>{" "}
-        kapsamında işlenmesini kabul ediyorum.
+        {/* Rich text rather than three concatenated pieces: where the link falls
+            inside the sentence, and what punctuation follows it, is not the same
+            in both languages. */}
+        {t.rich("consent", {
+          kvkk: (chunks) => (
+            <Link
+              href="/kvkk"
+              className="text-accent-strong underline underline-offset-4 transition-colors duration-150 hover:text-accent-strong-hover"
+            >
+              {chunks}
+            </Link>
+          ),
+        })}
       </CheckboxField>
 
       {submitError ? <FormError message={submitError} /> : null}
@@ -164,7 +169,7 @@ export function ContactForm() {
         disabled={status === "submitting"}
         className="disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "submitting" ? "Gönderiliyor…" : "Mesajı Gönder"}
+        {status === "submitting" ? tContact("submitting") : tContact("submit")}
       </Button>
     </form>
   );

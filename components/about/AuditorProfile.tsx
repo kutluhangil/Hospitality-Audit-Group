@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { company } from "@/lib/company-data";
@@ -11,13 +13,15 @@ import { company } from "@/lib/company-data";
  * a recognised auditor cannot audit.
  */
 export function AuditorProfile() {
+  const t = useTranslations("aboutPage.auditors");
+
   return (
     <div>
       <Reveal>
         <SectionHeading
-          eyebrow="DENETÇİ KADROSU"
-          title="Bugün ölçtüğümüz departmanları bir zamanlar biz yönettik."
-          description="Denetçilerimiz aktif olarak otelcilikte çalışmıyor. Bir check-in'in neden uzadığını ya da bir reçetenin nerede sapmaya başladığını dışarıdan tahmin etmiyorlar; içeriden biliyorlar."
+          eyebrow={t("eyebrow")}
+          title={t("title")}
+          description={t("description")}
         />
       </Reveal>
 
@@ -28,15 +32,15 @@ export function AuditorProfile() {
               {company.denetciSayisi}
             </dd>
             <dt className="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-ink-muted">
-              denetçi
+              {t("countLabel")}
             </dt>
           </div>
           <div>
             <dd className="font-mono text-4xl text-ink">
-              {company.ortalamaKidemYil} yıl
+              {t("seniorityValue", { years: company.ortalamaKidemYil })}
             </dd>
             <dt className="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-ink-muted">
-              ortalama sektör kıdemi
+              {t("seniorityLabel")}
             </dt>
           </div>
         </dl>
@@ -44,7 +48,7 @@ export function AuditorProfile() {
 
       <Reveal className="mt-8">
         <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-ink-muted">
-          Geldikleri pozisyonlar
+          {t("rolesLabel")}
         </p>
         <ul className="mt-4 flex flex-wrap gap-2">
           {company.denetciGecmisi.map((role) => (

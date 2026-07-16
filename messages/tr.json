@@ -241,5 +241,198 @@
   "modulePage": {
     "metaTitle": "Modül {code} — {title}",
     "metaDescription": "{summary} {count} kriter, her biri bir kanıt türüne bağlı."
+  },
+  "contactPage": {
+    "metaTitle": "İletişim",
+    "metaDescription": "Hospitality Audit Group ile iletişime geçin. Kurumsal e-posta, telefon ve çalışma saatleri.",
+    "eyebrow": "İLETİŞİM",
+    "title": "Konuşalım.",
+    "body": "Denetim kapsamınızı birlikte netleştirelim. Tüm görüşmeler karşılıklı gizlilik taahhüdü altında yürütülür.",
+    "web": "WEB",
+    "email": "E-POSTA",
+    "phone": "TELEFON",
+    "hours": "ÇALIŞMA SAATLERİ"
+  },
+  "processPage": {
+    "metaTitle": "Süreç",
+    "metaDescription": "Keşiften dönüşüme dört adımlık denetim sürecimiz, kanıt standardımız ve sık sorulan sorular: NDA, ziyaret süresi, rapor teslimi ve KVKK uyumu.",
+    "eyebrow": "SÜREÇ",
+    "title": "Keşiften dönüşüme, dört adım.",
+    "lede": "Denetim bir izlenim değil, tekrarlanabilir bir prosedürdür. Her adımın çıktısı bir sonrakinin girdisidir.",
+    "steps": {
+      "discovery": {
+        "name": "KEŞİF",
+        "summary": "İhtiyaç görüşmesi, NDA imzası, modül seçimi.",
+        "detail": [
+          "Tesis ölçeği, misafir segmenti ve vaat edilen marka standardının tespiti",
+          "Karşılıklı NDA imzası",
+          "Denetlenecek modüllerin ve ziyaret takviminin belirlenmesi",
+          "Denetçi profilinin gerçek misafir profilinize göre seçilmesi"
+        ]
+      },
+      "field": {
+        "name": "SAHA",
+        "summary": "Habersiz gizli müşteri ziyareti; standart kontrol listeleriyle kanıt toplama.",
+        "detail": [
+          "Gerçek rezervasyon, gerçek misafir profiliyle giriş",
+          "Modüle göre 1–3 gece konaklama",
+          "Zaman damgalı gözlem kayıtlarının tutulması",
+          "Departman bazlı standart kontrol listelerinin doldurulması"
+        ]
+      },
+      "report": {
+        "name": "RAPOR",
+        "summary": "SWOT + ROI analizi; gelir kaçağı ve gelişim alanları net rakamlarla.",
+        "detail": [
+          "Saha ziyareti sonrası 48 saat içinde ön bulgu paylaşımı",
+          "10 iş günü içinde tam SWOT raporu",
+          "Gelir kaçağı kalemleri ve departman karnesi",
+          "Yönetim kuruluna sunuma hazır format"
+        ]
+      },
+      "transformation": {
+        "name": "DÖNÜŞÜM",
+        "summary": "Departman bazlı personel eğitimi ve takip denetimi.",
+        "detail": [
+          "Raporda çıkan gelişim alanlarına göre program kurgusu",
+          "Yerinde eğitim, atölye ve rol canlandırma",
+          "Ön/son test ile gelişimin ölçülmesi",
+          "Takip denetimiyle kalıcılığın doğrulanması"
+        ]
+      }
+    },
+    "evidenceEyebrow": "METODOLOJİ",
+    "evidenceTitle": "Kanıt Standardımız",
+    "evidenceDescription": "Rapordaki her cümlenin arkasında, tekrar üretilebilir bir kayıt vardır.",
+    "evidenceLabel": "KANIT",
+    "evidence": {
+      "timestamps": {
+        "title": "Zaman damgalı gözlem kayıtları",
+        "description": "Her gözlem, gerçekleştiği saatle birlikte kayda geçer. Süre iddiaları — check-in, talep karşılama, servis — hatırlanan değil ölçülen değerlerdir."
+      },
+      "checklists": {
+        "title": "Standart kontrol listeleri",
+        "description": "Tüm denetçiler aynı listeyi kullanır. Bulgular tesisler ve ziyaretler arasında karşılaştırılabilir kalır, denetçinin kişisel beğenisine bağlı olmaz."
+      },
+      "secondAuditor": {
+        "title": "Çift denetçi doğrulaması",
+        "description": "Rapora giren kritik bulgular ikinci bir denetçi tarafından teyit edilir. Tek kişinin izlenimi, tek başına kanıt sayılmaz."
+      }
+    },
+    "trustTitle": "KVKK uyumu ve karşılıklı NDA",
+    "trustBody1": "Denetim süreci karşılıklı bir gizlilik sözleşmesiyle başlar. Tesisinizin adı, bulgular ve raporun tamamı yalnızca sizinle paylaşılır; referans olarak kullanılmaz.",
+    "trustBody2": "Sahada toplanan veriler %100 KVKK uyumlu şekilde işlenir. Kayıtlar denetimin amacıyla sınırlı tutulur, personelin kimliğini hedef alan bir değerlendirme üretilmez — ölçülen kişi değil, süreçtir.",
+    "faqEyebrow": "SSS",
+    "faqTitle": "Sık sorulan sorular",
+    "faq": {
+      "auditors": {
+        "question": "Denetçileriniz kim?",
+        "answer": "Sektörde üst düzey yöneticilik yapmış, aktif olarak otelcilikte çalışmayan profesyoneller."
+      },
+      "duration": {
+        "question": "Ziyaret ne kadar sürer?",
+        "answer": "Modüle göre 1–3 gece konaklama."
+      },
+      "detection": {
+        "question": "Personel anlayabilir mi?",
+        "answer": "Denetçiler gerçek misafir profiliyle, gerçek rezervasyonla gelir."
+      },
+      "delivery": {
+        "question": "Rapor ne zaman teslim edilir?",
+        "answer": "Ön bulgular 48 saat, tam SWOT raporu 10 iş günü."
+      },
+      "dataSafety": {
+        "question": "Verilerimiz güvende mi?",
+        "answer": "%100 KVKK uyumu + karşılıklı NDA."
+      }
+    },
+    "closingTitle": "Tesisinizin gerçek fotoğrafını çekelim.",
+    "closingCta": "Teklif Alın",
+    "closingCtaSecondary": "Denetim Hizmetini İnceleyin"
+  },
+  "aboutPage": {
+    "metaTitle": "Biz Kimiz",
+    "metaDescription": "Otelciliği yönetmiş profesyonellerden kurulu bağımsız bir denetim ekibi. Tarafsızlık, gizlilik ve ölçülebilirlik ilkeleriyle, misafirin gözünden ölçüyoruz.",
+    "eyebrow": "BİZ KİMİZ",
+    "title": "Otelciliği yönetenler, şimdi ölçüyor.",
+    "lede": "Denetim ekibimiz, bugün ölçtüğü departmanları bir zamanlar yönetmiş profesyonellerden oluşuyor.",
+    "heroImageAlt": "Üst üste dizilmiş rapor sayfalarının soyut çizimi; sayfalardan birinde tek bir terracotta satır işaretli.",
+    "ribbon": "TARAFSIZLIK · GİZLİLİK · ÖLÇÜLEBİLİRLİK",
+    "story": {
+      "p1": "{city}'da, {year} yılında, aynı sorunu yıllarca içeriden görmüş birkaç otelcinin masasında başladı. Hepsi kendi tesisinde marka standardını yazmış, eğitimini vermiş, denetimini kurmuştu. Ve hepsi aynı şeyi biliyordu: o standardın gece iki buçukta, resepsiyonda, kimse bakmıyorken ne hâle geldiğini kimse ölçmüyordu.",
+      "p2": "İç denetim bunu yakalayamıyor. Personel kendisini kimin, ne zaman izlediğini bilir; müdür lobiye indiğinde operasyon zaten toparlanmıştır. Departman müdürleri de kendi departmanlarını tarafsız değerlendiremez — kimse kendi sınavını okuyamaz. Geriye tek bakış açısı kalıyor: misafirin gözü. Ölçülmeyen tek yer de tam olarak orası.",
+      "p3": "Bunun üzerine masanın tarafını değiştirdik. Bugün tesislere yönetici olarak değil, misafir olarak giriyoruz. Gerçek rezervasyonla geliyor, gerçek gece konaklıyor, gerçek fatura ödüyoruz. Kimse bizi beklemiyor, kimse bizim için hazırlanmıyor. Gördüğümüz şey, misafirinizin gördüğü şey.",
+      "p4": "Bir denetim şirketinin satabileceği tek şey, söylediğine güvenilmesidir. Bu yüzden hiçbir tesisle danışmanlık, tedarik ya da temsil ilişkimiz yok — bulguyu yazan elin, o bulgudan çıkar sağlaması mümkün olmasın diye. Raporun kimseyi memnun etme görevi de yok. Rahatsız ettiğinde bile aynı cümlelerle yazılır."
+    },
+    "auditors": {
+      "eyebrow": "DENETÇİ KADROSU",
+      "title": "Bugün ölçtüğümüz departmanları bir zamanlar biz yönettik.",
+      "description": "Denetçilerimiz aktif olarak otelcilikte çalışmıyor. Bir check-in'in neden uzadığını ya da bir reçetenin nerede sapmaya başladığını dışarıdan tahmin etmiyorlar; içeriden biliyorlar.",
+      "countLabel": "denetçi",
+      "seniorityValue": "{years} yıl",
+      "seniorityLabel": "ortalama sektör kıdemi",
+      "rolesLabel": "Geldikleri pozisyonlar"
+    },
+    "anonymity": {
+      "eyebrow": "ANONİMLİK",
+      "title": "Neden burada kimsenin fotoğrafı yok?",
+      "description": "Bu sayfada isim, unvan ve portre bulamayacaksınız. Bir gizli müşteri şirketi için anonimlik bir eksiklik değil, işin ön koşuludur: tanınan bir denetçi, denetleyemez.",
+      "quote": "Denetçilerimizin yüzünü göremezsiniz. Misafirleriniz de göremiyor.",
+      "body": "Aynı ilke referanslarımız için de geçerli. Hangi tesisi denetlediğimizi, ne bulduğumuzu ve raporda ne yazdığını üçüncü bir tarafa anlatmayız — sizinkini de anlatmayacağız. Bu yüzden bu sitede müşteri logosu ya da isimli referans göremezsiniz. Gizlilik, satarken de geçerli olmayan bir vaat değildir."
+    },
+    "registry": {
+      "eyebrow": "KURUMSAL BİLGİLER",
+      "title": "Kim olduğumuz, kayıtlarda.",
+      "description": "Gizli müşteri firmasıyız; denetçilerimiz anonim. Şirketimiz değil. Aşağıdaki bilgiler resmi kayıtlardan doğrulanabilir.",
+      "tradeName": "Ticaret unvanı",
+      "registryNo": "Ticaret sicil no",
+      "mersis": "MERSİS no",
+      "taxOffice": "Vergi dairesi",
+      "taxNo": "Vergi no",
+      "address": "Merkez",
+      "kep": "KEP adresi",
+      "etbis": "ETBİS no"
+    },
+    "closingTitle": "Tesisinizin gerçek fotoğrafını çekelim.",
+    "closingDescription": "İhtiyacınız olan modülleri seçin, yatırımınızı doğrudan öncelikli alanlarınıza yönlendirin.",
+    "closingCtaPrimary": "Modülleri İnceleyin",
+    "closingCtaSecondary": "Sürecimizi İnceleyin"
+  },
+  "forms": {
+    "networkFailure": "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.",
+    "consent": "Kişisel verilerimin <kvkk>KVKK Aydınlatma Metni</kvkk> kapsamında işlenmesini kabul ediyorum.",
+    "contact": {
+      "received": "MESAJ ALINDI — REF: {ref}",
+      "replyWindow": "48 saat içinde dönüş yapıyoruz.",
+      "name": "Ad",
+      "email": "E-posta",
+      "subject": "Konu",
+      "message": "Mesaj",
+      "submit": "Mesajı Gönder",
+      "submitting": "Gönderiliyor…"
+    },
+    "quote": {
+      "received": "TALEP ALINDI — REF: {ref}",
+      "replyWindow": "48 saat içinde dönüş yapıyoruz.",
+      "selectedModules": "SEÇİLİ MODÜLLER",
+      "noModules": "Henüz modül seçmediniz",
+      "browseModules": "Modülleri inceleyin",
+      "fullName": "Ad Soyad",
+      "email": "Kurumsal E-posta",
+      "phone": "Telefon",
+      "facilityName": "Tesis Adı",
+      "facilityType": "Tesis Tipi",
+      "roomCount": "Oda Sayısı",
+      "placeholder": "Seçiniz",
+      "message": "Mesaj",
+      "submit": "Teklif Talebi Gönder",
+      "submitting": "Gönderiliyor…"
+    },
+    "facilityTypes": {
+      "Şehir Oteli": "Şehir Oteli",
+      "Resort": "Resort",
+      "Butik": "Butik",
+      "Zincir": "Zincir"
+    }
   }
 }

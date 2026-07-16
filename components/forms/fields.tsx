@@ -94,7 +94,11 @@ type SelectFieldProps = {
   id: string;
   label: string;
   error?: string;
-  options: readonly string[];
+  /**
+   * `value` is what the server accepts and what lands on the record, so it is
+   * never translated; `label` is what the reader sees, so it always is.
+   */
+  options: readonly { value: string; label: string }[];
   /** Rendered as the empty first option, since these selects are optional. */
   placeholder: string;
 } & Omit<
@@ -124,8 +128,8 @@ export function SelectField({
       >
         <option value="">{placeholder}</option>
         {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
+          <option key={option.value} value={option.value}>
+            {option.label}
           </option>
         ))}
       </select>

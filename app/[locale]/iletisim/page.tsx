@@ -4,14 +4,24 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
+import { alternatesFor } from "@/i18n/metadata";
 import type { LocaleParams } from "@/i18n/routing";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-  title: "İletişim",
-  description:
-    "Hospitality Audit Group ile iletişime geçin. Kurumsal e-posta, telefon ve çalışma saatleri.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<LocaleParams>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "contactPage" });
+
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: alternatesFor("/iletisim", locale),
+  };
+}
 
 const linkClasses =
   "text-base text-ink underline underline-offset-4 transition-colors duration-150 hover:text-accent-strong";
@@ -27,18 +37,18 @@ export default async function IletisimPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const tSite = await getTranslations({ locale, namespace: "site" });
+  const t = await getTranslations({ locale, namespace: "contactPage" });
 
   return (
     <main className="mx-auto max-w-content px-4 py-16 sm:px-6 md:py-24">
       <Reveal>
         <header className="max-w-2xl">
-          <Eyebrow>İLETİŞİM</Eyebrow>
+          <Eyebrow>{t("eyebrow")}</Eyebrow>
           <h1 className="mt-3 font-serif text-4xl leading-tight tracking-tight md:text-5xl">
-            Konuşalım.
+            {t("title")}
           </h1>
           <p className="mt-4 text-base leading-relaxed text-ink-muted md:text-lg">
-            Denetim kapsamınızı birlikte netleştirelim. Tüm görüşmeler
-            karşılıklı gizlilik taahhüdü altında yürütülür.
+            {t("body")}
           </p>
         </header>
       </Reveal>
@@ -49,7 +59,7 @@ export default async function IletisimPage({
           <dl className="space-y-8">
             <div>
               <dt className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-                WEB
+                {t("web")}
               </dt>
               <dd className="mt-2">
                 <a href={siteConfig.url} className={linkClasses}>
@@ -59,7 +69,7 @@ export default async function IletisimPage({
             </div>
             <div>
               <dt className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-                E-POSTA
+                {t("email")}
               </dt>
               <dd className="mt-2">
                 <a
@@ -72,7 +82,7 @@ export default async function IletisimPage({
             </div>
             <div>
               <dt className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-                TELEFON
+                {t("phone")}
               </dt>
               <dd className="mt-2">
                 <a
@@ -85,7 +95,7 @@ export default async function IletisimPage({
             </div>
             <div>
               <dt className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-                ÇALIŞMA SAATLERİ
+                {t("hours")}
               </dt>
               <dd className="mt-2 text-base text-ink">{tSite("hours")}</dd>
             </div>

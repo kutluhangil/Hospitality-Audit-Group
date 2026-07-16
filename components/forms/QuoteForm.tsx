@@ -46,10 +46,9 @@ const EMPTY_VALUES: Values = {
 
 type Status = "idle" | "submitting" | "success";
 
-const NETWORK_FAILURE =
-  "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.";
-
 export function QuoteForm() {
+  const t = useTranslations("forms");
+  const tQuote = useTranslations("forms.quote");
   const tCart = useTranslations("cart");
   const tCatalogue = useTranslations("catalogue");
   const tModules = useTranslations("modules");
@@ -108,7 +107,7 @@ export function QuoteForm() {
       clear();
     } catch (error) {
       console.error("Quote submission failed:", error);
-      setSubmitError(NETWORK_FAILURE);
+      setSubmitError(t("networkFailure"));
       setStatus("idle");
     }
   }
@@ -117,11 +116,9 @@ export function QuoteForm() {
     return (
       <Card tone="soft" role="status" className="p-8 md:p-10">
         <p className="font-mono text-sm text-accent-strong md:text-base">
-          TALEP ALINDI — REF: {reference}
+          {tQuote("received", { ref: reference })}
         </p>
-        <p className="mt-4 text-base text-ink-muted">
-          48 saat içinde dönüş yapıyoruz.
-        </p>
+        <p className="mt-4 text-base text-ink-muted">{tQuote("replyWindow")}</p>
       </Card>
     );
   }
@@ -129,18 +126,18 @@ export function QuoteForm() {
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-16">
       <aside>
-        <Eyebrow>SEÇİLİ MODÜLLER</Eyebrow>
+        <Eyebrow>{tQuote("selectedModules")}</Eyebrow>
         {/* Cart-derived markup stays out of the server HTML: it would contradict
             the first client paint the moment localStorage says otherwise. */}
         {hydrated ? (
           selected.length === 0 ? (
             <div className="mt-4">
-              <p className="text-sm text-ink-muted">Henüz modül seçmediniz</p>
+              <p className="text-sm text-ink-muted">{tQuote("noModules")}</p>
               <Link
                 href="/moduller"
                 className="mt-2 inline-block text-sm text-accent-strong underline underline-offset-4 transition-colors duration-150 hover:text-accent-strong-hover"
               >
-                Modülleri inceleyin
+                {tQuote("browseModules")}
               </Link>
             </div>
           ) : (
@@ -179,7 +176,7 @@ export function QuoteForm() {
         <div className="grid gap-6 sm:grid-cols-2">
           <TextField
             id="adSoyad"
-            label="Ad Soyad"
+            label={tQuote("fullName")}
             required
             autoComplete="name"
             value={values.adSoyad}
@@ -188,7 +185,7 @@ export function QuoteForm() {
           />
           <TextField
             id="email"
-            label="Kurumsal E-posta"
+            label={tQuote("email")}
             type="email"
             required
             autoComplete="email"
@@ -198,7 +195,7 @@ export function QuoteForm() {
           />
           <TextField
             id="telefon"
-            label="Telefon"
+            label={tQuote("phone")}
             type="tel"
             autoComplete="tel"
             value={values.telefon}
@@ -207,7 +204,7 @@ export function QuoteForm() {
           />
           <TextField
             id="tesisAdi"
-            label="Tesis Adı"
+            label={tQuote("facilityName")}
             required
             autoComplete="organization"
             value={values.tesisAdi}
@@ -216,18 +213,25 @@ export function QuoteForm() {
           />
           <SelectField
             id="tesisTipi"
-            label="Tesis Tipi"
-            options={FACILITY_TYPES}
-            placeholder="Seçiniz"
+            label={tQuote("facilityType")}
+            options={FACILITY_TYPES.map((value) => ({
+              value,
+              label: t(`facilityTypes.${value}`),
+            }))}
+            placeholder={tQuote("placeholder")}
             value={values.tesisTipi}
             error={errors.tesisTipi}
             onChange={(event) => update("tesisTipi", event.target.value)}
           />
           <SelectField
             id="odaSayisi"
-            label="Oda Sayısı"
-            options={ROOM_COUNT_RANGES}
-            placeholder="Seçiniz"
+            label={tQuote("roomCount")}
+            // A room range is digits in every language; nothing to translate.
+            options={ROOM_COUNT_RANGES.map((value) => ({
+              value,
+              label: value,
+            }))}
+            placeholder={tQuote("placeholder")}
             value={values.odaSayisi}
             error={errors.odaSayisi}
             onChange={(event) => update("odaSayisi", event.target.value)}
@@ -236,7 +240,7 @@ export function QuoteForm() {
 
         <TextareaField
           id="mesaj"
-          label="Mesaj"
+          label={tQuote("message")}
           value={values.mesaj}
           error={errors.mesaj}
           onChange={(event) => update("mesaj", event.target.value)}
@@ -251,14 +255,16 @@ export function QuoteForm() {
           error={errors.kvkkConsent}
           onChange={(event) => setConsent(event.target.checked)}
         >
-          Kişisel verilerimin{" "}
-          <Link
-            href="/kvkk"
-            className="text-accent-strong underline underline-offset-4 transition-colors duration-150 hover:text-accent-strong-hover"
-          >
-            KVKK Aydınlatma Metni
-          </Link>{" "}
-          kapsamında işlenmesini kabul ediyorum.
+          {t.rich("consent", {
+            kvkk: (chunks) => (
+              <Link
+                href="/kvkk"
+                className="text-accent-strong underline underline-offset-4 transition-colors duration-150 hover:text-accent-strong-hover"
+              >
+                {chunks}
+              </Link>
+            ),
+          })}
         </CheckboxField>
 
         {submitError ? <FormError message={submitError} /> : null}
@@ -269,7 +275,7 @@ export function QuoteForm() {
           disabled={status === "submitting"}
           className="disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {status === "submitting" ? "Gönderiliyor…" : "Teklif Talebi Gönder"}
+          {status === "submitting" ? tQuote("submitting") : tQuote("submit")}
         </Button>
       </form>
     </div>

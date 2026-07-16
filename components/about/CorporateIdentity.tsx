@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { Card } from "@/components/ui/Card";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
@@ -15,27 +17,30 @@ import { company, hasCorporateIdentity } from "@/lib/company-data";
  * this identity before it can take a card.
  */
 export function CorporateIdentity() {
+  const t = useTranslations("aboutPage.registry");
+
   if (!hasCorporateIdentity()) return null;
 
+  // The identifiers themselves are registry values and never translated; only
+  // the term naming each one is.
   const rows = [
-    { term: "Ticaret unvanı", value: company.ticaretUnvani },
-    { term: "Ticaret sicil no", value: company.ticaretSicilNo },
-    { term: "MERSİS no", value: company.mersisNo },
-    { term: "Vergi dairesi", value: company.vergiDairesi },
-    { term: "Vergi no", value: company.vergiNo },
-    { term: "Merkez", value: company.merkezAdres },
-    { term: "KEP adresi", value: company.kepAdresi },
-    { term: "ETBİS no", value: company.etbisNo },
+    { term: t("tradeName"), value: company.ticaretUnvani },
+    { term: t("registryNo"), value: company.ticaretSicilNo },
+    { term: t("mersis"), value: company.mersisNo },
+    { term: t("taxOffice"), value: company.vergiDairesi },
+    { term: t("taxNo"), value: company.vergiNo },
+    { term: t("address"), value: company.merkezAdres },
+    { term: t("kep"), value: company.kepAdresi },
+    { term: t("etbis"), value: company.etbisNo },
   ].filter((row) => row.value);
 
   return (
     <Reveal>
       <Card tone="soft" className="md:p-8">
-        <Eyebrow tone="muted">KURUMSAL BİLGİLER</Eyebrow>
-        <h2 className="mt-3 font-serif text-2xl">Kim olduğumuz, kayıtlarda.</h2>
+        <Eyebrow tone="muted">{t("eyebrow")}</Eyebrow>
+        <h2 className="mt-3 font-serif text-2xl">{t("title")}</h2>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">
-          Gizli müşteri firmasıyız; denetçilerimiz anonim. Şirketimiz değil.
-          Aşağıdaki bilgiler resmi kayıtlardan doğrulanabilir.
+          {t("description")}
         </p>
         <dl className="mt-6 grid gap-x-8 gap-y-4 sm:grid-cols-2">
           {rows.map((row) => (

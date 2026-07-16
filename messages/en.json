@@ -241,5 +241,198 @@
   "modulePage": {
     "metaTitle": "Module {code} — {title}",
     "metaDescription": "{summary} {count} criteria, each tied to a form of evidence."
+  },
+  "contactPage": {
+    "metaTitle": "Contact",
+    "metaDescription": "Get in touch with Hospitality Audit Group. Corporate email, phone and office hours.",
+    "eyebrow": "CONTACT",
+    "title": "Let us talk.",
+    "body": "Let us pin down the scope of your audit together. Every conversation is held under a mutual confidentiality undertaking.",
+    "web": "WEB",
+    "email": "EMAIL",
+    "phone": "PHONE",
+    "hours": "OFFICE HOURS"
+  },
+  "processPage": {
+    "metaTitle": "Process",
+    "metaDescription": "Our four-step audit process from discovery to transformation, the evidence standard behind it, and the questions we are asked most: NDA, visit length, report delivery and KVKK compliance.",
+    "eyebrow": "PROCESS",
+    "title": "Discovery to transformation, in four steps.",
+    "lede": "An audit is not an impression. It is a procedure that can be run again and produce the same answer, and each step's output is the next step's input.",
+    "steps": {
+      "discovery": {
+        "name": "DISCOVERY",
+        "summary": "Needs call, NDA signed, modules selected.",
+        "detail": [
+          "Establishing the property's scale, guest segment and the brand standard it promises",
+          "Mutual NDA signed",
+          "Agreeing the modules to audit and the visit window",
+          "Choosing an auditor whose profile matches your real guest"
+        ]
+      },
+      "field": {
+        "name": "FIELD",
+        "summary": "An unannounced mystery guest visit; evidence gathered against standard checklists.",
+        "detail": [
+          "A real booking, arriving as a real guest profile",
+          "One to three nights, depending on the module",
+          "Observations recorded with a timestamp",
+          "Department-level standard checklists completed"
+        ]
+      },
+      "report": {
+        "name": "REPORT",
+        "summary": "SWOT and ROI analysis; revenue leakage and gaps in plain figures.",
+        "detail": [
+          "Preliminary findings within 48 hours of the visit",
+          "Full SWOT report within 10 working days",
+          "Revenue leakage line by line, and a scorecard per department",
+          "Formatted to go straight to the board"
+        ]
+      },
+      "transformation": {
+        "name": "TRANSFORMATION",
+        "summary": "Department-level staff training, and a follow-up audit.",
+        "detail": [
+          "Programme built around the gaps the report found",
+          "On-site training, workshops and role-play",
+          "Progress measured with a pre- and post-test",
+          "A follow-up audit to confirm it held"
+        ]
+      }
+    },
+    "evidenceEyebrow": "METHODOLOGY",
+    "evidenceTitle": "Our Evidence Standard",
+    "evidenceDescription": "Behind every sentence in the report there is a record that can be produced again.",
+    "evidenceLabel": "EVIDENCE",
+    "evidence": {
+      "timestamps": {
+        "title": "Timestamped observation records",
+        "description": "Every observation is logged with the time it happened. Claims about duration — check-in, response to a request, service — are measured, not remembered."
+      },
+      "checklists": {
+        "title": "Standard checklists",
+        "description": "Every auditor works from the same list. Findings stay comparable across properties and across visits, rather than tracking one auditor's taste."
+      },
+      "secondAuditor": {
+        "title": "Second-auditor verification",
+        "description": "Critical findings are confirmed by a second auditor before they reach the report. One person's impression is not evidence on its own."
+      }
+    },
+    "trustTitle": "KVKK compliance and a mutual NDA",
+    "trustBody1": "The process opens with a mutual confidentiality agreement. Your property's name, the findings and the report itself go to you and nobody else — we do not use them as a reference.",
+    "trustBody2": "Everything gathered on site is processed in full KVKK compliance. Records are kept to the purpose of the audit, and we produce no assessment aimed at an individual member of staff — what is measured is the process, not the person.",
+    "faqEyebrow": "FAQ",
+    "faqTitle": "Questions we are asked",
+    "faq": {
+      "auditors": {
+        "question": "Who are your auditors?",
+        "answer": "Professionals who have held senior management posts in the industry and no longer work in an operating hotel."
+      },
+      "duration": {
+        "question": "How long is the visit?",
+        "answer": "One to three nights, depending on the module."
+      },
+      "detection": {
+        "question": "Could staff spot them?",
+        "answer": "Auditors arrive on a real booking, matching a real guest profile."
+      },
+      "delivery": {
+        "question": "When is the report delivered?",
+        "answer": "Preliminary findings in 48 hours; the full SWOT report in 10 working days."
+      },
+      "dataSafety": {
+        "question": "Is our data safe?",
+        "answer": "Full KVKK compliance plus a mutual NDA."
+      }
+    },
+    "closingTitle": "Let us take an honest picture of your property.",
+    "closingCta": "Request a Quote",
+    "closingCtaSecondary": "See the Audit Service"
+  },
+  "aboutPage": {
+    "metaTitle": "About Us",
+    "metaDescription": "An independent audit team built from people who have run hotels. We measure from the guest's side of the desk, on principles of independence, confidentiality and measurability.",
+    "eyebrow": "ABOUT US",
+    "title": "The people who ran hotels now measure them.",
+    "lede": "Our auditors once managed the very departments they now measure.",
+    "heroImageAlt": "An abstract drawing of stacked report pages, with a single terracotta line marked on one of them.",
+    "ribbon": "INDEPENDENCE · CONFIDENTIALITY · MEASURABILITY",
+    "story": {
+      "p1": "It started in {city} in {year}, at a table of hoteliers who had each watched the same problem from the inside. Every one of them had written the brand standard at their own property, trained it, and set up the audit for it. And every one of them knew the same thing: nobody was measuring what that standard looked like at half past two in the morning, on reception, with nobody watching.",
+      "p2": "Internal audit cannot catch this. Staff know who is watching and when; by the time the manager reaches the lobby the operation has already composed itself. Nor can a head of department assess their own department impartially — nobody marks their own exam. That leaves one vantage point: the guest's. Which is precisely the one nobody measures from.",
+      "p3": "So we changed sides of the desk. We enter properties as guests, not as managers. Real booking, real night, real bill. Nobody is expecting us and nobody is preparing for us. What we see is what your guest sees.",
+      "p4": "The only thing an audit firm has to sell is that it is believed. So we hold no consulting, supply or representation relationship with any property — the hand that writes the finding must not be able to profit from it. The report has no duty to please anyone either. When it is unwelcome, it is written in exactly the same sentences."
+    },
+    "auditors": {
+      "eyebrow": "THE AUDIT TEAM",
+      "title": "We once ran the departments we now measure.",
+      "description": "Our auditors no longer work in an operating hotel. They are not guessing from outside why a check-in overran, or where a recipe started to drift — they know from the inside.",
+      "countLabel": "auditors",
+      "seniorityValue": "{years} years",
+      "seniorityLabel": "average industry seniority",
+      "rolesLabel": "The roles they came from"
+    },
+    "anonymity": {
+      "eyebrow": "ANONYMITY",
+      "title": "Why is there nobody's photograph here?",
+      "description": "You will find no names, no titles and no portraits on this page. For a mystery guest firm anonymity is not something missing — it is the precondition of the work: an auditor who is recognised cannot audit.",
+      "quote": "You cannot see our auditors' faces. Neither can your guests.",
+      "body": "The same principle covers our references. We do not tell a third party which property we audited, what we found, or what the report said — and we will not tell anyone about yours. That is why you will find no client logos and no named references on this site. Confidentiality is not a promise that lapses when we are the ones selling."
+    },
+    "registry": {
+      "eyebrow": "CORPORATE DETAILS",
+      "title": "Who we are, on the record.",
+      "description": "We are a mystery guest firm and our auditors are anonymous. Our company is not. Everything below can be verified against official registries.",
+      "tradeName": "Registered name",
+      "registryNo": "Trade registry no",
+      "mersis": "MERSİS no",
+      "taxOffice": "Tax office",
+      "taxNo": "Tax no",
+      "address": "Registered office",
+      "kep": "KEP address",
+      "etbis": "ETBİS no"
+    },
+    "closingTitle": "Let us take an honest picture of your property.",
+    "closingDescription": "Choose the modules you need and point the spend straight at your priorities.",
+    "closingCtaPrimary": "See the Modules",
+    "closingCtaSecondary": "See How We Work"
+  },
+  "forms": {
+    "networkFailure": "Could not reach the server. Check your connection and try again.",
+    "consent": "I agree to my personal data being processed under the <kvkk>KVKK Privacy Notice</kvkk>.",
+    "contact": {
+      "received": "MESSAGE RECEIVED — REF: {ref}",
+      "replyWindow": "We reply within 48 hours.",
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message",
+      "submitting": "Sending…"
+    },
+    "quote": {
+      "received": "REQUEST RECEIVED — REF: {ref}",
+      "replyWindow": "We reply within 48 hours.",
+      "selectedModules": "SELECTED MODULES",
+      "noModules": "No modules selected yet",
+      "browseModules": "Browse the modules",
+      "fullName": "Full Name",
+      "email": "Work Email",
+      "phone": "Phone",
+      "facilityName": "Property Name",
+      "facilityType": "Property Type",
+      "roomCount": "Number of Rooms",
+      "placeholder": "Select",
+      "message": "Message",
+      "submit": "Send Quote Request",
+      "submitting": "Sending…"
+    },
+    "facilityTypes": {
+      "Şehir Oteli": "City Hotel",
+      "Resort": "Resort",
+      "Butik": "Boutique",
+      "Zincir": "Chain"
+    }
   }
 }

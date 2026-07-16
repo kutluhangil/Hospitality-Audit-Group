@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { AuditorProfile } from "@/components/about/AuditorProfile";
@@ -23,11 +23,11 @@ export async function generateMetadata({
   params: Promise<LocaleParams>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "aboutPage" });
 
   return {
-    title: "Biz Kimiz",
-    description:
-      "Otelciliği yönetmiş profesyonellerden kurulu bağımsız bir denetim ekibi. Tarafsızlık, gizlilik ve ölçülebilirlik ilkeleriyle, misafirin gözünden ölçüyoruz.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: alternatesFor("/biz-kimiz", locale),
   };
 }
@@ -39,14 +39,11 @@ export default async function AboutPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "aboutPage" });
 
   return (
     <main>
-      <PageHero
-        eyebrow="BİZ KİMİZ"
-        title="Otelciliği yönetenler, şimdi ölçüyor."
-        lede="Denetim ekibimiz, bugün ölçtüğü departmanları bir zamanlar yönetmiş profesyonellerden oluşuyor."
-      />
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} lede={t("lede")} />
 
       <section className="mx-auto max-w-content px-6 py-16 md:py-20">
         <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-start">
@@ -54,14 +51,14 @@ export default async function AboutPage({
           <Reveal delay={0.08}>
             <PaperFigure
               src="/images/biz-kimiz-hero.png"
-              alt="Üst üste dizilmiş rapor sayfalarının soyut çizimi; sayfalardan birinde tek bir terracotta satır işaretli."
+              alt={t("heroImageAlt")}
               sizes="(min-width: 1024px) 20rem, 70vw"
               className="w-56 justify-self-start lg:w-80"
             />
           </Reveal>
         </div>
         <Reveal className="mt-14">
-          <MonoRibbon>TARAFSIZLIK · GİZLİLİK · ÖLÇÜLEBİLİRLİK</MonoRibbon>
+          <MonoRibbon>{t("ribbon")}</MonoRibbon>
         </Reveal>
       </section>
 
@@ -74,23 +71,19 @@ export default async function AboutPage({
       <section className="mx-auto max-w-content px-6 py-16 md:py-20">
         <Reveal>
           <SectionHeading
-            eyebrow="ANONİMLİK"
-            title="Neden burada kimsenin fotoğrafı yok?"
-            description="Bu sayfada isim, unvan ve portre bulamayacaksınız. Bir gizli müşteri şirketi için anonimlik bir eksiklik değil, işin ön koşuludur: tanınan bir denetçi, denetleyemez."
+            eyebrow={t("anonymity.eyebrow")}
+            title={t("anonymity.title")}
+            description={t("anonymity.description")}
           />
         </Reveal>
         <Reveal className="mt-10">
           <blockquote className="max-w-2xl border-l-2 border-accent pl-6 font-serif text-2xl leading-snug md:text-3xl">
-            Denetçilerimizin yüzünü göremezsiniz. Misafirleriniz de göremiyor.
+            {t("anonymity.quote")}
           </blockquote>
         </Reveal>
         <Reveal className="mt-10">
           <p className="max-w-2xl text-base leading-relaxed text-ink-muted">
-            Aynı ilke referanslarımız için de geçerli. Hangi tesisi
-            denetlediğimizi, ne bulduğumuzu ve raporda ne yazdığını üçüncü bir
-            tarafa anlatmayız — sizinkini de anlatmayacağız. Bu yüzden bu sitede
-            müşteri logosu ya da isimli referans göremezsiniz. Gizlilik,
-            satarken de geçerli olmayan bir vaat değildir.
+            {t("anonymity.body")}
           </p>
         </Reveal>
       </section>
@@ -107,14 +100,14 @@ export default async function AboutPage({
       <section className="mx-auto max-w-content px-6 pb-20 md:pb-28">
         <Reveal>
           <ClosingCta
-            title="Tesisinizin gerçek fotoğrafını çekelim."
-            description="İhtiyacınız olan modülleri seçin, yatırımınızı doğrudan öncelikli alanlarınıza yönlendirin."
+            title={t("closingTitle")}
+            description={t("closingDescription")}
           >
             <Button href="/moduller" size="lg">
-              Modülleri İnceleyin
+              {t("closingCtaPrimary")}
             </Button>
             <Button href="/surec" variant="ghost" size="lg">
-              Sürecimizi İnceleyin
+              {t("closingCtaSecondary")}
             </Button>
           </ClosingCta>
         </Reveal>
