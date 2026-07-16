@@ -101,6 +101,22 @@
       "codePrefix": "MODUL",
       "cta": "Tüm modülleri inceleyin →"
     },
+    "testimonials": {
+      "eyebrow": "MÜŞTERİ GERİ BİLDİRİMLERİ",
+      "title": "Rakamlar konuşur.",
+      "items": [
+        {
+          "quote": "Denetim raporundaki gelir kaçağı kalemi, hizmet bedelinin kendisini ilk çeyrekte amorti etti.",
+          "role": "Genel Müdür, 5 yıldızlı resort",
+          "note": "NDA gereği anonim"
+        },
+        {
+          "quote": "Eğitim sonrası upselling dönüşümümüz iki katına çıktı. Rakamı raporda değil, kasa kaydında gördük.",
+          "role": "F&B Direktörü, şehir oteli",
+          "note": "NDA gereği anonim"
+        }
+      ]
+    },
     "finalCta": {
       "title": "Tesisinizin gerçek fotoğrafını çekelim.",
       "cta": "Teklif Alın"

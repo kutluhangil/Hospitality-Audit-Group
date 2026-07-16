@@ -101,6 +101,22 @@
       "codePrefix": "MODULE",
       "cta": "See all modules →"
     },
+    "testimonials": {
+      "eyebrow": "CLIENT FEEDBACK",
+      "title": "The numbers speak.",
+      "items": [
+        {
+          "quote": "The revenue leakage line in the audit report paid back the entire fee within the first quarter.",
+          "role": "General Manager, 5-star resort",
+          "note": "Anonymous per NDA"
+        },
+        {
+          "quote": "Upselling conversion doubled after the training. We saw it in the register, not just the report.",
+          "role": "F&B Director, city hotel",
+          "note": "Anonymous per NDA"
+        }
+      ]
+    },
     "finalCta": {
       "title": "Let us take an honest picture of your property.",
       "cta": "Request a Quote"

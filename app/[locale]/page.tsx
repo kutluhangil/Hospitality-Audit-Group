@@ -8,6 +8,7 @@ import { ModulesTeaser } from "@/components/home/ModulesTeaser";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { ServicesOverview } from "@/components/home/ServicesOverview";
 import { StatsSection } from "@/components/home/StatsSection";
+import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { TrustStrip } from "@/components/home/TrustStrip";
 import { alternatesFor } from "@/i18n/metadata";
 import type { LocaleParams } from "@/i18n/routing";
@@ -48,6 +49,7 @@ export default async function Home({
       <ProcessSection />
       <StatsSection />
       <ModulesTeaser />
+      <TestimonialsSection />
       <EvidenceShowcase className="mx-auto max-w-content px-6 py-20 md:py-28" />
       <FinalCTA />
     </main>

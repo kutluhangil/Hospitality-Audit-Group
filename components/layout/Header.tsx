@@ -122,7 +122,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur">
       <div className="mx-auto flex max-w-content items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Link href="/" className="flex shrink-0 items-center gap-2.5 text-ink">
-          <Logo size={32} />
+          <Logo size={44} />
           <span className="font-serif text-lg font-semibold">
             <span className="sm:hidden">HAG</span>
             <span className="hidden sm:inline">Hospitality Audit Group</span>
