@@ -44,9 +44,9 @@ export function Footer() {
       <div className="mx-auto max-w-content px-4 py-14 sm:px-6">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Link href="/" className="flex items-center gap-3 text-ink">
-              <Logo size={40} />
-              <span className="font-serif text-lg font-semibold">
+            <Link href="/" className="flex flex-col items-start gap-4 text-ink">
+              <Logo size={72} />
+              <span className="font-serif text-lg font-semibold leading-tight">
                 {siteConfig.name}
               </span>
             </Link>

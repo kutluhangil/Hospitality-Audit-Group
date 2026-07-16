@@ -94,5 +94,35 @@ export const MODULE_A: ModuleCriteria = {
         },
       ],
     },
+    {
+      code: "A.4.",
+      title: "Kat Hizmetleri / Oda İçi",
+      criteria: [
+        {
+          code: "A.4.1",
+          text: "Oda genel temizliği ve hijyeni (zemin, mobilya, cam yüzeyler) marka standartlarına uygun şekilde yapılmış mı?",
+          evidenceLabel: "Gözlem",
+          evidence: "gozlem",
+        },
+        {
+          code: "A.4.2",
+          text: "Banyo alanındaki havlular ve buklet malzemeleri eksiksiz şekilde, doğru simetriyle yerleştirilmiş mi?",
+          evidenceLabel: "Fotoğraf",
+          evidence: "fotograf",
+        },
+        {
+          code: "A.4.3",
+          text: "Yatak takımlarında (çarşaf, yastık kılıfı, yorgan) leke, yıpranma veya standart dışı kırışıklık var mı?",
+          evidenceLabel: "Gözlem",
+          evidence: "gozlem",
+        },
+        {
+          code: "A.4.4",
+          text: "Odadaki teknolojik ekipmanlar (TV, klima, kasa, aydınlatma) sorunsuz çalışır durumda mı?",
+          evidenceLabel: "Sistem Analizi",
+          evidence: "sistemAnalizi",
+        },
+      ],
+    },
   ],
 };

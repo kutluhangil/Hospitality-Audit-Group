@@ -1129,6 +1129,11 @@
     "A.3.1": { "text": "In a simulated complaint scenario (e.g. faulty room key), did staff take initiative and produce a quick resolution?" },
     "A.3.2": { "text": "During account settlement, were minibar and extras confirmed with the guest line by line?" },
     "A.3.3": { "text": "Was the invoicing and check-out process completed in a maximum of 3 minutes in total?", "threshold": "3 minutes" },
+    "A.4.": { "title": "Housekeeping / In-Room" },
+    "A.4.1": { "text": "Was the general room cleaning and hygiene (floor, furniture, glass surfaces) performed according to brand standards?" },
+    "A.4.2": { "text": "Were the towels and amenities in the bathroom placed completely and with correct symmetry?" },
+    "A.4.3": { "text": "Are there any stains, wear, or non-standard wrinkles on the bedding (sheets, pillowcases, duvet)?" },
+    "A.4.4": { "text": "Are the technological equipment in the room (TV, air conditioning, safe, lighting) working flawlessly?" },
     "B": {
       "title": "F&B Deep Operational Audit Matrix",
       "intro": "Gastronomic quality assurance, recipe fidelity, speed, hygiene (HACCP) and a comprehensive leakage control checklist."

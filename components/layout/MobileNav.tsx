@@ -125,7 +125,7 @@ export function MobileNav({ className }: { className?: string }) {
         >
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
             <span className="flex items-center gap-2.5 text-ink">
-              <Logo size={32} />
+              <Logo size={48} />
               <span className="font-serif text-lg font-semibold">HAG</span>
             </span>
             <div className="flex items-center gap-2">
