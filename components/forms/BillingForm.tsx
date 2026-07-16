@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState, type FormEvent } from "react";
 
 import { CheckboxField, FormError, TextField, TextareaField } from "@/components/forms/fields";
 import { CartLines, CartTotals } from "@/components/modules/CartLines";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { Link } from "@/i18n/navigation";
 import { formatPrice } from "@/lib/cart-math";
 import {
   parsePaymentInitResponse,

@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import Link from "next/link";
 
+import { Link } from "@/i18n/navigation";
 import { useQuoteCart } from "@/lib/quote-cart";
 
 const badgeClasses =

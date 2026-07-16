@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import Link from "next/link";
 
 import {
   CheckboxField,
@@ -14,6 +13,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Link } from "@/i18n/navigation";
 import { getModule } from "@/lib/modules-data";
 import { useQuoteCart } from "@/lib/quote-cart";
 import {

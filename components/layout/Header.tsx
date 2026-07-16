@@ -1,16 +1,17 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useId, useRef, useState } from "react";
 import type { FocusEvent, KeyboardEvent } from "react";
 
+import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { QuoteCartBadge } from "@/components/modules/QuoteCartBadge";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
+import { Link, usePathname } from "@/i18n/navigation";
 import { mainNav, type NavLink } from "@/lib/site-config";
 
 const linkBase =
@@ -26,6 +27,7 @@ function ActiveRule() {
 }
 
 function NavDropdown({ item, pathname }: { item: NavLink; pathname: string }) {
+  const t = useTranslations("nav");
   const children = item.children ?? [];
   const [open, setOpen] = useState(false);
   const groupRef = useRef<HTMLLIElement>(null);
@@ -70,7 +72,7 @@ function NavDropdown({ item, pathname }: { item: NavLink; pathname: string }) {
         onClick={() => setOpen((previous) => !previous)}
         className={linkClasses(active)}
       >
-        {item.label}
+        {t(item.labelKey)}
         <ChevronDown size={14} className="text-accent" aria-hidden="true" />
         {active && <ActiveRule />}
       </button>
@@ -94,7 +96,7 @@ function NavDropdown({ item, pathname }: { item: NavLink; pathname: string }) {
                   current ? "text-ink" : "text-ink-muted hover:bg-bg-soft hover:text-ink"
                 }`}
               >
-                {child.label}
+                {t(child.labelKey)}
               </Link>
             </li>
           );
@@ -106,6 +108,8 @@ function NavDropdown({ item, pathname }: { item: NavLink; pathname: string }) {
 
 export function Header() {
   const pathname = usePathname();
+  const t = useTranslations("nav");
+  const tHeader = useTranslations("header");
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur">
@@ -118,7 +122,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav aria-label="Ana menü" className="hidden lg:block">
+        <nav aria-label={tHeader("mainMenu")} className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {mainNav.map((item) => {
               if (item.children) {
@@ -133,7 +137,7 @@ export function Header() {
                     aria-current={current ? "page" : undefined}
                     className={linkClasses(current)}
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                     {current && <ActiveRule />}
                   </Link>
                 </li>
@@ -143,10 +147,13 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Hidden on small screens: MobileNav carries the switcher there, at a
+              touch target the header strip has no room for. */}
+          <LocaleSwitcher className="hidden lg:block" />
           <ThemeToggle />
           <QuoteCartBadge />
           <Button href="/moduller" className="hidden lg:inline-flex">
-            Teklif Alın
+            {tHeader("cta")}
           </Button>
           <MobileNav className="lg:hidden" />
         </div>

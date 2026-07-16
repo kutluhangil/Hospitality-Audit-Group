@@ -1,9 +1,10 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { CartButton } from "@/components/modules/CartButton";
 import { PriceTag } from "@/components/modules/PriceTag";
 import { Card } from "@/components/ui/Card";
+import { Link } from "@/i18n/navigation";
+import type { AppPathname } from "@/i18n/routing";
 import { criteriaCount } from "@/lib/audit-criteria";
 import { moduleIcons, type AuditModule, type CartItemId } from "@/lib/modules-data";
 
@@ -17,7 +18,7 @@ type CatalogueEntry = {
   /** Absent for the training service, which has no letter. */
   code?: string;
   /** Absent for the training service, which has no field guide to link to. */
-  href?: string;
+  href?: AppPathname;
   featured?: boolean;
 };
 

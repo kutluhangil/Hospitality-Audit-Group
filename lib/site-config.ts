@@ -1,54 +1,76 @@
+import type { AppLocale, AppPathname } from "@/i18n/routing";
+
 /**
  * Single source of truth for navigation, contact details and metadata
  * defaults. Pages import from here rather than repeating strings.
+ *
+ * Hrefs here are the internal (Turkish) pathnames. The locale-aware Link in
+ * i18n/navigation.ts turns them into whatever the active locale shows, so this
+ * file stays free of locale knowledge.
  */
 
+/**
+ * The locale-independent half of the site's identity.
+ *
+ * The brand name is not translated (it is the company's registered name in
+ * every market), and an email address and a phone number are the same digits
+ * whatever the reader speaks. Everything that *is* language-dependent — the
+ * tagline, the description, the opening hours — lives under the `site` namespace
+ * in messages/*.json instead, so that nothing here has to know about locales.
+ */
 export const siteConfig = {
   name: "Hospitality Audit Group",
   shortName: "HAG",
-  tagline: "Marka Güvencesi ve Operasyonel Kaldıraç.",
-  description:
-    "Otellere gizli müşteri ziyaretiyle denetim ve personel eğitimi hizmeti sunan, modüler ve ölçülebilir bir denetim mimarisi.",
   url: "https://hospitalityauditgroup.com",
-  locale: "tr_TR",
   contact: {
     email: "corporate@hospitalityauditgroup.com",
     phone: "+90 (212) 000 00 00",
     phoneHref: "+902120000000",
-    hours: "Hafta içi 09:00 – 18:00",
   },
 } as const;
 
+/** What each locale calls itself in an `og:locale` tag. */
+export const ogLocales = {
+  tr: "tr_TR",
+  en: "en_US",
+} as const satisfies Record<AppLocale, string>;
+
+/**
+ * A destination. `labelKey` names an entry under the `nav` namespace in
+ * messages/*.json rather than carrying the text itself — the label is the one
+ * part of a link that differs per locale, and keeping it here would pin the
+ * navigation to Turkish.
+ */
 export type NavLink = {
-  label: string;
-  href: string;
+  labelKey: string;
+  href: AppPathname;
   children?: readonly NavLink[];
 };
 
 export const mainNav: readonly NavLink[] = [
   {
-    label: "Hizmetler",
+    labelKey: "services",
     href: "/hizmetler/gizli-musteri-denetimi",
     children: [
-      { label: "Gizli Müşteri Denetimi", href: "/hizmetler/gizli-musteri-denetimi" },
-      { label: "Personel Eğitimi", href: "/hizmetler/personel-egitimi" },
+      { labelKey: "mysteryShopping", href: "/hizmetler/gizli-musteri-denetimi" },
+      { labelKey: "staffTraining", href: "/hizmetler/personel-egitimi" },
     ],
   },
-  { label: "Modüller", href: "/moduller" },
-  { label: "Süreç", href: "/surec" },
-  { label: "Biz Kimiz", href: "/biz-kimiz" },
-  { label: "İletişim", href: "/iletisim" },
+  { labelKey: "modules", href: "/moduller" },
+  { labelKey: "process", href: "/surec" },
+  { labelKey: "aboutUs", href: "/biz-kimiz" },
+  { labelKey: "contact", href: "/iletisim" },
 ] as const;
 
 export const footerNav = {
   hizmetler: [
-    { label: "Gizli Müşteri Denetimi", href: "/hizmetler/gizli-musteri-denetimi" },
-    { label: "Personel Eğitimi", href: "/hizmetler/personel-egitimi" },
-    { label: "Modüller", href: "/moduller" },
+    { labelKey: "mysteryShopping", href: "/hizmetler/gizli-musteri-denetimi" },
+    { labelKey: "staffTraining", href: "/hizmetler/personel-egitimi" },
+    { labelKey: "modules", href: "/moduller" },
   ],
   kurumsal: [
-    { label: "Süreç", href: "/surec" },
-    { label: "Biz Kimiz", href: "/biz-kimiz" },
+    { labelKey: "process", href: "/surec" },
+    { labelKey: "aboutUs", href: "/biz-kimiz" },
   ],
   /**
    * Contract texts. Separated from `kurumsal` because these are not marketing
@@ -56,18 +78,23 @@ export const footerNav = {
    * so the footer is the one place that guarantees it.
    */
   hukuki: [
-    { label: "Mesafeli Satış Sözleşmesi", href: "/mesafeli-satis-sozlesmesi" },
-    { label: "Ön Bilgilendirme Formu", href: "/on-bilgilendirme" },
-    { label: "İptal & İade Politikası", href: "/iptal-iade" },
-    { label: "KVKK Aydınlatma Metni", href: "/kvkk" },
-    { label: "Gizlilik Politikası", href: "/gizlilik-politikasi" },
+    { labelKey: "distanceSales", href: "/mesafeli-satis-sozlesmesi" },
+    { labelKey: "preInfo", href: "/on-bilgilendirme" },
+    { labelKey: "cancellation", href: "/iptal-iade" },
+    { labelKey: "kvkk", href: "/kvkk" },
+    { labelKey: "privacy", href: "/gizlilik-politikasi" },
   ],
-} as const;
+} as const satisfies Record<string, readonly NavLink[]>;
 
 /**
- * Every static route. Consumed by sitemap.ts and the link checker, so an entry
- * here that has no page is a live 404 — add the route when the page lands, not
- * before.
+ * Every static route, once — not once per locale. Consumed by sitemap.ts and the
+ * link checker, both of which expand this list across the locales through the
+ * pathnames map in i18n/routing.ts. An entry here that has no page is a live
+ * 404 — add the route when the page lands, not before.
+ *
+ * `satisfies` rather than an annotation: the literal types are what makes the
+ * expansion in sitemap.ts type-check, and membership of AppPathname is what
+ * guarantees every route has a URL in both locales.
  */
 export const routes = [
   "/",
@@ -88,7 +115,7 @@ export const routes = [
   "/mesafeli-satis-sozlesmesi",
   "/on-bilgilendirme",
   "/iptal-iade",
-] as const;
+] as const satisfies readonly AppPathname[];
 
 /**
  * `/odeme/sonuc` is deliberately absent.

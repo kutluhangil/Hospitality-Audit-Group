@@ -1,5 +1,7 @@
 import { readFileSync } from "node:fs";
 
+import createNextIntlPlugin from "next-intl/plugin";
+
 /**
  * Warns in every build log while the company data is still a placeholder.
  *
@@ -35,10 +37,18 @@ const nextConfig = {
   async redirects() {
     return [
       // /hakkimizda shipped in v1 and may be linked or indexed; its content now
-      // lives on the deeper /biz-kimiz page.
-      { source: "/hakkimizda", destination: "/biz-kimiz", permanent: true },
+      // lives on the deeper /biz-kimiz page. The unprefixed source is kept and
+      // sent to the Turkish page: the old links carry no locale, and the
+      // middleware only prefixes paths it does not already redirect.
+      { source: "/hakkimizda", destination: "/tr/biz-kimiz", permanent: true },
+      { source: "/tr/hakkimizda", destination: "/tr/biz-kimiz", permanent: true },
+      { source: "/en/hakkimizda", destination: "/en/about-us", permanent: true },
     ];
   },
 };
 
-export default nextConfig;
+// Wires i18n/request.ts into the server components, which is what makes
+// getTranslations / setRequestLocale resolve messages per request.
+const withNextIntl = createNextIntlPlugin();
+
+export default withNextIntl(nextConfig);

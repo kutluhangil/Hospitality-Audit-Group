@@ -1,7 +1,7 @@
-import Link from "next/link";
-
 import { Card } from "@/components/ui/Card";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Link } from "@/i18n/navigation";
+import type { AppPathname } from "@/i18n/routing";
 
 /**
  * Typographic shell for the legal pages. @tailwindcss/typography is not
@@ -60,13 +60,35 @@ export function LegalSection({ title, children }: { title: string; children: Rea
   );
 }
 
+/**
+ * Anything that is not an internal route. Spelled out rather than left as
+ * `string` so the internal case keeps its route check: a plain `string` would
+ * let a mistyped path fall through to the anchor branch and quietly 404.
+ */
+type ExternalHref = `mailto:${string}` | `tel:${string}` | `https://${string}`;
+
+/**
+ * Internal routes are the only hrefs that start with a slash, which makes the
+ * leading character the whole test. A predicate rather than an inline check:
+ * `startsWith` does not narrow the union, and the two branches need it to.
+ */
+function isExternal(href: AppPathname | ExternalHref): href is ExternalHref {
+  return !href.startsWith("/");
+}
+
 /** Inline link inside legal body copy — underlined, since colour alone must not carry it. */
-export function LegalLink({ href, children }: { href: string; children: React.ReactNode }) {
+export function LegalLink({
+  href,
+  children,
+}: {
+  href: AppPathname | ExternalHref;
+  children: React.ReactNode;
+}) {
   const className =
     "text-accent-strong underline underline-offset-4 transition-colors duration-150 hover:text-accent-strong-hover";
 
   // mailto: and other schemes must stay plain anchors; only routes get the router.
-  if (!href.startsWith("/")) {
+  if (isExternal(href)) {
     return (
       <a href={href} className={className}>
         {children}

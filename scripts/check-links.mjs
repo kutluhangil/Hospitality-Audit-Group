@@ -1,6 +1,7 @@
 /**
- * Crawls every route in lib/site-config.ts against a running server, collects
- * the internal hrefs each page renders, and asserts all of them return 200.
+ * Crawls every route in lib/site-config.ts, in every locale, against a running
+ * server, collects the internal hrefs each page renders, and asserts all of them
+ * return 200.
  *
  * Usage:
  *   node scripts/check-links.mjs [baseUrl]
@@ -28,6 +29,43 @@ const routes = [...routesBlock[1].matchAll(/"([^"]+)"/g)].map((match) => match[1
 if (routes.length === 0) {
   throw new Error("`routes` in lib/site-config.ts parsed to an empty list");
 }
+
+// The routes above are the internal (Turkish) pathnames; the URLs the server
+// answers on are the localised ones. Read that map the same way — off the source
+// of truth, with a regex, because its entries all keep one shape on purpose.
+const routingSource = await import("node:fs/promises").then((fs) =>
+  fs.readFile(new URL("../i18n/routing.ts", import.meta.url), "utf8"),
+);
+
+const localesBlock = routingSource.match(/export const locales = \[([^\]]*)\]/);
+if (!localesBlock) {
+  throw new Error("Could not find `export const locales = [...]` in i18n/routing.ts");
+}
+const locales = [...localesBlock[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+
+const pathnames = new Map(
+  [
+    ...routingSource.matchAll(
+      /"([^"]+)":\s*\{\s*tr:\s*"([^"]+)",\s*\n?\s*en:\s*"([^"]+)",?\s*\}/g,
+    ),
+  ].map(([, internal, tr, en]) => [internal, { tr, en }]),
+);
+
+/** The URL `locale` serves for an internal route, e.g. /en/modules/front-office. */
+function localised(route, locale) {
+  const entry = pathnames.get(route);
+  if (!entry) {
+    throw new Error(`Route ${route} has no entry in the pathnames map in i18n/routing.ts`);
+  }
+  const path = entry[locale];
+  if (!path) throw new Error(`Route ${route} has no ${locale} pathname in i18n/routing.ts`);
+  // The locale prefix is always shown, so the root is /tr rather than /tr/.
+  return path === "/" ? `/${locale}` : `/${locale}${path}`;
+}
+
+const localisedRoutes = locales.flatMap((locale) =>
+  routes.map((route) => localised(route, locale)),
+);
 
 /** Pulls href="..." out of raw HTML. No parser needed for attributes this regular. */
 function extractHrefs(html) {
@@ -61,10 +99,12 @@ const checked = new Map();
 const failures = [];
 const discovered = new Map(); // path -> Set of pages linking to it
 
-console.log(`Checking ${routes.length} routes against ${BASE}\n`);
+console.log(
+  `Checking ${routes.length} routes × ${locales.length} locales = ${localisedRoutes.length} URLs against ${BASE}\n`,
+);
 
-// Pass 1: the declared routes must all render.
-for (const route of routes) {
+// Pass 1: every declared route must render in every locale.
+for (const route of localisedRoutes) {
   const code = await status(route);
   checked.set(route, code);
   const mark = code === 200 ? "ok  " : "FAIL";
@@ -73,7 +113,7 @@ for (const route of routes) {
 }
 
 // Pass 2: every internal link those pages render must also resolve.
-for (const route of routes) {
+for (const route of localisedRoutes) {
   if (checked.get(route) !== 200) continue;
   const html = await fetch(`${BASE}${route}`).then((response) => response.text());
   for (const href of extractHrefs(html)) {
@@ -97,11 +137,16 @@ for (const [path, sources] of discovered) {
   if (code !== 200) failures.push({ path, code, source: [...sources].join(", ") });
 }
 
-// A missing page must render the custom 404 rather than crash.
-const notFoundCode = await status("/__definitely-not-a-real-page__");
+// A missing page must render the custom 404 rather than crash. Checked under a
+// locale prefix: an unprefixed path is a redirect to one, which is a 307, not a 404.
+const notFoundCode = await status(`/${locales[0]}/__definitely-not-a-real-page__`);
 console.log(`\n404 handling: ${notFoundCode} for an unknown path`);
 if (notFoundCode !== 404) {
-  failures.push({ path: "/__definitely-not-a-real-page__", code: notFoundCode, source: "404 check" });
+  failures.push({
+    path: `/${locales[0]}/__definitely-not-a-real-page__`,
+    code: notFoundCode,
+    source: "404 check",
+  });
 }
 
 console.log(`\n${"-".repeat(60)}`);

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import Link from "next/link";
 
 import {
   CheckboxField,
@@ -12,6 +11,7 @@ import {
 } from "@/components/forms/fields";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { Link } from "@/i18n/navigation";
 import {
   parseTeklifResponse,
   validateContactRequest,

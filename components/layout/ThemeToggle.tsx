@@ -1,6 +1,7 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useSyncExternalStore } from "react";
 
@@ -13,6 +14,7 @@ const getMounted = () => true;
 const getServerMounted = () => false;
 
 export function ThemeToggle({ className }: { className?: string }) {
+  const t = useTranslations("theme");
   const { resolvedTheme, setTheme } = useTheme();
   const mounted = useSyncExternalStore(subscribeToNothing, getMounted, getServerMounted);
   const isDark = resolvedTheme === "dark";
@@ -22,7 +24,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       type="button"
       // Kept theme-independent so the label does not change under the user
       // mid-interaction, and so it is stable before mount.
-      aria-label="Temayı değiştir"
+      aria-label={t("toggle")}
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={[
         "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl2 border border-line",

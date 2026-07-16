@@ -1,8 +1,8 @@
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 
 import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
+import { Link } from "@/i18n/navigation";
 
 const SERVICES = [
   {

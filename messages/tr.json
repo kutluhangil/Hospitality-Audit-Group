@@ -1,0 +1,47 @@
+{
+  "site": {
+    "tagline": "Marka Güvencesi ve Operasyonel Kaldıraç.",
+    "description": "Otellere gizli müşteri ziyaretiyle denetim ve personel eğitimi hizmeti sunan, modüler ve ölçülebilir bir denetim mimarisi.",
+    "hours": "Hafta içi 09:00 – 18:00"
+  },
+  "home": {
+    "metaDescription": "Sektör kıdemli denetçilerimiz tesisinize misafir olarak gelir; marka standardı ile sahadaki gerçek arasındaki boşluğu ölçer, gelir kaçaklarını rakamlarla raporlar."
+  },
+  "nav": {
+    "services": "Hizmetler",
+    "mysteryShopping": "Gizli Müşteri Denetimi",
+    "staffTraining": "Personel Eğitimi",
+    "modules": "Modüller",
+    "process": "Süreç",
+    "aboutUs": "Biz Kimiz",
+    "contact": "İletişim",
+    "distanceSales": "Mesafeli Satış Sözleşmesi",
+    "preInfo": "Ön Bilgilendirme Formu",
+    "cancellation": "İptal & İade Politikası",
+    "kvkk": "KVKK Aydınlatma Metni",
+    "privacy": "Gizlilik Politikası"
+  },
+  "header": {
+    "mainMenu": "Ana menü",
+    "cta": "Teklif Alın",
+    "openMenu": "Menüyü aç",
+    "closeMenu": "Menüyü kapat"
+  },
+  "footer": {
+    "services": "Hizmetler",
+    "corporate": "Kurumsal",
+    "contact": "İletişim",
+    "legalNav": "Hukuki metinler",
+    "copyright": "HOSPITALITY AUDIT GROUP © 2026"
+  },
+  "theme": {
+    "toggle": "Temayı değiştir"
+  },
+  "localeSwitcher": {
+    "label": "Dil",
+    "tr": "TR",
+    "en": "EN",
+    "trFull": "Türkçe",
+    "enFull": "İngilizce"
+  }
+}

@@ -2,12 +2,13 @@
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
+import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
+import { Link, usePathname } from "@/i18n/navigation";
 import { mainNav, type NavLink } from "@/lib/site-config";
 
 const FOCUSABLE_SELECTOR = "a[href], button:not([disabled])";
@@ -31,6 +32,8 @@ const itemVariants: Variants = {
 
 export function MobileNav({ className }: { className?: string }) {
   const pathname = usePathname();
+  const t = useTranslations("nav");
+  const tHeader = useTranslations("header");
   // The overlay is stored as the route it was opened on rather than a boolean.
   // Any route change — a link inside it, browser back/forward — makes this
   // mismatch and closes the menu during render, with no effect to sync.
@@ -95,7 +98,7 @@ export function MobileNav({ className }: { className?: string }) {
       <button
         ref={triggerRef}
         type="button"
-        aria-label="Menüyü aç"
+        aria-label={tHeader("openMenu")}
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpenedAt(pathname)}
@@ -116,7 +119,7 @@ export function MobileNav({ className }: { className?: string }) {
           id={panelId}
           role="dialog"
           aria-modal="true"
-          aria-label="Ana menü"
+          aria-label={tHeader("mainMenu")}
           className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-bg"
         >
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
@@ -124,19 +127,22 @@ export function MobileNav({ className }: { className?: string }) {
               <Logo size={32} />
               <span className="font-serif text-lg font-semibold">HAG</span>
             </span>
-            <button
-              ref={closeButtonRef}
-              type="button"
-              aria-label="Menüyü kapat"
-              onClick={close}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-xl2 border border-line text-ink transition-colors duration-150 hover:bg-bg-soft"
-            >
-              <X size={18} aria-hidden="true" />
-            </button>
+            <div className="flex items-center gap-2">
+              <LocaleSwitcher />
+              <button
+                ref={closeButtonRef}
+                type="button"
+                aria-label={tHeader("closeMenu")}
+                onClick={close}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-xl2 border border-line text-ink transition-colors duration-150 hover:bg-bg-soft"
+              >
+                <X size={18} aria-hidden="true" />
+              </button>
+            </div>
           </div>
 
           <motion.nav
-            aria-label="Ana menü"
+            aria-label={tHeader("mainMenu")}
             className="flex flex-1 flex-col gap-1 px-4 py-8"
             variants={reduceMotion ? undefined : listVariants}
             initial={reduceMotion ? undefined : "hidden"}
@@ -154,7 +160,7 @@ export function MobileNav({ className }: { className?: string }) {
                       current ? "text-accent-strong" : "text-ink hover:text-accent-strong"
                     }`}
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                   </Link>
                 </motion.div>
               );
@@ -165,7 +171,7 @@ export function MobileNav({ className }: { className?: string }) {
               variants={reduceMotion ? undefined : itemVariants}
             >
               <Button href="/moduller" size="lg" className="w-full" onClick={dismissForNavigation}>
-                Teklif Alın
+                {tHeader("cta")}
               </Button>
             </motion.div>
           </motion.nav>

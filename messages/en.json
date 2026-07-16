@@ -1,0 +1,47 @@
+{
+  "site": {
+    "tagline": "Brand Assurance and Operational Leverage.",
+    "description": "A modular, measurable audit architecture for hotels: mystery guest visits that establish what your guests actually experience, and staff training that closes the gaps they find.",
+    "hours": "Weekdays 09:00 – 18:00"
+  },
+  "home": {
+    "metaDescription": "Our senior auditors arrive at your property as guests. They measure the gap between your brand standard and what happens on the floor, and report the revenue leaking through it in figures."
+  },
+  "nav": {
+    "services": "Services",
+    "mysteryShopping": "Mystery Guest Audit",
+    "staffTraining": "Staff Training",
+    "modules": "Modules",
+    "process": "Process",
+    "aboutUs": "About Us",
+    "contact": "Contact",
+    "distanceSales": "Distance Sales Agreement",
+    "preInfo": "Pre-Sale Information Form",
+    "cancellation": "Cancellation & Refund Policy",
+    "kvkk": "KVKK Privacy Notice",
+    "privacy": "Privacy Policy"
+  },
+  "header": {
+    "mainMenu": "Main menu",
+    "cta": "Request a Quote",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "services": "Services",
+    "corporate": "Company",
+    "contact": "Contact",
+    "legalNav": "Legal texts",
+    "copyright": "HOSPITALITY AUDIT GROUP © 2026"
+  },
+  "theme": {
+    "toggle": "Switch theme"
+  },
+  "localeSwitcher": {
+    "label": "Language",
+    "tr": "TR",
+    "en": "EN",
+    "trFull": "Turkish",
+    "enFull": "English"
+  }
+}

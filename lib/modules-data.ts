@@ -21,9 +21,21 @@ export type ModuleCode = "A" | "B" | "C" | "D" | "E";
 /** Everything the cart can hold: the five audit modules plus the training service. */
 export type CartItemId = ModuleCode | "EGITIM";
 
+/**
+ * The slug is a closed set rather than a string: `/moduller/${slug}` has to be
+ * assignable to a known route in i18n/routing.ts, and only literals can be
+ * checked against it. A new module means a new entry in both places.
+ */
+export type ModuleSlug =
+  | "on-buro"
+  | "yiyecek-icecek"
+  | "wellness-rekreasyon"
+  | "kat-hizmetleri"
+  | "360-tam-denetim";
+
 export type AuditModule = {
   code: ModuleCode;
-  slug: string;
+  slug: ModuleSlug;
   title: string;
   summary: string;
   scope: readonly string[];

@@ -1,5 +1,7 @@
-import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
+
+import { Link } from "@/i18n/navigation";
+import type { AppPathname } from "@/i18n/routing";
 
 type Variant = "accent" | "ghost" | "terminal";
 type Size = "md" | "lg";
@@ -26,8 +28,10 @@ function classesFor(variant: Variant, size: Size, className?: string) {
 
 type CommonProps = { variant?: Variant; size?: Size; className?: string };
 
+// href is an internal route rather than a string: the locale-aware Link only
+// accepts pathnames it knows how to localise, and that check is worth keeping.
 type ButtonAsLink = CommonProps &
-  Omit<ComponentPropsWithoutRef<typeof Link>, "className"> & { href: string };
+  Omit<ComponentPropsWithoutRef<typeof Link>, "className" | "href"> & { href: AppPathname };
 
 type ButtonAsButton = CommonProps &
   Omit<ComponentPropsWithoutRef<"button">, "className"> & { href?: undefined };

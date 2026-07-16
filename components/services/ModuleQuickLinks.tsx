@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { Link } from "@/i18n/navigation";
 import { moduleIcons, modules, type ModuleCode } from "@/lib/modules-data";
 
 type ModuleQuickLinksProps = {
