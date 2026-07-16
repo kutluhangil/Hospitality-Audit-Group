@@ -6,7 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { useQuoteCart } from "@/lib/quote-cart";
 
 const badgeClasses =
-  "inline-flex h-9 shrink-0 items-center rounded-xl2 bg-accent-strong px-3 text-sm font-medium text-accent-strong-ink transition-colors duration-150 hover:bg-accent-strong-hover";
+  "inline-flex h-11 sm:h-9 shrink-0 items-center rounded-xl2 bg-accent-strong px-4 sm:px-3 text-sm font-medium text-accent-strong-ink transition-colors duration-150 hover:bg-accent-strong-hover";
 
 export function QuoteCartBadge() {
   const { selected, hydrated } = useQuoteCart();

@@ -29,7 +29,7 @@ export function MobileCartBar() {
   return (
     // lg:hidden keeps it off desktop where the page-body summary is visible.
     <div
-      className="fixed bottom-0 inset-x-0 z-30 lg:hidden border-t border-line bg-bg/95 backdrop-blur-md px-4 py-3 safe-area-inset-bottom"
+      className="fixed bottom-0 inset-x-0 z-30 lg:hidden border-t border-line bg-bg/95 backdrop-blur-md px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
       role="complementary"
       aria-label={t("label")}
     >

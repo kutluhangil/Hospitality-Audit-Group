@@ -49,9 +49,8 @@ export function LocaleSwitcher({ className }: { className?: string }) {
                 // it tells a screen reader why the link goes nowhere new.
                 aria-current={current ? "true" : undefined}
                 className={[
-                  // 44px tall to clear the touch-target minimum; the text itself
-                  // is only two characters, which is far short of it on its own.
-                  "inline-flex h-11 min-w-11 items-center justify-center rounded-xl2 px-1",
+                  // 44px tall on mobile to clear the touch-target minimum, 36px on sm+
+                  "inline-flex h-11 min-w-11 sm:h-9 sm:min-w-9 items-center justify-center rounded-xl2 px-1",
                   "font-mono text-xs tracking-wide transition-colors duration-150",
                   current
                     ? "text-accent-strong"

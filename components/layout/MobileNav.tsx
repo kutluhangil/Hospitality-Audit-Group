@@ -104,7 +104,7 @@ export function MobileNav({ className }: { className?: string }) {
         aria-controls={panelId}
         onClick={() => setOpenedAt(pathname)}
         className={[
-          "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl2 border border-line",
+          "inline-flex h-11 w-11 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl2 border border-line",
           "text-ink transition-colors duration-150 hover:bg-bg-soft",
           className,
         ]
@@ -135,7 +135,7 @@ export function MobileNav({ className }: { className?: string }) {
                 type="button"
                 aria-label={tHeader("closeMenu")}
                 onClick={close}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-xl2 border border-line text-ink transition-colors duration-150 hover:bg-bg-soft"
+                className="inline-flex h-11 w-11 sm:h-9 sm:w-9 items-center justify-center rounded-xl2 border border-line text-ink transition-colors duration-150 hover:bg-bg-soft"
               >
                 <X size={18} aria-hidden="true" />
               </button>
