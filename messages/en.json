@@ -2,7 +2,8 @@
   "site": {
     "tagline": "Brand Assurance and Operational Leverage.",
     "description": "A modular, measurable audit architecture for hotels: mystery guest visits that establish what your guests actually experience, and staff training that closes the gaps they find.",
-    "hours": "Weekdays 09:00 – 18:00"
+    "hours": "Weekdays 09:00 – 18:00",
+    "skipToContent": "Skip to content"
   },
   "home": {
     "metaDescription": "Mystery guest auditing: an audit that arrives at your property as a guest, measures the gap between your brand standard and what happens on the floor, and reports the revenue leaking through it in figures.",

@@ -2,7 +2,8 @@
   "site": {
     "tagline": "Marka Güvencesi ve Operasyonel Kaldıraç.",
     "description": "Otellere gizli müşteri ziyaretiyle denetim ve personel eğitimi hizmeti sunan, modüler ve ölçülebilir bir denetim mimarisi.",
-    "hours": "Hafta içi 09:00 – 18:00"
+    "hours": "Hafta içi 09:00 – 18:00",
+    "skipToContent": "İçeriğe geç"
   },
   "home": {
     "metaDescription": "Gizli müşteri denetimi: tesisinize misafir sıfatıyla gelen bir denetim, marka standardı ile sahadaki gerçek arasındaki boşluğu ölçer, gelir kaçaklarını rakamlarla raporlar.",
