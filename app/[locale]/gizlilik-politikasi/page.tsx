@@ -49,7 +49,7 @@ export default async function GizlilikPolitikasiPage({
   };
 
   return (
-    <LegalPage title={t("title")} updated="2026-07-15">
+    <LegalPage title={t("title")} updated="2026-07-16" illustrationSrc="/images/gizlilik-ill.png">
       <LegalSection title={t("s1.title")}>
         <p>
           {t.rich("s1.p1", {

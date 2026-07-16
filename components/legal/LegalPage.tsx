@@ -22,35 +22,50 @@ type LegalPageProps = {
    * out would read as Turkish on the English page.
    */
   updated: string;
+  illustrationSrc?: string;
   children: React.ReactNode;
 };
 
-export function LegalPage({ title, updated, children }: LegalPageProps) {
+export function LegalPage({ title, updated, illustrationSrc, children }: LegalPageProps) {
   const t = useTranslations("legal");
   const format = useFormatter();
 
   return (
     <main className="mx-auto max-w-content px-4 py-16 sm:px-6 md:py-24">
-      <div className={MEASURE}>
-        <Eyebrow tone="muted">{t("eyebrow")}</Eyebrow>
-        <h1 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">
-          {title}
-        </h1>
-        <p className="mt-4 text-sm text-ink-muted">
-          {t("updated", {
-            date: format.dateTime(new Date(`${updated}T00:00:00Z`), {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-              timeZone: "UTC",
-            }),
-          })}
-        </p>
+      <div className={illustrationSrc ? "lg:grid lg:grid-cols-12 lg:gap-16 items-start" : ""}>
+        <div className={`${MEASURE} ${illustrationSrc ? "lg:col-span-8 xl:col-span-9" : ""}`}>
+          <Eyebrow tone="muted">{t("eyebrow")}</Eyebrow>
+          <h1 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">
+            {title}
+          </h1>
+          <p className="mt-4 text-sm text-ink-muted">
+            {t("updated", {
+              date: format.dateTime(new Date(`${updated}T00:00:00Z`), {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+                timeZone: "UTC",
+              }),
+            })}
+          </p>
 
-        <BindingLanguageNotice />
-        <TemplateNotice />
+          <BindingLanguageNotice />
+          <TemplateNotice />
 
-        <div className="mt-12 space-y-10">{children}</div>
+          <div className="mt-12 space-y-10">{children}</div>
+        </div>
+
+        {illustrationSrc && (
+          <aside className="hidden lg:block lg:col-span-4 xl:col-span-3 sticky top-32 h-[calc(100vh-16rem)]">
+            <div className="h-full w-full overflow-hidden rounded-md border border-line">
+              <img
+                src={illustrationSrc}
+                alt=""
+                className="h-full w-full object-cover object-top"
+              />
+            </div>
+          </aside>
+        )}
       </div>
     </main>
   );

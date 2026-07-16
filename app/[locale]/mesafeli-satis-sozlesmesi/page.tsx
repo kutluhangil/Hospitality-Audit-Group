@@ -51,7 +51,7 @@ export default async function MesafeliSatisSozlesmesiPage({
   };
 
   return (
-    <LegalPage title={t("title")} updated="2026-07-16">
+    <LegalPage title={t("title")} updated="2026-07-16" illustrationSrc="/images/mesafeli-satis-ill.png">
       <LegalSection title={t("s1.title")}>
         <p>{t("s1.p1")}</p>
         <p>

@@ -70,7 +70,7 @@ export default async function OnBilgilendirmePage({
   };
 
   return (
-    <LegalPage title={t("title")} updated="2026-07-16">
+    <LegalPage title={t("title")} updated="2026-07-16" illustrationSrc="/images/on-bilgilendirme-ill.png">
       <LegalSection title={t("s1.title")}>
         <p>{t.rich("s1.p1", { ...tags, url: siteConfig.url })}</p>
         <p>{t.rich("s1.p2", tags)}</p>

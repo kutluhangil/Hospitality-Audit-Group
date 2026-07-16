@@ -49,7 +49,7 @@ export default async function KvkkPage({
   };
 
   return (
-    <LegalPage title={t("title")} updated="2026-07-15">
+    <LegalPage title={t("title")} updated="2026-07-16" illustrationSrc="/images/kvkk-ill.png">
       <LegalSection title={t("s1.title")}>
         <p>{t.rich("s1.p1", { ...tags, name: siteConfig.name })}</p>
         <p>{t.rich("s1.p2", { ...tags, email: siteConfig.contact.email })}</p>
