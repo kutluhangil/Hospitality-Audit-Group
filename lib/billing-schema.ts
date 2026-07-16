@@ -452,14 +452,21 @@ export function formatValidationErrors(
 }
 
 /**
- * `SIP-` + base36 clock + random suffix. An order reference is an identifier, not
- * a secret — but unlike a quote reference it becomes the provider's basketId, so
- * two orders opened in the same millisecond must not collide.
+ * `SIP-` + base36 clock + monotonic sequence + random suffix. An order reference
+ * is an identifier, not a secret — but unlike a quote reference it becomes the
+ * provider's basketId, so two orders opened in the same millisecond must not
+ * collide. The clock has millisecond resolution, so a burst inside one tick would
+ * otherwise rely on the random suffix alone; the sequence counter makes uniqueness
+ * within a process guaranteed rather than probable. The random suffix remains to
+ * separate references minted by different processes.
  */
+let orderSequence = 0;
+
 export function createOrderReference(): string {
   const clock = Date.now().toString(36).toUpperCase();
+  const sequence = (orderSequence++).toString(36).toUpperCase();
   const suffix = Math.random().toString(36).slice(2, 6).toUpperCase();
-  return `SIP-${clock}${suffix}`;
+  return `SIP-${clock}-${sequence}${suffix}`;
 }
 
 export type PaymentInitResponse =
