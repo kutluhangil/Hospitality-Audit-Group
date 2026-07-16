@@ -4,12 +4,10 @@ export type Illustration = { src: string; alt: string };
 
 /**
  * Illustrations are optional by design. Every consumer must render fine without
- * one, because the set is incomplete: the artwork was commissioned against the
- * original module lettering, where E meant training. E now means Housekeeping,
- * so it has no drawing yet and the file named module-e-egitim.png belongs to the
- * training service instead.
- *
- * The missing prompt is written up in docs/gorsel-promptlari.md.
+ * one. A lettering quirk survives in the filenames: the artwork was commissioned
+ * against the original module lettering, where E meant training. E now means
+ * Housekeeping, so module-e-egitim.png belongs to the training service, while
+ * Housekeeping (E) uses module-e-kat-hizmetleri.png.
  */
 const ILLUSTRATIONS: Partial<Record<CartItemId, Illustration>> = {
   A: {
@@ -28,7 +26,10 @@ const ILLUSTRATIONS: Partial<Record<CartItemId, Illustration>> = {
     src: "/images/modules/module-d-360.png",
     alt: "360° tam denetim modülünün soyut çizimi: kapalı bir devre oluşturacak şekilde birbirine bağlı dört departman karesi ve merkezlerinde tek bir nokta.",
   },
-  // E — Kat Hizmetleri: illustration not produced yet.
+  E: {
+    src: "/images/modules/module-e-kat-hizmetleri.png",
+    alt: "Kat hizmetleri modülünün soyut çizimi: ince çizgiyle bir yatak, köşesinde terracotta bir zarf katı, başucunda iki yastık ve yanında balkon kapısını imleyen çerçeveli bir dikdörtgen.",
+  },
   EGITIM: {
     src: "/images/modules/module-e-egitim.png",
     alt: "Personel eğitimi hizmetinin soyut çizimi: açık bir kitap ve üzerinde basamak basamak yükselen bir ok.",
