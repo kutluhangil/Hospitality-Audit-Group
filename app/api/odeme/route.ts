@@ -1,5 +1,7 @@
+import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server";
 
+import { routing } from "@/i18n/routing";
 import {
   billingTotals,
   createOrderReference,
@@ -12,9 +14,52 @@ import {
   isPaymentEnabled,
 } from "@/lib/payment";
 import { siteConfig } from "@/lib/site-config";
+import { resolveFieldError, type FieldError } from "@/lib/validation-messages";
 
 // node:crypto and the provider signing in lib/payment.ts will not run on the edge.
 export const runtime = "nodejs";
+
+/**
+ * The label key each field carries into `{label}`. The guard always answers in
+ * the source language, so it reuses the billing form's own labels. Fields whose
+ * message names no `{label}` — the invoice type, the consents, the basket — are
+ * absent on purpose.
+ */
+const FIELD_LABEL_KEY: Record<string, string> = {
+  ticaretUnvani: "billing.ticaretUnvani",
+  vergiDairesi: "billing.vergiDairesi",
+  vergiNo: "billing.vergiNo",
+  adSoyad: "billing.adSoyad",
+  tcKimlikNo: "billing.tcKimlikNo",
+  email: "billing.email",
+  telefon: "billing.telefon",
+  ulke: "billing.ulke",
+  il: "billing.il",
+  ilce: "billing.ilce",
+  postaKodu: "billing.postaKodu",
+  acikAdres: "billing.acikAdres",
+};
+
+/** Turns validation descriptors back into the Turkish sentence the guard returns. */
+async function formatGuardError(
+  errors: Partial<Record<string, FieldError>>,
+): Promise<string> {
+  const locale = routing.defaultLocale;
+  const tValidation = await getTranslations({
+    locale,
+    namespace: "forms.validation",
+  });
+  const tForms = await getTranslations({ locale, namespace: "forms" });
+
+  return formatValidationErrors(errors, (field, error) => {
+    const labelKey = FIELD_LABEL_KEY[field];
+    return resolveFieldError(
+      tValidation,
+      error,
+      labelKey ? tForms(labelKey) : undefined,
+    );
+  });
+}
 
 /**
  * Opens a card payment.
@@ -66,7 +111,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   const result = validateBillingRequest(body);
   if (!result.ok) {
     return NextResponse.json(
-      { error: formatValidationErrors(result.errors) },
+      { error: await formatGuardError(result.errors) },
       { status: 400 },
     );
   }

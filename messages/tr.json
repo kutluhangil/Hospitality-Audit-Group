@@ -462,7 +462,46 @@
       "consentQuoteKvkk": "Devam etmek için KVKK Aydınlatma Metni onayı gereklidir.",
       "modulesNotList": "Seçili modüller bir liste olarak gönderilmelidir.",
       "modulesInvalid": "Seçili modüller yalnızca A–E kodlarını içerebilir. Geçersiz: {invalid}.",
-      "unknownType": "Bilinmeyen talep tipi: {type}. \"quote\" veya \"contact\" bekleniyor."
+      "unknownType": "Bilinmeyen talep tipi: {type}. \"quote\" veya \"contact\" bekleniyor.",
+      "emailInvalidBilling": "{label} geçerli bir e-posta adresi olmalıdır (ör. ad@tesisiniz.com). Fatura bu adrese gönderilir.",
+      "vergiNoInvalid": "{label} tam olarak 10 rakam olmalıdır. Girilen değer {count} rakam içeriyor.",
+      "tcKimlikNoWrongLength": "{label} tam olarak 11 rakam olmalıdır. Girilen değer {count} rakam içeriyor.",
+      "tcKimlikNoInvalid": "{label} doğrulanamadı. Rakamlarda bir hata var — lütfen kontrol edip tekrar girin.",
+      "postCodeInvalid": "{label} 5 rakam olmalıdır (ör. 34394).",
+      "consentMesafeli": "Ödemeye geçmek için Mesafeli Satış Sözleşmesi'ni onaylamanız gerekir.",
+      "consentOnBilgilendirme": "Ödemeye geçmek için Ön Bilgilendirme Formu'nu onaylamanız gerekir.",
+      "consentBillingKvkk": "Ödemeye geçmek için KVKK Aydınlatma Metni onayı gereklidir.",
+      "itemsNotList": "Seçili hizmetler bir liste olarak gönderilmelidir.",
+      "itemsInvalid": "Seçili hizmetler yalnızca {codes} kodlarını içerebilir. Geçersiz: {invalid}.",
+      "itemsEmpty": "Ödeme yapabilmek için en az bir hizmet seçmelisiniz.",
+      "itemsRedundant": "{redundant} zaten 360° Tam Denetim kapsamında. Aynı hizmet iki kez faturalanamaz — sepetinizi güncelleyin.",
+      "unknownInvoiceType": "Fatura tipi {type} tanınmıyor. \"kurumsal\" veya \"bireysel\" bekleniyor."
+    },
+    "billing": {
+      "amountHeading": "Ödenecek tutar",
+      "invoiceTypeLegend": "Fatura Tipi",
+      "invoiceTypeKurumsal": "Kurumsal",
+      "invoiceTypeBireysel": "Bireysel",
+      "ticaretUnvani": "Ticaret Unvanı",
+      "vergiDairesi": "Vergi Dairesi",
+      "vergiNo": "Vergi No",
+      "adSoyad": "Ad Soyad",
+      "tcKimlikNo": "TC Kimlik No",
+      "email": "E-posta",
+      "telefon": "Telefon",
+      "ulke": "Ülke",
+      "il": "İl",
+      "ilce": "İlçe",
+      "postaKodu": "Posta Kodu",
+      "acikAdres": "Açık Adres",
+      "consentMesafeli": "<link>Mesafeli Satış Sözleşmesi</link>'ni okudum ve onaylıyorum.",
+      "consentOnBilgilendirme": "<link>Ön Bilgilendirme Formu</link>'nu okudum ve onaylıyorum.",
+      "payButton": "{amount} Öde",
+      "redirecting": "Yönlendiriliyor…",
+      "cardNote": "Kart bilgileriniz bu sitede saklanmaz. Ödeme adımı, 3D Secure doğrulaması için bankanızın ve ödeme kuruluşunun sayfasında tamamlanır.",
+      "loadingSelection": "Seçiminiz yükleniyor…",
+      "emptyBasket": "Ödeme yapabilmek için önce bir hizmet seçmelisiniz.",
+      "browseModules": "Modülleri inceleyin"
     }
   },
   "evidence": {
@@ -1012,6 +1051,11 @@
       "eyebrow": "YOL 2 — TEKLİF İSTE",
       "title": "Tesisinizin ölçeğine göre fiyat isteyin.",
       "body": "{scaleNote} Bu yolda ödeme alınmaz ve fatura bilgisi istenmez — önce konuşur, sonra fiyatlarız."
+    },
+    "paymentSection": {
+      "eyebrow": "YOL 1 — KART İLE ÖDE",
+      "title": "Listelenen fiyatı kabul edin, şimdi ödeyin.",
+      "body": "Seçtiğiniz hizmetler için fatura bilgilerinizi girin ve ödemeyi tamamlayın. Denetim takvimi, ödemenin ardından 48 saat içinde sizinle birlikte planlanır."
     }
   },
   "paymentResultPage": {

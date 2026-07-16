@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import { BillingForm } from "@/components/forms/BillingForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { isPaymentEnabled } from "@/lib/payment";
@@ -26,19 +28,19 @@ import { isPaymentEnabled } from "@/lib/payment";
  * button. A payment button that cannot take money should not be on the page at
  * all — see the comment block in lib/payment.ts.
  */
-export function PaymentSection() {
+export async function PaymentSection() {
   if (!isPaymentEnabled()) return null;
+
+  const t = await getTranslations("quotePage.paymentSection");
 
   return (
     <section id="kart-ile-ode" className="scroll-mt-24">
-      <Eyebrow>YOL 1 — KART İLE ÖDE</Eyebrow>
+      <Eyebrow>{t("eyebrow")}</Eyebrow>
       <h2 className="mt-3 font-serif text-2xl leading-tight md:text-3xl">
-        Listelenen fiyatı kabul edin, şimdi ödeyin.
+        {t("title")}
       </h2>
       <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-muted">
-        Seçtiğiniz hizmetler için fatura bilgilerinizi girin ve ödemeyi
-        tamamlayın. Denetim takvimi, ödemenin ardından 48 saat içinde sizinle
-        birlikte planlanır.
+        {t("body")}
       </p>
 
       <div className="mt-8">

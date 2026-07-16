@@ -462,7 +462,46 @@
       "consentQuoteKvkk": "Approval of the KVKK Privacy Notice is required to continue.",
       "modulesNotList": "Selected modules must be sent as a list.",
       "modulesInvalid": "Selected modules may contain only the codes A–E. Invalid: {invalid}.",
-      "unknownType": "Unknown request type: {type}. \"quote\" or \"contact\" expected."
+      "unknownType": "Unknown request type: {type}. \"quote\" or \"contact\" expected.",
+      "emailInvalidBilling": "{label} must be a valid email address (e.g. name@yourproperty.com). The invoice is sent to this address.",
+      "vergiNoInvalid": "{label} must be exactly 10 digits. The value entered has {count} digits.",
+      "tcKimlikNoWrongLength": "{label} must be exactly 11 digits. The value entered has {count} digits.",
+      "tcKimlikNoInvalid": "{label} could not be verified. There is a mistake in the digits — please check and re-enter.",
+      "postCodeInvalid": "{label} must be 5 digits (e.g. 34394).",
+      "consentMesafeli": "You must approve the Distance Sales Agreement to proceed to payment.",
+      "consentOnBilgilendirme": "You must approve the Preliminary Information Form to proceed to payment.",
+      "consentBillingKvkk": "Approval of the KVKK Privacy Notice is required to proceed to payment.",
+      "itemsNotList": "Selected services must be sent as a list.",
+      "itemsInvalid": "Selected services may contain only the codes {codes}. Invalid: {invalid}.",
+      "itemsEmpty": "You must select at least one service to pay.",
+      "itemsRedundant": "{redundant} is already covered by the 360° Full Audit. The same service cannot be billed twice — update your basket.",
+      "unknownInvoiceType": "Invoice type {type} is not recognised. \"kurumsal\" or \"bireysel\" expected."
+    },
+    "billing": {
+      "amountHeading": "Amount due",
+      "invoiceTypeLegend": "Invoice Type",
+      "invoiceTypeKurumsal": "Corporate",
+      "invoiceTypeBireysel": "Individual",
+      "ticaretUnvani": "Trade Name",
+      "vergiDairesi": "Tax Office",
+      "vergiNo": "Tax Number",
+      "adSoyad": "Full Name",
+      "tcKimlikNo": "TR ID Number",
+      "email": "Email",
+      "telefon": "Phone",
+      "ulke": "Country",
+      "il": "Province",
+      "ilce": "District",
+      "postaKodu": "Postal Code",
+      "acikAdres": "Full Address",
+      "consentMesafeli": "I have read and approve the <link>Distance Sales Agreement</link>.",
+      "consentOnBilgilendirme": "I have read and approve the <link>Preliminary Information Form</link>.",
+      "payButton": "Pay {amount}",
+      "redirecting": "Redirecting…",
+      "cardNote": "Your card details are not stored on this site. The payment step is completed on your bank's and the payment provider's page for 3-D Secure verification.",
+      "loadingSelection": "Loading your selection…",
+      "emptyBasket": "You must select a service before you can pay.",
+      "browseModules": "Browse the modules"
     }
   },
   "evidence": {
@@ -1014,6 +1053,11 @@
       "eyebrow": "PATH 2 — REQUEST A QUOTE",
       "title": "Request a price for the scale of your property.",
       "body": "{scaleNote} No payment is taken and no billing details are asked on this path — we talk first, then price."
+    },
+    "paymentSection": {
+      "eyebrow": "PATH 1 — PAY BY CARD",
+      "title": "Accept the listed price and pay now.",
+      "body": "Enter your billing details for the services you selected and complete payment. The audit schedule is planned together with you within 48 hours of payment."
     }
   },
   "paymentResultPage": {

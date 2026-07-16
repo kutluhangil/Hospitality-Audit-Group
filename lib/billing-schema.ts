@@ -13,6 +13,7 @@
 
 import { totalsFor, isRedundant, type CartTotals } from "@/lib/cart-math";
 import { CATALOGUE_ORDER, type CartItemId } from "@/lib/modules-data";
+import type { FieldError } from "@/lib/validation-messages";
 
 /** Same trick as quote-schema: this stops compiling the day the catalogue changes. */
 const CART_ITEM_SET: Record<CartItemId, true> = {
@@ -89,7 +90,8 @@ export type BillingField =
   | "kvkkConsent";
 
 export type ValidationResult<T, K extends string> =
-  { ok: true; value: T } | { ok: false; errors: Partial<Record<K, string>> };
+  | { ok: true; value: T }
+  | { ok: false; errors: Partial<Record<K, FieldError>> };
 
 const MAX_NAME = 120;
 const MAX_TRADE_NAME = 200;
@@ -120,40 +122,32 @@ function readRecord(
   return isRecord(value) ? value : {};
 }
 
-function lengthError(
-  label: string,
-  value: string,
-  max: number,
-): string | undefined {
-  if (value.length > max) return `${label} en fazla ${max} karakter olabilir.`;
+// Every rule below returns a copy-free descriptor, never a sentence. The `{label}`
+// a message needs is supplied by whoever renders it: the form passes the field's
+// own localized label, the route passes the source-language one.
+
+function lengthError(value: string, max: number): FieldError | undefined {
+  if (value.length > max) return { code: "tooLong", params: { max } };
   return undefined;
 }
 
-function requiredError(
-  label: string,
-  value: string,
-  max: number,
-): string | undefined {
-  if (value.length === 0) return `${label} zorunludur.`;
-  return lengthError(label, value, max);
+function requiredError(value: string, max: number): FieldError | undefined {
+  if (value.length === 0) return { code: "required" };
+  return lengthError(value, max);
 }
 
-function emailError(value: string): string | undefined {
-  const required = requiredError("E-posta", value, MAX_EMAIL);
+function emailError(value: string): FieldError | undefined {
+  const required = requiredError(value, MAX_EMAIL);
   if (required) return required;
-  if (!EMAIL_PATTERN.test(value)) {
-    return "E-posta geçerli bir e-posta adresi olmalıdır (ör. ad@tesisiniz.com). Fatura bu adrese gönderilir.";
-  }
+  if (!EMAIL_PATTERN.test(value)) return { code: "emailInvalidBilling" };
   return undefined;
 }
 
 /** Required here, unlike the quote form: an invoice needs a reachable buyer. */
-function phoneError(value: string): string | undefined {
-  const required = requiredError("Telefon", value, MAX_PHONE);
+function phoneError(value: string): FieldError | undefined {
+  const required = requiredError(value, MAX_PHONE);
   if (required) return required;
-  if (!PHONE_PATTERN.test(value)) {
-    return "Telefon yalnızca rakam, boşluk ve + ( ) - karakterlerini içerebilir.";
-  }
+  if (!PHONE_PATTERN.test(value)) return { code: "phoneInvalid" };
   return undefined;
 }
 
@@ -208,33 +202,32 @@ export function isValidTcKimlikNo(value: string): boolean {
   return eleventh === digits[10];
 }
 
-function vergiNoError(value: string): string | undefined {
-  const required = requiredError("Vergi No", value, 32);
+function vergiNoError(value: string): FieldError | undefined {
+  const required = requiredError(value, 32);
   if (required) return required;
   if (!isValidVergiNo(value)) {
-    return `Vergi No tam olarak 10 rakam olmalıdır. Girilen değer ${digitsOnly(value).length} rakam içeriyor.`;
+    return { code: "vergiNoInvalid", params: { count: digitsOnly(value).length } };
   }
   return undefined;
 }
 
-function tcKimlikNoError(value: string): string | undefined {
-  const required = requiredError("TC Kimlik No", value, 32);
+function tcKimlikNoError(value: string): FieldError | undefined {
+  const required = requiredError(value, 32);
   if (required) return required;
   if (!/^\d{11}$/.test(value)) {
-    return `TC Kimlik No tam olarak 11 rakam olmalıdır. Girilen değer ${digitsOnly(value).length} rakam içeriyor.`;
+    return {
+      code: "tcKimlikNoWrongLength",
+      params: { count: digitsOnly(value).length },
+    };
   }
-  if (!isValidTcKimlikNo(value)) {
-    return "TC Kimlik No doğrulanamadı. Rakamlarda bir hata var — lütfen kontrol edip tekrar girin.";
-  }
+  if (!isValidTcKimlikNo(value)) return { code: "tcKimlikNoInvalid" };
   return undefined;
 }
 
-function postCodeError(value: string): string | undefined {
-  const required = requiredError("Posta Kodu", value, 16);
+function postCodeError(value: string): FieldError | undefined {
+  const required = requiredError(value, 16);
   if (required) return required;
-  if (!POSTCODE_PATTERN.test(value)) {
-    return "Posta Kodu 5 rakam olmalıdır (ör. 34394).";
-  }
+  if (!POSTCODE_PATTERN.test(value)) return { code: "postCodeInvalid" };
   return undefined;
 }
 
@@ -245,16 +238,14 @@ function postCodeError(value: string): string | undefined {
  * "onayları kabul edin" would leave the buyer hunting for which box they missed,
  * and these three are not interchangeable: two of them are the contract itself.
  */
-function consentError(value: unknown, message: string): string | undefined {
-  return value === true ? undefined : message;
+function consentError(value: unknown, code: string): FieldError | undefined {
+  return value === true ? undefined : { code };
 }
 
-const CONSENT_MESSAGES = {
-  mesafeliSatisOnay:
-    "Ödemeye geçmek için Mesafeli Satış Sözleşmesi'ni onaylamanız gerekir.",
-  onBilgilendirmeOnay:
-    "Ödemeye geçmek için Ön Bilgilendirme Formu'nu onaylamanız gerekir.",
-  kvkkConsent: "Ödemeye geçmek için KVKK Aydınlatma Metni onayı gereklidir.",
+const CONSENT_CODES = {
+  mesafeliSatisOnay: "consentMesafeli",
+  onBilgilendirmeOnay: "consentOnBilgilendirme",
+  kvkkConsent: "consentBillingKvkk",
 } as const;
 
 // ── Basket ──────────────────────────────────────────────────────────────────
@@ -266,26 +257,25 @@ function readItems(value: unknown): readonly CartItemId[] {
   return CATALOGUE_ORDER.filter((id) => unique.includes(id));
 }
 
-function itemsError(value: unknown): string | undefined {
-  if (!Array.isArray(value)) {
-    return "Seçili hizmetler bir liste olarak gönderilmelidir.";
-  }
+function itemsError(value: unknown): FieldError | undefined {
+  if (!Array.isArray(value)) return { code: "itemsNotList" };
 
   const invalid = value.filter((entry) => !isCartItemId(entry));
   if (invalid.length > 0) {
-    return `Seçili hizmetler yalnızca ${CATALOGUE_ORDER.join(", ")} kodlarını içerebilir. Geçersiz: ${invalid.join(", ")}.`;
+    return {
+      code: "itemsInvalid",
+      params: { codes: CATALOGUE_ORDER.join(", "), invalid: invalid.join(", ") },
+    };
   }
 
   const items = readItems(value);
-  if (items.length === 0) {
-    return "Ödeme yapabilmek için en az bir hizmet seçmelisiniz.";
-  }
+  if (items.length === 0) return { code: "itemsEmpty" };
 
   // Selling the same audit twice is wrong even when the buyer asks for it, and a
   // hand-edited request is the only way to get here — the catalogue disables it.
   const redundant = items.filter((id) => isRedundant(id, items));
   if (redundant.length > 0) {
-    return `${redundant.join(", ")} zaten 360° Tam Denetim kapsamında. Aynı hizmet iki kez faturalanamaz — sepetinizi güncelleyin.`;
+    return { code: "itemsRedundant", params: { redundant: redundant.join(", ") } };
   }
 
   return undefined;
@@ -309,16 +299,18 @@ export function billingTotals(items: readonly CartItemId[]): CartTotals {
 // ── Validation ──────────────────────────────────────────────────────────────
 
 function collect<K extends string>(
-  entries: readonly (readonly [K, string | undefined])[],
-): Partial<Record<K, string>> {
-  const errors: Partial<Record<K, string>> = {};
-  for (const [key, message] of entries) {
-    if (message !== undefined) errors[key] = message;
+  entries: readonly (readonly [K, FieldError | undefined])[],
+): Partial<Record<K, FieldError>> {
+  const errors: Partial<Record<K, FieldError>> = {};
+  for (const [key, error] of entries) {
+    if (error !== undefined) errors[key] = error;
   }
   return errors;
 }
 
-function hasAny<K extends string>(errors: Partial<Record<K, string>>): boolean {
+function hasAny<K extends string>(
+  errors: Partial<Record<K, FieldError>>,
+): boolean {
   return Object.keys(errors).length > 0;
 }
 
@@ -330,12 +322,7 @@ export function validateBillingRequest(
   input: unknown,
 ): ValidationResult<BillingRequest, BillingField> {
   if (!isRecord(input)) {
-    return {
-      ok: false,
-      errors: {
-        faturaTipi: "Geçersiz istek gövdesi: JSON nesnesi bekleniyor.",
-      },
-    };
+    return { ok: false, errors: { faturaTipi: { code: "invalidBody" } } };
   }
 
   const faturaTipi = input.faturaTipi;
@@ -343,7 +330,10 @@ export function validateBillingRequest(
     return {
       ok: false,
       errors: {
-        faturaTipi: `Fatura tipi ${JSON.stringify(faturaTipi)} tanınmıyor. "kurumsal" veya "bireysel" bekleniyor.`,
+        faturaTipi: {
+          code: "unknownInvoiceType",
+          params: { type: JSON.stringify(faturaTipi) },
+        },
       },
     };
   }
@@ -359,30 +349,27 @@ export function validateBillingRequest(
   const telefon = readString(input, "telefon");
 
   const shared = [
-    ["ulke", requiredError("Ülke", ulke, MAX_CITY)],
-    ["il", requiredError("İl", il, MAX_CITY)],
-    ["ilce", requiredError("İlçe", ilce, MAX_CITY)],
-    ["acikAdres", requiredError("Açık Adres", acikAdres, MAX_ADDRESS)],
+    ["ulke", requiredError(ulke, MAX_CITY)],
+    ["il", requiredError(il, MAX_CITY)],
+    ["ilce", requiredError(ilce, MAX_CITY)],
+    ["acikAdres", requiredError(acikAdres, MAX_ADDRESS)],
     ["postaKodu", postCodeError(postaKodu)],
     ["email", emailError(email)],
     ["telefon", phoneError(telefon)],
     ["selectedItems", itemsError(input.selectedItems)],
     [
       "mesafeliSatisOnay",
-      consentError(input.mesafeliSatisOnay, CONSENT_MESSAGES.mesafeliSatisOnay),
+      consentError(input.mesafeliSatisOnay, CONSENT_CODES.mesafeliSatisOnay),
     ],
     [
       "onBilgilendirmeOnay",
-      consentError(
-        input.onBilgilendirmeOnay,
-        CONSENT_MESSAGES.onBilgilendirmeOnay,
-      ),
+      consentError(input.onBilgilendirmeOnay, CONSENT_CODES.onBilgilendirmeOnay),
     ],
-    [
-      "kvkkConsent",
-      consentError(input.kvkkConsent, CONSENT_MESSAGES.kvkkConsent),
-    ],
-  ] as const satisfies readonly (readonly [BillingField, string | undefined])[];
+    ["kvkkConsent", consentError(input.kvkkConsent, CONSENT_CODES.kvkkConsent)],
+  ] as const satisfies readonly (readonly [
+    BillingField,
+    FieldError | undefined,
+  ])[];
 
   const adres: BillingAddress = { ulke, il, ilce, acikAdres, postaKodu };
   const selectedItems = readItems(input.selectedItems);
@@ -394,14 +381,8 @@ export function validateBillingRequest(
 
     const errors = collect<BillingField>([
       ...shared,
-      [
-        "ticaretUnvani",
-        requiredError("Ticaret Unvanı", ticaretUnvani, MAX_TRADE_NAME),
-      ],
-      [
-        "vergiDairesi",
-        requiredError("Vergi Dairesi", vergiDairesi, MAX_TAX_OFFICE),
-      ],
+      ["ticaretUnvani", requiredError(ticaretUnvani, MAX_TRADE_NAME)],
+      ["vergiDairesi", requiredError(vergiDairesi, MAX_TAX_OFFICE)],
       ["vergiNo", vergiNoError(vergiNo)],
     ]);
 
@@ -430,7 +411,7 @@ export function validateBillingRequest(
 
   const errors = collect<BillingField>([
     ...shared,
-    ["adSoyad", requiredError("Ad Soyad", adSoyad, MAX_NAME)],
+    ["adSoyad", requiredError(adSoyad, MAX_NAME)],
     ["tcKimlikNo", tcKimlikNoError(tcKimlikNo)],
   ]);
 
@@ -453,11 +434,20 @@ export function validateBillingRequest(
   };
 }
 
+/**
+ * Flattens field errors into the single actionable sentence the route returns.
+ *
+ * The copy no longer lives here, so the caller passes a `resolve` that turns each
+ * descriptor into a sentence — the route builds one from a source-language
+ * translator, keeping the guard's response in Turkish.
+ */
 export function formatValidationErrors(
-  errors: Partial<Record<string, string>>,
+  errors: Partial<Record<string, FieldError>>,
+  resolve: (field: string, error: FieldError) => string,
 ): string {
-  return Object.values(errors)
-    .filter((message): message is string => typeof message === "string")
+  return Object.entries(errors)
+    .filter((entry): entry is [string, FieldError] => entry[1] !== undefined)
+    .map(([field, error]) => resolve(field, error))
     .join(" ");
 }
 

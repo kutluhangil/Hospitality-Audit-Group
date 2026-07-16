@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState, type FormEvent } from "react";
 
 import {
@@ -20,6 +21,7 @@ import {
   type InvoiceType,
 } from "@/lib/billing-schema";
 import { clearItems, useQuoteCart } from "@/lib/quote-cart";
+import { resolveFieldError, type FieldError } from "@/lib/validation-messages";
 
 /**
  * The payment path's client surface.
@@ -74,26 +76,34 @@ const EMPTY_CONSENTS: Consents = {
 
 type Status = "idle" | "submitting" | "redirecting";
 
-const NETWORK_FAILURE =
-  "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.";
-
 const legalLinkClasses =
   "text-accent-strong underline underline-offset-4 transition-colors duration-150 hover:text-accent-strong-hover";
 
-const invoiceTypeLabels: Record<InvoiceType, string> = {
-  kurumsal: "Kurumsal",
-  bireysel: "Bireysel",
-};
+const INVOICE_TYPES: readonly InvoiceType[] = ["kurumsal", "bireysel"];
 
 export function BillingForm() {
   const { selected, hydrated, totals } = useQuoteCart();
 
+  const t = useTranslations("forms");
+  const tBilling = useTranslations("forms.billing");
+  const tValidation = useTranslations("forms.validation");
+
+  const invoiceTypeLabels: Record<InvoiceType, string> = {
+    kurumsal: tBilling("invoiceTypeKurumsal"),
+    bireysel: tBilling("invoiceTypeBireysel"),
+  };
+
+  const fieldError = (error: FieldError | undefined, label?: string) =>
+    error === undefined
+      ? undefined
+      : resolveFieldError((key, values) => tValidation(key, values), error, label);
+
   const [faturaTipi, setFaturaTipi] = useState<InvoiceType>("kurumsal");
   const [values, setValues] = useState<Values>(EMPTY_VALUES);
   const [consents, setConsents] = useState<Consents>(EMPTY_CONSENTS);
-  const [errors, setErrors] = useState<Partial<Record<BillingField, string>>>(
-    {},
-  );
+  const [errors, setErrors] = useState<
+    Partial<Record<BillingField, FieldError>>
+  >({});
   const [status, setStatus] = useState<Status>("idle");
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -177,7 +187,7 @@ export function BillingForm() {
       window.location.assign(parsed.redirectUrl);
     } catch (error) {
       console.error("Payment initialisation failed:", error);
-      setSubmitError(NETWORK_FAILURE);
+      setSubmitError(t("networkFailure"));
       setStatus("idle");
     }
   }
@@ -185,20 +195,20 @@ export function BillingForm() {
   if (!hydrated) {
     // The basket is unknown until localStorage is read, and this form is a
     // function of the basket. An empty state here would flash the wrong answer.
-    return <p className="text-sm text-ink-muted">Seçiminiz yükleniyor…</p>;
+    return (
+      <p className="text-sm text-ink-muted">{tBilling("loadingSelection")}</p>
+    );
   }
 
   if (selected.length === 0) {
     return (
       <div>
-        <p className="text-sm text-ink-muted">
-          Ödeme yapabilmek için önce bir hizmet seçmelisiniz.
-        </p>
+        <p className="text-sm text-ink-muted">{tBilling("emptyBasket")}</p>
         <Link
           href="/moduller"
           className={`mt-2 inline-block text-sm ${legalLinkClasses}`}
         >
-          Modülleri inceleyin
+          {tBilling("browseModules")}
         </Link>
       </div>
     );
@@ -209,20 +219,20 @@ export function BillingForm() {
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-8">
       <Card tone="soft" className="flex flex-col gap-5">
-        <h3 className="font-serif text-xl">Ödenecek tutar</h3>
+        <h3 className="font-serif text-xl">{tBilling("amountHeading")}</h3>
         <CartLines removable={false} />
         <CartTotals />
       </Card>
 
       <fieldset className="flex flex-col gap-3">
         <legend className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-          Fatura Tipi
+          {tBilling("invoiceTypeLegend")}
           <span aria-hidden="true" className="text-accent-strong">
             {" *"}
           </span>
         </legend>
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
-          {(Object.keys(invoiceTypeLabels) as InvoiceType[]).map((type) => (
+          {INVOICE_TYPES.map((type) => (
             // min-h-11 keeps the touch target at the 44px floor.
             <label
               key={type}
@@ -254,11 +264,11 @@ export function BillingForm() {
             <div className="sm:col-span-2">
               <TextField
                 id="ticaretUnvani"
-                label="Ticaret Unvanı"
+                label={tBilling("ticaretUnvani")}
                 required
                 autoComplete="organization"
                 value={values.ticaretUnvani}
-                error={errors.ticaretUnvani}
+                error={fieldError(errors.ticaretUnvani, tBilling("ticaretUnvani"))}
                 onChange={(event) =>
                   update("ticaretUnvani", event.target.value)
                 }
@@ -266,20 +276,20 @@ export function BillingForm() {
             </div>
             <TextField
               id="vergiDairesi"
-              label="Vergi Dairesi"
+              label={tBilling("vergiDairesi")}
               required
               value={values.vergiDairesi}
-              error={errors.vergiDairesi}
+              error={fieldError(errors.vergiDairesi, tBilling("vergiDairesi"))}
               onChange={(event) => update("vergiDairesi", event.target.value)}
             />
             <TextField
               id="vergiNo"
-              label="Vergi No"
+              label={tBilling("vergiNo")}
               required
               inputMode="numeric"
               maxLength={10}
               value={values.vergiNo}
-              error={errors.vergiNo}
+              error={fieldError(errors.vergiNo, tBilling("vergiNo"))}
               onChange={(event) => update("vergiNo", event.target.value)}
             />
           </>
@@ -287,21 +297,21 @@ export function BillingForm() {
           <>
             <TextField
               id="adSoyad"
-              label="Ad Soyad"
+              label={tBilling("adSoyad")}
               required
               autoComplete="name"
               value={values.adSoyad}
-              error={errors.adSoyad}
+              error={fieldError(errors.adSoyad, tBilling("adSoyad"))}
               onChange={(event) => update("adSoyad", event.target.value)}
             />
             <TextField
               id="tcKimlikNo"
-              label="TC Kimlik No"
+              label={tBilling("tcKimlikNo")}
               required
               inputMode="numeric"
               maxLength={11}
               value={values.tcKimlikNo}
-              error={errors.tcKimlikNo}
+              error={fieldError(errors.tcKimlikNo, tBilling("tcKimlikNo"))}
               onChange={(event) => update("tcKimlikNo", event.target.value)}
             />
           </>
@@ -309,23 +319,23 @@ export function BillingForm() {
 
         <TextField
           id="email"
-          label="E-posta"
+          label={tBilling("email")}
           type="email"
           required
           autoComplete="email"
           value={values.email}
-          error={errors.email}
+          error={fieldError(errors.email, tBilling("email"))}
           onChange={(event) => update("email", event.target.value)}
         />
         <TextField
           id="telefon"
-          label="Telefon"
+          label={tBilling("telefon")}
           type="tel"
           required
           inputMode="tel"
           autoComplete="tel"
           value={values.telefon}
-          error={errors.telefon}
+          error={fieldError(errors.telefon, tBilling("telefon"))}
           onChange={(event) => update("telefon", event.target.value)}
         />
       </div>
@@ -333,51 +343,51 @@ export function BillingForm() {
       <div className="grid gap-6 sm:grid-cols-2">
         <TextField
           id="ulke"
-          label="Ülke"
+          label={tBilling("ulke")}
           required
           autoComplete="country-name"
           value={values.ulke}
-          error={errors.ulke}
+          error={fieldError(errors.ulke, tBilling("ulke"))}
           onChange={(event) => update("ulke", event.target.value)}
         />
         <TextField
           id="il"
-          label="İl"
+          label={tBilling("il")}
           required
           autoComplete="address-level1"
           value={values.il}
-          error={errors.il}
+          error={fieldError(errors.il, tBilling("il"))}
           onChange={(event) => update("il", event.target.value)}
         />
         <TextField
           id="ilce"
-          label="İlçe"
+          label={tBilling("ilce")}
           required
           autoComplete="address-level2"
           value={values.ilce}
-          error={errors.ilce}
+          error={fieldError(errors.ilce, tBilling("ilce"))}
           onChange={(event) => update("ilce", event.target.value)}
         />
         <TextField
           id="postaKodu"
-          label="Posta Kodu"
+          label={tBilling("postaKodu")}
           required
           inputMode="numeric"
           maxLength={5}
           autoComplete="postal-code"
           value={values.postaKodu}
-          error={errors.postaKodu}
+          error={fieldError(errors.postaKodu, tBilling("postaKodu"))}
           onChange={(event) => update("postaKodu", event.target.value)}
         />
         <div className="sm:col-span-2">
           <TextareaField
             id="acikAdres"
-            label="Açık Adres"
+            label={tBilling("acikAdres")}
             required
             rows={3}
             autoComplete="street-address"
             value={values.acikAdres}
-            error={errors.acikAdres}
+            error={fieldError(errors.acikAdres, tBilling("acikAdres"))}
             onChange={(event) => update("acikAdres", event.target.value)}
           />
         </div>
@@ -388,46 +398,57 @@ export function BillingForm() {
           id="mesafeliSatisOnay"
           required
           checked={consents.mesafeliSatisOnay}
-          error={errors.mesafeliSatisOnay}
+          error={fieldError(errors.mesafeliSatisOnay)}
           onChange={(event) =>
             updateConsent("mesafeliSatisOnay", event.target.checked)
           }
         >
-          <Link href="/mesafeli-satis-sozlesmesi" className={legalLinkClasses}>
-            Mesafeli Satış Sözleşmesi
-          </Link>
-          {"'ni okudum ve onaylıyorum."}
+          {tBilling.rich("consentMesafeli", {
+            link: (chunks) => (
+              <Link
+                href="/mesafeli-satis-sozlesmesi"
+                className={legalLinkClasses}
+              >
+                {chunks}
+              </Link>
+            ),
+          })}
         </CheckboxField>
 
         <CheckboxField
           id="onBilgilendirmeOnay"
           required
           checked={consents.onBilgilendirmeOnay}
-          error={errors.onBilgilendirmeOnay}
+          error={fieldError(errors.onBilgilendirmeOnay)}
           onChange={(event) =>
             updateConsent("onBilgilendirmeOnay", event.target.checked)
           }
         >
-          <Link href="/on-bilgilendirme" className={legalLinkClasses}>
-            Ön Bilgilendirme Formu
-          </Link>
-          {"'nu okudum ve onaylıyorum."}
+          {tBilling.rich("consentOnBilgilendirme", {
+            link: (chunks) => (
+              <Link href="/on-bilgilendirme" className={legalLinkClasses}>
+                {chunks}
+              </Link>
+            ),
+          })}
         </CheckboxField>
 
         <CheckboxField
           id="kvkkConsent"
           required
           checked={consents.kvkkConsent}
-          error={errors.kvkkConsent}
+          error={fieldError(errors.kvkkConsent)}
           onChange={(event) =>
             updateConsent("kvkkConsent", event.target.checked)
           }
         >
-          Kişisel verilerimin{" "}
-          <Link href="/kvkk" className={legalLinkClasses}>
-            KVKK Aydınlatma Metni
-          </Link>{" "}
-          kapsamında işlenmesini kabul ediyorum.
+          {t.rich("consent", {
+            kvkk: (chunks) => (
+              <Link href="/kvkk" className={legalLinkClasses}>
+                {chunks}
+              </Link>
+            ),
+          })}
         </CheckboxField>
       </div>
 
@@ -440,12 +461,12 @@ export function BillingForm() {
           disabled={busy}
           className="disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {busy ? "Yönlendiriliyor…" : `${formatPrice(totals.total)} Öde`}
+          {busy
+            ? tBilling("redirecting")
+            : tBilling("payButton", { amount: formatPrice(totals.total) })}
         </Button>
         <p className="text-xs leading-relaxed text-ink-muted">
-          Kart bilgileriniz bu sitede saklanmaz. Ödeme adımı, 3D Secure
-          doğrulaması için bankanızın ve ödeme kuruluşunun sayfasında
-          tamamlanır.
+          {tBilling("cardNote")}
         </p>
       </div>
     </form>

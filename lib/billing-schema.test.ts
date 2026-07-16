@@ -9,6 +9,7 @@ import {
   type BillingField,
 } from "@/lib/billing-schema";
 import { priceOf } from "@/lib/modules-data";
+import type { FieldError } from "@/lib/validation-messages";
 
 /**
  * Both of these satisfy the real checksum — derived from the algorithm, not
@@ -63,7 +64,7 @@ function without<T extends object, K extends keyof T>(
 }
 
 /** Reads the error for one field, failing loudly if validation unexpectedly passed. */
-function errorFor(input: unknown, field: BillingField): string | undefined {
+function errorFor(input: unknown, field: BillingField): FieldError | undefined {
   const result = validateBillingRequest(input);
   if (result.ok) {
     throw new Error(
@@ -155,9 +156,12 @@ describe("validateBillingRequest — invoice type", () => {
   });
 
   it("rejects an unknown invoice type by name", () => {
-    expect(
-      errorFor({ ...CORPORATE_INPUT, faturaTipi: "vakif" }, "faturaTipi"),
-    ).toContain("vakif");
+    const error = errorFor(
+      { ...CORPORATE_INPUT, faturaTipi: "vakif" },
+      "faturaTipi",
+    );
+    expect(error?.code).toBe("unknownInvoiceType");
+    expect(String(error?.params?.type)).toContain("vakif");
   });
 
   it("does not let a corporate payload smuggle in a TC kimlik instead of a vergi no", () => {
@@ -171,19 +175,19 @@ describe("validateBillingRequest — invoice type", () => {
   it("requires the vergi no to be 10 digits, and says how many were sent", () => {
     expect(
       errorFor({ ...CORPORATE_INPUT, vergiNo: "123456789" }, "vergiNo"),
-    ).toContain("9 rakam");
+    ).toMatchObject({ code: "vergiNoInvalid", params: { count: 9 } });
     expect(
       errorFor({ ...CORPORATE_INPUT, vergiNo: "12345678901" }, "vergiNo"),
-    ).toContain("11 rakam");
+    ).toMatchObject({ code: "vergiNoInvalid", params: { count: 11 } });
   });
 
   it("runs the TC kimlik checksum, not just its length", () => {
     // 11 digits, so a length check would wave this through and put it on an invoice.
-    const message = errorFor(
+    const error = errorFor(
       { ...INDIVIDUAL_INPUT, tcKimlikNo: "12345678901" },
       "tcKimlikNo",
     );
-    expect(message).toContain("doğrulanamadı");
+    expect(error?.code).toBe("tcKimlikNoInvalid");
   });
 
   it("requires ticaret unvanı and vergi dairesi for a corporate invoice", () => {
@@ -252,17 +256,17 @@ describe("validateBillingRequest — consents", () => {
       errorFor(
         { ...CORPORATE_INPUT, mesafeliSatisOnay: false },
         "mesafeliSatisOnay",
-      ),
-    ).toContain("Mesafeli Satış Sözleşmesi");
+      )?.code,
+    ).toBe("consentMesafeli");
     expect(
       errorFor(
         { ...CORPORATE_INPUT, onBilgilendirmeOnay: false },
         "onBilgilendirmeOnay",
-      ),
-    ).toContain("Ön Bilgilendirme");
+      )?.code,
+    ).toBe("consentOnBilgilendirme");
     expect(
-      errorFor({ ...CORPORATE_INPUT, kvkkConsent: false }, "kvkkConsent"),
-    ).toContain("KVKK");
+      errorFor({ ...CORPORATE_INPUT, kvkkConsent: false }, "kvkkConsent")?.code,
+    ).toBe("consentBillingKvkk");
   });
 
   it("accepts only a literal true — not a truthy value", () => {
@@ -284,19 +288,21 @@ describe("validateBillingRequest — basket", () => {
   });
 
   it("refuses unknown item codes and names them", () => {
-    const message = errorFor(
+    const error = errorFor(
       { ...CORPORATE_INPUT, selectedItems: ["A", "Z"] },
       "selectedItems",
     );
-    expect(message).toContain("Z");
+    expect(error?.code).toBe("itemsInvalid");
+    expect(String(error?.params?.invalid)).toContain("Z");
   });
 
   it("refuses to bill a module the 360° package already covers", () => {
-    const message = errorFor(
+    const error = errorFor(
       { ...CORPORATE_INPUT, selectedItems: ["D", "A"] },
       "selectedItems",
     );
-    expect(message).toContain("A");
+    expect(error?.code).toBe("itemsRedundant");
+    expect(String(error?.params?.redundant)).toContain("A");
   });
 
   it("still sells training alongside the package — it is not covered", () => {
