@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
-import { AuditorProfile } from "@/components/about/AuditorProfile";
 import { CorporateIdentity } from "@/components/about/CorporateIdentity";
 import { FoundingStory } from "@/components/about/FoundingStory";
 import { EvidenceShowcase } from "@/components/criteria/EvidenceShowcase";
@@ -60,12 +59,6 @@ export default async function AboutPage({
         <Reveal className="mt-14">
           <MonoRibbon>{t("ribbon")}</MonoRibbon>
         </Reveal>
-      </section>
-
-      <section className="border-y border-line bg-bg-soft">
-        <div className="mx-auto max-w-content px-6 py-16 md:py-20">
-          <AuditorProfile />
-        </div>
       </section>
 
       <section className="mx-auto max-w-content px-6 py-16 md:py-20">

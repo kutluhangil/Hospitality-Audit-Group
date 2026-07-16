@@ -42,14 +42,12 @@ export const company = {
   isPlaceholder: true,
 
   // ── Narrative figures — PLACEHOLDER ────────────────────────────────────
+  // The service has no auditor roster yet, so headcount, seniority and past
+  // roles are intentionally absent: the about page describes the audit method
+  // and standard, never a team that does not exist. Only the framing figures
+  // the founding paragraph interpolates remain, and they are still placeholder.
   kurulusYili: 2021, // PLACEHOLDER
   merkez: "İstanbul", // PLACEHOLDER
-  denetciSayisi: 12, // PLACEHOLDER
-  ortalamaKidemYil: 14, // PLACEHOLDER
-
-  /** Past roles the audit team is drawn from. PLACEHOLDER — replace with the real mix. */
-  // Auditor roles are copy, not registry data — they live under
-  // aboutPage.auditors.roles in messages/ so they read in the page's language.
 
   // ── Registry identifiers — NOT INVENTED. null until real. ──────────────
   ticaretUnvani: null as string | null,

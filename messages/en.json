@@ -5,11 +5,11 @@
     "hours": "Weekdays 09:00 – 18:00"
   },
   "home": {
-    "metaDescription": "Our senior auditors arrive at your property as guests. They measure the gap between your brand standard and what happens on the floor, and report the revenue leaking through it in figures.",
+    "metaDescription": "Mystery guest auditing: an audit that arrives at your property as a guest, measures the gap between your brand standard and what happens on the floor, and reports the revenue leaking through it in figures.",
     "hero": {
       "eyebrow": "MYSTERY GUEST AUDITS • STAFF TRAINING",
       "title": "Your guest sees everything. So do we.",
-      "body": "Our auditors have run hotels at senior level. They arrive at your property as guests, measure the gap between the brand standard you promise and what actually happens on the floor, and put the revenue leaking through that gap in front of you in figures.",
+      "body": "The audit arrives at your property as a guest: it measures the gap between the brand standard you promise and what actually happens on the floor by the same criteria, and puts the revenue leaking through that gap in front of you in figures.",
       "ctaPrimary": "Request a Quote",
       "ctaSecondary": "See How We Work"
     },
@@ -18,7 +18,7 @@
         "FULL KVKK COMPLIANCE",
         "MUTUAL NDA",
         "BOARD-READY SWOT REPORT",
-        "SENIOR INDUSTRY AUDITORS"
+        "EVIDENCE-BASED REPORTING"
       ]
     },
     "services": {
@@ -360,7 +360,7 @@
     "faq": {
       "auditors": {
         "question": "Who are your auditors?",
-        "answer": "Professionals who have held senior management posts in the industry and no longer work in an operating hotel."
+        "answer": "An auditor is an independent professional who knows the area under audit operationally and holds no interest relationship with the property. Their identity is not disclosed — the mystery guest method requires it."
       },
       "duration": {
         "question": "How long is the visit?",
@@ -385,44 +385,29 @@
   },
   "aboutPage": {
     "metaTitle": "About Us",
-    "metaDescription": "An independent audit team built from people who have run hotels. We measure from the guest's side of the desk, on principles of independence, confidentiality and measurability.",
+    "metaDescription": "An independent, impartial and confidential audit approach. We measure your property from the guest's side of the desk, on evidence-based, measurable criteria.",
     "eyebrow": "ABOUT US",
-    "title": "The people who ran hotels now measure them.",
-    "lede": "Our auditors once managed the very departments they now measure.",
+    "title": "We measure from the guest's side, with evidence.",
+    "lede": "The audit closes the gap between the brand standard and the reality on the floor — from the guest's side of the desk, on measurable criteria.",
     "heroImageAlt": "An abstract drawing of stacked report pages, with a single terracotta line marked on one of them.",
     "ribbon": "INDEPENDENCE · CONFIDENTIALITY · MEASURABILITY",
     "story": {
-      "p1": "It started in {city} in {year}, at a table of hoteliers who had each watched the same problem from the inside. Every one of them had written the brand standard at their own property, trained it, and set up the audit for it. And every one of them knew the same thing: nobody was measuring what that standard looked like at half past two in the morning, on reception, with nobody watching.",
+      "p1": "A hotel writes its brand standard, trains it, sets up the audit for it. But what that standard looks like at half past two in the morning, on reception, with nobody watching — most properties never measure. The one place left unmeasured is exactly where the guest is standing.",
       "p2": "Internal audit cannot catch this. Staff know who is watching and when; by the time the manager reaches the lobby the operation has already composed itself. Nor can a head of department assess their own department impartially — nobody marks their own exam. That leaves one vantage point: the guest's. Which is precisely the one nobody measures from.",
-      "p3": "So we changed sides of the desk. We enter properties as guests, not as managers. Real booking, real night, real bill. Nobody is expecting us and nobody is preparing for us. What we see is what your guest sees.",
+      "p3": "The answer is to change sides of the desk. The audit enters a property as a guest, not as a manager: real booking, real night, real bill. Nobody is expecting it and nobody is preparing for it. What it sees is what your guest sees.",
       "p4": "The only thing an audit firm has to sell is that it is believed. So we hold no consulting, supply or representation relationship with any property — the hand that writes the finding must not be able to profit from it. The report has no duty to please anyone either. When it is unwelcome, it is written in exactly the same sentences."
-    },
-    "auditors": {
-      "eyebrow": "THE AUDIT TEAM",
-      "title": "We once ran the departments we now measure.",
-      "description": "Our auditors no longer work in an operating hotel. They are not guessing from outside why a check-in overran, or where a recipe started to drift — they know from the inside.",
-      "countLabel": "auditors",
-      "seniorityValue": "{years} years",
-      "seniorityLabel": "average industry seniority",
-      "rolesLabel": "The roles they came from",
-      "roles": [
-        "General Manager — 5-star resort",
-        "Food & Beverage Director",
-        "Rooms Division Manager",
-        "Spa & Recreation Manager"
-      ]
     },
     "anonymity": {
       "eyebrow": "ANONYMITY",
       "title": "Why is there nobody's photograph here?",
       "description": "You will find no names, no titles and no portraits on this page. For a mystery guest firm anonymity is not something missing — it is the precondition of the work: an auditor who is recognised cannot audit.",
-      "quote": "You cannot see our auditors' faces. Neither can your guests.",
+      "quote": "You cannot see the auditor's face. Neither can your guests.",
       "body": "The same principle covers our references. We do not tell a third party which property we audited, what we found, or what the report said — and we will not tell anyone about yours. That is why you will find no client logos and no named references on this site. Confidentiality is not a promise that lapses when we are the ones selling."
     },
     "registry": {
       "eyebrow": "CORPORATE DETAILS",
       "title": "Who we are, on the record.",
-      "description": "We are a mystery guest firm and our auditors are anonymous. Our company is not. Everything below can be verified against official registries.",
+      "description": "We are a mystery guest firm and the auditor stays anonymous. Our company does not. Everything below can be verified against official registries.",
       "tradeName": "Registered name",
       "registryNo": "Trade registry no",
       "mersis": "MERSİS no",
