@@ -64,39 +64,8 @@
         "description": "KVKK-compliant data collection and evidence analysis"
       }
     },
-    "auditTerminal": {
-      "srLabel": "Sample mystery guest audit log: check-in and bellboy met the standard; room hygiene, recipe portioning and upselling each showed a deviation.",
-      "command": "$ hag audit --module=A --property=\"•••• Hotel & Spa\"",
-      "lines": {
-        "checkin": {
-          "label": "check-in",
-          "detail": "duration: 3m 40s",
-          "note": "standard: <4m"
-        },
-        "bellboy": {
-          "label": "bellboy",
-          "detail": "greeted within 45s"
-        },
-        "roomHygiene": {
-          "label": "room hygiene",
-          "detail": "amenity set",
-          "note": "missing: 2 items"
-        },
-        "fnb": {
-          "label": "f&b",
-          "detail": "recipe portioning",
-          "note": "variance: 11%"
-        },
-        "upselling": {
-          "label": "upselling",
-          "detail": "no offer made",
-          "note": "revenue lost"
-        }
-      },
-      "notes": {
-        "report": "> preparing report... SWOT + ROI analysis",
-        "leakage": "> monthly revenue leakage identified: ₺ ***.***"
-      }
+    "heroMark": {
+      "srLabel": "The Hospitality Audit Group emblem: a branching node figure representing audit criteria animates above a classical column capital."
     },
     "modulesTeaser": {
       "codePrefix": "MODULE",

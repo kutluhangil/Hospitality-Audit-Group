@@ -64,39 +64,8 @@
         "description": "KVKK uyumlu veri toplama ve kanıt analizi"
       }
     },
-    "auditTerminal": {
-      "srLabel": "Örnek gizli müşteri denetim logu: check-in ve bellboy standarda uygun; oda hijyeni, reçete gramajı ve upselling kaleminde sapma tespit edildi.",
-      "command": "$ hag audit --module=A --property=\"•••• Hotel & Spa\"",
-      "lines": {
-        "checkin": {
-          "label": "check-in",
-          "detail": "süre: 3dk 40sn",
-          "note": "standart: <4dk"
-        },
-        "bellboy": {
-          "label": "bellboy",
-          "detail": "karşılama süresi 45sn"
-        },
-        "roomHygiene": {
-          "label": "oda hijyeni",
-          "detail": "buklet düzeni",
-          "note": "eksik: 2 kalem"
-        },
-        "fnb": {
-          "label": "f&b",
-          "detail": "reçete gramajı",
-          "note": "sapma: %11"
-        },
-        "upselling": {
-          "label": "upselling",
-          "detail": "teklif yapılmadı",
-          "note": "gelir kaybı"
-        }
-      },
-      "notes": {
-        "report": "> rapor hazırlanıyor... SWOT + ROI analizi",
-        "leakage": "> tespit edilen aylık gelir kaçağı: ₺ ***.***"
-      }
+    "heroMark": {
+      "srLabel": "Hospitality Audit Group amblemi: klasik bir sütun başlığının üzerinde, denetim kriterlerini temsil eden dallanan bir düğüm figürü canlanır."
     },
     "modulesTeaser": {
       "codePrefix": "MODUL",

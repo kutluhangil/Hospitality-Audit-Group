@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
-import { AuditTerminal } from "./AuditTerminal";
+import { HeroMark } from "./HeroMark";
 
 export function Hero() {
   const t = useTranslations("home.hero");
@@ -32,7 +32,7 @@ export function Hero() {
           </div>
         </div>
 
-        <AuditTerminal />
+        <HeroMark />
       </div>
     </section>
   );

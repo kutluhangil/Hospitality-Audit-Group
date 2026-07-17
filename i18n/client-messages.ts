@@ -34,7 +34,7 @@ const CLIENT_NAMESPACES = [
  * The one client component whose copy sits inside a mostly server-side
  * namespace. Sent on its own rather than dragging all of `home` across.
  */
-const CLIENT_HOME_KEYS = ["auditTerminal"] as const;
+const CLIENT_HOME_KEYS = ["heroMark"] as const;
 
 export function clientMessages(messages: AbstractIntlMessages): AbstractIntlMessages {
   const picked: Record<string, unknown> = {};
