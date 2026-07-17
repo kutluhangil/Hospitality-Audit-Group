@@ -21,8 +21,8 @@
 - [x] `LocaleSwitcher` (TR/EN)
 
 ### Ana Sayfa
-- [x] `Hero` — H1 + AuditTerminal
-- [x] `AuditTerminal` — typewriter loop + `prefers-reduced-motion` desteği
+- [x] `Hero` — H1 + HeroMark
+- [x] `HeroMark` — logo ambleminin Lottie animasyonu (sütun + dallanan spark), tek imza hareketi, `prefers-reduced-motion` desteği
 - [x] `TrustStrip` — mono şerit
 - [x] `ServicesOverview` — iki hizmet kartı
 - [x] `ProcessSection` — 4 adım
